@@ -3,12 +3,9 @@
 @GrabConfig(systemClassLoader=true)
 @Grab(group='com.fasterxml.jackson.core', module='jackson-core', version='2.9.9')
 @Grab(group='com.fasterxml.jackson.core', module='jackson-databind', version='2.9.9.2')
-// only needed in docker
-@Grab('io.securecodebox.core:app:0.0.1-SNAPSHOT')
+@Grab(group='org.codehaus.jackson', module='jackson-mapper-asl', version='1.9.13')
 @Grab('io.securecodebox.core:sdk:0.0.1-SNAPSHOT')
 @Grab('io.securecodebox.persistenceproviders:defectdojo-persistenceprovider:0.0.1-SNAPSHOT')
-@Grab(group='org.codehaus.jackson', module='jackson-mapper-asl', version='1.9.13')
-
 
 import io.securecodebox.persistence.*
 import io.securecodebox.persistence.models.*
