@@ -9,23 +9,17 @@ if(!token) {
   println "Error: No token"
   return
 }
-String user = System.getenv("DD_USER")
-if(!user) {
-  user = "tpagel"
-}
-String dojoUrl = System.getenv("DD_URL")
-if(!dojoUrl) {
-  dojoUrl = "http://localhost:8080"
-}
 String productName = System.getenv("DD_PRODUCT_NAME")
 if(!productName) {
   println "Error: No productName"
   return
 }
-String reportPath = System.getenv("DD_REPORT_PATH")
-if(!reportPath) {
-  reportPath = "/dependency-check-report.xml"
-}
+
+String user = System.getenv("DD_USER") ?: "bot"
+String dojoUrl = System.getenv("DD_URL") ?: "http://localhost:8080"
+
+String reportPath = System.getenv("DD_REPORT_PATH") :? "/dependency-check-report.xml"
+
 String branchName = System.getenv("DD_BRANCH_NAME")
 if(!branchName) {
   println "Error: No branchName"

@@ -11,3 +11,5 @@ COPY --from=scb /scb-engine/lib/defectdojo-persistenceprovider-0.0.1-SNAPSHOT-ja
 COPY defectdojo.groovy /home/groovy/defectdojo.groovy
 COPY importToDefectDojo.groovy /home/groovy/importToDefectDojo.groovy
 
+ENV \
+  DD_USER="tpagel"
