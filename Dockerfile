@@ -13,3 +13,5 @@ COPY importToDefectDojo.groovy /home/groovy/importToDefectDojo.groovy
 
 ENV \
   DD_USER="tpagel"
+
+CMD ["groovy","/home/groovy/defectdojo.groovy"]
