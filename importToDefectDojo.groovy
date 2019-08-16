@@ -44,6 +44,8 @@ def call(args) {
     
     TestPayload testPayload = new TestPayload()
     testPayload.setTitle(testName)
+    testPayload.setTargetStart(dateNow + " " + timeNow)
+    testPayload.setTargetEnd(dateNow + " " + timeNow)
     MultiValueMap<String, Object> options =  new LinkedMultiValueMap<String, Object>();
     if(args.branchName.equals("master")) {
         testPayload.setEnvironment("3")
