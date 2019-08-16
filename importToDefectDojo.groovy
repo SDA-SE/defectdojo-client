@@ -15,6 +15,7 @@ import io.securecodebox.model.execution.Target
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.codehaus.jackson.map.DeserializationConfig
 import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 def call(args) {
     DefectDojoService defectDojoService = new DefectDojoService();
@@ -31,33 +32,60 @@ def call(args) {
 
     String reportContents = new File(args.reportPath).text
     def date = new Date()
+    def dateNow = date.format("yyyy-mm-dd")
+    dateNow = "2019-08-12"
     def timeNow = date.format("HH:mm:ss")
     def engagementName = "Dep Check " + args.branchName
     def reportType = "Dependency Check Scan"
+    // In DefectDojo Version 1.5.4 you can specify test_type/testName
     //def testName = "${engagementName} ${timeNow}"
-    def testName = reportType // After defectdojo version 1.5.4. "${engagementName} ${timeNow}"
+    def testName = reportType
     def minimumServerity = "High"
-    def engagementId = 2;
     
-    /*
-    def testId = 12
-    defectDojoService.createFindingsReImport(reportContents, engagementId, args.lead, "2019-08-14", reportType, testId)
-    */
+    TestPayload testPayload = new TestPayload()
+    testPayload.setTitle(testName)
+    testPayload.setTargetStart(dateNow + " " + timeNow)
+    testPayload.setTargetEnd(dateNow + " " + timeNow)
+    MultiValueMap<String, Object> options =  new LinkedMultiValueMap<String, Object>();
+    if(args.branchName.equals("master")) {
+        testPayload.setEnvironment("3")
+        options.add("active", "true")
+    }else {
+        testPayload.setEnvironment("1")
+        options.add("active", "false")
+    }
 
-    defectDojoService.createFindingsForEngagementName(
-        engagementName,
-        reportContents,
-        reportType,
-        args.product,
-        args.lead,
-        engagement,
-        testName
-    );
-
-    def existingBranchesInGit = [args.branchName, "branch2", "branch3"]
+    if(args.importType.equals("import")) {
+        defectDojoService.createFindingsForEngagementName(
+            engagementName,
+            reportContents,
+            reportType,
+            args.product,
+            args.lead,
+            engagement,
+            testName,
+            options
+        );
+    }else if(args.importType.equals("reimport")) {
+        defectDojoService.createFindingsReImport(
+            reportContents, 
+            args.product, 
+            engagementName,  
+            args.lead, 
+            dateNow, 
+            reportType, 
+            engagement, 
+            testPayload, 
+            options)
+    }else {
+        println "Error: importType not known"
+        return
+    }
+    
+    def existingBranchesInGit = [args.branchName, "branch2", "branch3"] // TODO
     defectDojoService.deleteUnusedBranches(existingBranchesInGit, args.product)
 
-    List<Finding> findings = defectDojoService.receiveNonHandeldFindings(args.product, engagementName, minimumServerity, new LinkedMultiValueMap<>());
+    List<Finding> findings = defectDojoService.receiveNonHandledFindings(args.product, engagementName, minimumServerity, new LinkedMultiValueMap<>());
     for(Finding finding : findings) {
         println finding.getTitle() + " " + finding.getSeverity()
     }
@@ -65,7 +93,7 @@ def call(args) {
     if(findingSize > 0) {
         // Mark build as unstable
         println "$findingSize vulnerabilities found with serverity $minimumServerity or higher"
+        System.exit(1)
     }
-
 }
 
