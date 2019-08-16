@@ -9,9 +9,9 @@ RUN \
   mkdir -p /home/groovy/.groovy/grapes/io.securecodebox.core/sdk/jars/ && \
   mkdir -p /home/groovy/.groovy/lib/
 
-COPY --from=scb /scb-engine/BOOT-INF/lib/sdk-0.0.1-SNAPSHOT.jar /home/groovy/.groovy/grapes/io.securecodebox.core/sdk/jars/sdk-0.0.1-SNAPSHOT.jar
-COPY --from=scb /scb-engine/BOOT-INF/lib/ /home/groovy/.groovy/lib/
-COPY --from=scb /scb-engine/lib/defectdojo-persistenceprovider-0.0.1-SNAPSHOT-jar-with-dependencies.jar /home/groovy/.groovy/grapes/io.securecodebox.persistenceproviders/defectdojo-persistenceprovider/jars/defectdojo-persistenceprovider-0.0.1-SNAPSHOT.jar
+COPY --chown=1000:1000 --from=scb /scb-engine/BOOT-INF/lib/sdk-0.0.1-SNAPSHOT.jar /home/groovy/.groovy/grapes/io.securecodebox.core/sdk/jars/sdk-0.0.1-SNAPSHOT.jar
+COPY --chown=1000:1000 --from=scb /scb-engine/BOOT-INF/lib/ /home/groovy/.groovy/lib/
+COPY --chown=1000:1000 --from=scb /scb-engine/lib/defectdojo-persistenceprovider-0.0.1-SNAPSHOT-jar-with-dependencies.jar /home/groovy/.groovy/grapes/io.securecodebox.persistenceproviders/defectdojo-persistenceprovider/jars/defectdojo-persistenceprovider-0.0.1-SNAPSHOT.jar
 
 COPY defectdojo.groovy /home/groovy/defectdojo.groovy
 COPY importToDefectDojo.groovy /home/groovy/importToDefectDojo.groovy
