@@ -16,6 +16,10 @@ COPY --chown=1000:1000 --from=scb /scb-engine/lib/defectdojo-persistenceprovider
 COPY defectdojo.groovy /home/groovy/defectdojo.groovy
 COPY importToDefectDojo.groovy /home/groovy/importToDefectDojo.groovy
 
+USER root
+RUN chown -R 1000:1000 /home/groovy/
+USER 1000
+
 ENV \
   DD_USER="tpagel" \
   DD_TOKEN="" \
