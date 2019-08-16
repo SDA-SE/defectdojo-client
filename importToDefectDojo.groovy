@@ -32,6 +32,8 @@ def call(args) {
 
     String reportContents = new File(args.reportPath).text
     def date = new Date()
+    def dateNow = date.format("yyyy-mm-dd")
+    dateNow = "2019-08-12"
     def timeNow = date.format("HH:mm:ss")
     def engagementName = "Dep Check " + args.branchName
     def reportType = "Dependency Check Scan"
@@ -51,24 +53,37 @@ def call(args) {
         options.add("active", "false")
     }
 
-    defectDojoService.createFindingsReImport(reportContents, args.product, engagementName,  args.lead, "2019-08-14", reportType, engagement, testPayload, options)
-
-
-    defectDojoService.createFindingsForEngagementName(
-        engagementName,
-        reportContents,
-        reportType,
-        args.product + " Deduplication",
-        args.lead,
-        engagement,
-        testName,
-        options
-    );
-
-    def existingBranchesInGit = [args.branchName, "branch2", "branch3"]
+    if(args.importType.equals("import")) {
+        defectDojoService.createFindingsForEngagementName(
+            engagementName,
+            reportContents,
+            reportType,
+            args.product,
+            args.lead,
+            engagement,
+            testName,
+            options
+        );
+    }else if(args.importType.equals("reimport")) {
+        defectDojoService.createFindingsReImport(
+            reportContents, 
+            args.product, 
+            engagementName,  
+            args.lead, 
+            dateNow, 
+            reportType, 
+            engagement, 
+            testPayload, 
+            options)
+    }else {
+        println "Error: importType not known"
+        return
+    }
+    
+    def existingBranchesInGit = [args.branchName, "branch2", "branch3"] // TODO
     defectDojoService.deleteUnusedBranches(existingBranchesInGit, args.product)
 
-    List<Finding> findings = defectDojoService.receiveNonHandeldFindings(args.product, engagementName, minimumServerity, new LinkedMultiValueMap<>());
+    List<Finding> findings = defectDojoService.receiveNonHandledFindings(args.product, engagementName, minimumServerity, new LinkedMultiValueMap<>());
     for(Finding finding : findings) {
         println finding.getTitle() + " " + finding.getSeverity()
     }
@@ -76,6 +91,7 @@ def call(args) {
     if(findingSize > 0) {
         // Mark build as unstable
         println "$findingSize vulnerabilities found with serverity $minimumServerity or higher"
+        System.exit(1)
     }
 }
 

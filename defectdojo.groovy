@@ -19,7 +19,7 @@ String user = System.getenv("DD_USER") ?: "admin"
 String dojoUrl = System.getenv("DD_URL") ?: "http://localhost:8080"
 
 String reportPath = System.getenv("DD_REPORT_PATH") ?: "/dependency-check-report.xml"
-
+String importType = System.getenv("DD_IMPORT_TYPE") ?: "import" // reimport
 String branchName = System.getenv("DD_BRANCH_NAME")
 if(!branchName) {
   println "Error: No branchName"
@@ -31,7 +31,7 @@ if(!leadTemp) {
 }
 long lead = Long.valueOf(leadTemp)
 String buildId = System.getenv("DD_BUILD_ID")
-String sourceCodeManagementUri = System.getenv("SOURCE_CODE_MANAGEMENT_URI")
+String sourceCodeManagementUri = System.getenv("DD_SOURCE_CODE_MANAGEMENT_URI")
 
 importToDefectDojo token: token, 
   user: user,
@@ -41,6 +41,7 @@ importToDefectDojo token: token,
   branchName: branchName,
   lead: lead,
   buildId: buildId,
-  sourceCodeManagementUri: sourceCodeManagementUri
+  sourceCodeManagementUri: sourceCodeManagementUri,
+  importType: importType
     
 //reportPath: '/home/tpagel/dependency-check-report.xml',
