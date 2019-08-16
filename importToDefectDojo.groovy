@@ -15,6 +15,7 @@ import io.securecodebox.model.execution.Target
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.codehaus.jackson.map.DeserializationConfig
 import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 def call(args) {
     DefectDojoService defectDojoService = new DefectDojoService();
@@ -34,24 +35,34 @@ def call(args) {
     def timeNow = date.format("HH:mm:ss")
     def engagementName = "Dep Check " + args.branchName
     def reportType = "Dependency Check Scan"
+    // In DefectDojo Version 1.5.4 you can specify test_type/testName
     //def testName = "${engagementName} ${timeNow}"
-    def testName = reportType // After defectdojo version 1.5.4. "${engagementName} ${timeNow}"
+    def testName = reportType
     def minimumServerity = "High"
-    def engagementId = 2;
     
-    /*
-    def testId = 12
-    defectDojoService.createFindingsReImport(reportContents, engagementId, args.lead, "2019-08-14", reportType, testId)
-    */
+    TestPayload testPayload = new TestPayload()
+    testPayload.setTitle(testName)
+    MultiValueMap<String, Object> options =  new LinkedMultiValueMap<String, Object>();
+    if(args.branchName.equals("master")) {
+        testPayload.setEnvironment("3")
+        options.add("active", "true")
+    }else {
+        testPayload.setEnvironment("1")
+        options.add("active", "false")
+    }
+
+    defectDojoService.createFindingsReImport(reportContents, args.product, engagementName,  args.lead, "2019-08-14", reportType, engagement, testPayload, options)
+
 
     defectDojoService.createFindingsForEngagementName(
         engagementName,
         reportContents,
         reportType,
-        args.product,
+        args.product + " Deduplication",
         args.lead,
         engagement,
-        testName
+        testName,
+        options
     );
 
     def existingBranchesInGit = [args.branchName, "branch2", "branch3"]
@@ -66,6 +77,5 @@ def call(args) {
         // Mark build as unstable
         println "$findingSize vulnerabilities found with serverity $minimumServerity or higher"
     }
-
 }
 

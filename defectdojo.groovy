@@ -15,10 +15,10 @@ if(!productName) {
   return
 }
 
-String user = System.getenv("DD_USER") ?: "bot"
+String user = System.getenv("DD_USER") ?: "admin"
 String dojoUrl = System.getenv("DD_URL") ?: "http://localhost:8080"
 
-String reportPath = System.getenv("DD_REPORT_PATH") :? "/dependency-check-report.xml"
+String reportPath = System.getenv("DD_REPORT_PATH") ?: "/dependency-check-report.xml"
 
 String branchName = System.getenv("DD_BRANCH_NAME")
 if(!branchName) {
@@ -29,7 +29,7 @@ String leadTemp = System.getenv("DD_LEAD")
 if(!leadTemp) {
   leadTemp = "1"
 }
-long lead = (long) leadTemp
+long lead = Long.valueOf(leadTemp)
 String buildId = System.getenv("DD_BUILD_ID")
 String sourceCodeManagementUri = System.getenv("SOURCE_CODE_MANAGEMENT_URI")
 
