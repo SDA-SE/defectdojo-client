@@ -2,7 +2,7 @@ FROM docker.io/securecodebox/engine:feature-reImport AS scb
 RUN cd /scb-engine/ ; unzip /scb-engine/app.jar
 
 FROM groovy:jdk12
-LABEL org.opencontainers.image.version=0.1.0
+LABEL org.opencontainers.image.version=0.2.0
 
 COPY --from=scb /scb-engine/BOOT-INF/lib/sdk-0.0.1-SNAPSHOT.jar /home/groovy/.groovy/grapes/io.securecodebox.core/sdk/jars/sdk-0.0.1-SNAPSHOT.jar
 COPY --from=scb /scb-engine/BOOT-INF/lib/ /home/groovy/.groovy/lib/
@@ -24,4 +24,4 @@ ENV \
   DD_BUILD_ID="1" \
   DD_SOURCE_CODE_MANAGEMENT_URI=""
 
-CMD ["groovy","/home/groovy/defectdojo.groovy"]
+CMD ["groovy","/home/groovy/defectdojo.groovy"
