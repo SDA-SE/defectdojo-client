@@ -1,4 +1,4 @@
-FROM docker.io/securecodebox/engine:v1.1.0 AS scb
+FROM docker.io/securecodebox/engine:feature-reImport AS scb
 RUN cd /scb-engine/ ; unzip /scb-engine/app.jar
 
 FROM groovy:3.0-jdk12
