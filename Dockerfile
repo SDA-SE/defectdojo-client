@@ -1,7 +1,7 @@
 FROM docker.io/securecodebox/engine:feature-reImport AS scb
 RUN cd /scb-engine/ ; unzip /scb-engine/app.jar
 
-FROM groovy:3.0-jdk12
+FROM groovy:jdk12
 LABEL org.opencontainers.image.version=0.1.0
 
 COPY --from=scb /scb-engine/BOOT-INF/lib/sdk-0.0.1-SNAPSHOT.jar /home/groovy/.groovy/grapes/io.securecodebox.core/sdk/jars/sdk-0.0.1-SNAPSHOT.jar
