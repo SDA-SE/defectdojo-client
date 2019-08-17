@@ -2,7 +2,7 @@ FROM docker.io/securecodebox/engine:feature-reImport AS scb
 RUN cd /scb-engine/ ; unzip /scb-engine/app.jar
 
 FROM groovy:3.0-jdk12
-LABEL org.opencontainers.image.version=0.3.0
+LABEL org.opencontainers.image.version=0.3.1
 
 RUN \
   mkdir -p /home/groovy/.groovy/grapes/io.securecodebox.persistenceproviders/defectdojo-persistenceprovider/jars/ && \
@@ -16,8 +16,9 @@ COPY --chown=1000:1000 --from=scb /scb-engine/lib/defectdojo-persistenceprovider
 COPY defectdojo.groovy /home/groovy/defectdojo.groovy
 COPY importToDefectDojo.groovy /home/groovy/importToDefectDojo.groovy
 
+# COPY with chown is not working for buildah in pipeline
 USER root
-RUN chown -R 1000:1000 /home/groovy/
+RUN chown -R 1000:1000 /home/groovy/.groovy/
 USER 1000
 
 ENV \
