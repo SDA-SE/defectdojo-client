@@ -1,8 +1,11 @@
 FROM docker.io/securecodebox/engine:feature-reImport AS scb
-RUN cd /scb-engine/ ; unzip /scb-engine/app.jar
+RUN \
+  cd /scb-engine/ && \
+  unzip /scb-engine/app.jar && \
+  chown -R 1000:1000 scb-engine/
 
 FROM groovy:3.0-jdk12
-LABEL org.opencontainers.image.version=0.3.1
+LABEL org.opencontainers.image.version=0.3.2
 
 RUN \
   mkdir -p /home/groovy/.groovy/grapes/io.securecodebox.persistenceproviders/defectdojo-persistenceprovider/jars/ && \
