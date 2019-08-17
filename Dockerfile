@@ -2,7 +2,7 @@ FROM docker.io/securecodebox/engine:feature-reImport AS scb
 RUN \
   cd /scb-engine/ && \
   unzip /scb-engine/app.jar && \
-  chown -R 1000:1000 scb-engine/
+  chown -R 1000:1000 /scb-engine/
 
 FROM groovy:3.0-jdk12
 LABEL org.opencontainers.image.version=0.3.2
