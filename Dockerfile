@@ -1,4 +1,4 @@
-FROM docker.io/securecodebox/engine:securecodebox/engine@sha256:ad9dca1a8f992fdd6bb1250810d73628608098f684585a90a8a89e351bae751d AS scb
+FROM docker.io/securecodebox/engine@sha256:ad9dca1a8f992fdd6bb1250810d73628608098f684585a90a8a89e351bae751d AS scb
 RUN \
   cd /scb-engine/ && \
   unzip /scb-engine/app.jar
