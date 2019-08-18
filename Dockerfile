@@ -14,24 +14,22 @@ RUN \
   cd groovy && \  
   curl -L https://dl.bintray.com/groovy/maven/apache-groovy-binary-2.5.8.zip  --output apache-groovy-binary.zip && ls -la && \
   unzip /usr/groovy/apache-groovy-binary.zip && \
-  rm *.zip
+  rm *.zip 
+
+RUN \
+  mkdir -p /.groovy/grapes/io.securecodebox.persistenceproviders/defectdojo-persistenceprovider/jars/ && \
+  mkdir -p /.groovy/grapes/io.securecodebox.core/sdk/jars/ && \
+  mkdir -p /.groovy/lib/ && \
+  chown -R 999:999 /.groovy/
 
 USER 999
-RUN \
-  mkdir -p /code/.groovy/grapes/io.securecodebox.persistenceproviders/defectdojo-persistenceprovider/jars/ && \
-  mkdir -p /code/.groovy/grapes/io.securecodebox.core/sdk/jars/ && \
-  mkdir -p /code/.groovy/lib/
-
-COPY --chown=999:1000 --from=scb /scb-engine/BOOT-INF/lib/sdk-0.0.1-SNAPSHOT.jar /code/.groovy/grapes/io.securecodebox.core/sdk/jars/sdk-0.0.1-SNAPSHOT.jar
-COPY --chown=999:1000 --from=scb /scb-engine/BOOT-INF/lib/ /code/.groovy/lib/
-COPY --chown=999:1000 --from=scb /scb-engine/lib/defectdojo-persistenceprovider-0.0.1-SNAPSHOT-jar-with-dependencies.jar /code/.groovy/grapes/io.securecodebox.persistenceproviders/defectdojo-persistenceprovider/jars/defectdojo-persistenceprovider-0.0.1-SNAPSHOT.jar
+COPY --chown=999:999 --from=scb /scb-engine/BOOT-INF/lib/sdk-0.0.1-SNAPSHOT.jar /.groovy/grapes/io.securecodebox.core/sdk/jars/sdk-0.0.1-SNAPSHOT.jar
+COPY --chown=999:999 --from=scb /scb-engine/BOOT-INF/lib/ /groovy/lib/
+COPY --chown=999:999 --from=scb /scb-engine/lib/defectdojo-persistenceprovider-0.0.1-SNAPSHOT-jar-with-dependencies.jar /.groovy/grapes/io.securecodebox.persistenceproviders/defectdojo-persistenceprovider/jars/defectdojo-persistenceprovider-0.0.1-SNAPSHOT.jar
 
 COPY defectdojo.groovy /code/defectdojo.groovy
 COPY importToDefectDojo.groovy /code/importToDefectDojo.groovy
 
-# COPY with chown is not working for buildah in pipeline
-USER root
-RUN chown -R 999:1000 /code/.groovy/
 USER 999
 
 ENV \
@@ -45,6 +43,6 @@ ENV \
   DD_BRANCH_NAME="" \
   DD_LEAD=1 \
   DD_BUILD_ID="1" \
-  DD_SOURCE_CODE_MANAGEMENT_URI=""
+  DD_SOURCE_CODE_MANAGEMENT_URI="" 
 
 CMD ["groovy","/code/defectdojo.groovy"]
