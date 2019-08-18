@@ -1,8 +1,7 @@
 FROM docker.io/securecodebox/engine:feature-reImport AS scb
 RUN \
   cd /scb-engine/ && \
-  unzip /scb-engine/app.jar && \
-  chown -R 1000:1000 /scb-engine/
+  unzip /scb-engine/app.jar
 
 FROM quay.io/sdase/openjdk-development:12-openj9
 LABEL org.opencontainers.image.version=0.3.4
@@ -24,13 +23,11 @@ RUN \
 
 USER 999
 COPY --chown=999:999 --from=scb /scb-engine/BOOT-INF/lib/sdk-0.0.1-SNAPSHOT.jar /.groovy/grapes/io.securecodebox.core/sdk/jars/sdk-0.0.1-SNAPSHOT.jar
-COPY --chown=999:999 --from=scb /scb-engine/BOOT-INF/lib/ /groovy/lib/
+COPY --chown=999:999 --from=scb /scb-engine/BOOT-INF/lib/ /.groovy/lib/
 COPY --chown=999:999 --from=scb /scb-engine/lib/defectdojo-persistenceprovider-0.0.1-SNAPSHOT-jar-with-dependencies.jar /.groovy/grapes/io.securecodebox.persistenceproviders/defectdojo-persistenceprovider/jars/defectdojo-persistenceprovider-0.0.1-SNAPSHOT.jar
 
 COPY defectdojo.groovy /code/defectdojo.groovy
 COPY importToDefectDojo.groovy /code/importToDefectDojo.groovy
-
-USER 999
 
 ENV \
   DD_USER="tpagel" \
