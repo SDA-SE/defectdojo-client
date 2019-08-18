@@ -5,7 +5,7 @@ RUN \
   chown -R 1000:1000 /scb-engine/
 
 FROM quay.io/sdase/openjdk-development:12-openj9
-LABEL org.opencontainers.image.version=0.3.3
+LABEL org.opencontainers.image.version=0.3.4
 
 USER root
 RUN \
