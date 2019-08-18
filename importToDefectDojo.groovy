@@ -43,7 +43,7 @@ def call(args) {
     def minimumServerity = "High"
     
     TestPayload testPayload = new TestPayload()
-    testPayload.setTitle(testName)
+    testPayload.setTitle(null) // for DefectDojo < 1.5.4 'null' should be used, afterwards testName can be given
     testPayload.setTargetStart(dateNow + " " + timeNow)
     testPayload.setTargetEnd(dateNow + " " + timeNow)
     MultiValueMap<String, Object> options =  new LinkedMultiValueMap<String, Object>();
