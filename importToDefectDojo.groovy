@@ -80,7 +80,9 @@ def call(args) {
         println "Error: importType not known"
         return
     }
-    
+    for (branchToKeep in args.branchesToKeep) {
+        println "Will keep the branch '${branchToKeep}' in DefectDojo"
+    }
     defectDojoService.deleteUnusedBranches(args.branchesToKeep, args.product)
 
     List<Finding> findings = defectDojoService.receiveNonHandledFindings(args.product, engagementName, minimumServerity, new LinkedMultiValueMap<>());
