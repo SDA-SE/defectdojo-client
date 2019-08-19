@@ -1,4 +1,4 @@
-FROM docker.io/securecodebox/engine@feature-reImport AS scb
+FROM docker.io/securecodebox/engine:feature-reImport AS scb
 RUN \
   cd /scb-engine/ && \
   unzip /scb-engine/app.jar
