@@ -40,6 +40,7 @@ ENV \
   DD_BRANCH_NAME="" \
   DD_LEAD=1 \
   DD_BUILD_ID="1" \
-  DD_SOURCE_CODE_MANAGEMENT_URI="" 
+  DD_SOURCE_CODE_MANAGEMENT_URI=""  \
+  DD_BRANCHES_TO_KEEP=""
 
 CMD ["groovy","/code/defectdojo.groovy"]
