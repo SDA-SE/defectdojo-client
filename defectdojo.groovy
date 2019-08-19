@@ -32,7 +32,7 @@ if(!leadTemp) {
 long lead = Long.valueOf(leadTemp)
 String buildId = System.getenv("DD_BUILD_ID")
 String sourceCodeManagementUri = System.getenv("DD_SOURCE_CODE_MANAGEMENT_URI")
-String[] branchesToKeep =  System.getenv("DD_BRANCHES_TO_KEEP").split
+String[] branchesToKeep =  System.getenv("DD_BRANCHES_TO_KEEP").split(" ")
 
 importToDefectDojo token: token, 
   user: user,
