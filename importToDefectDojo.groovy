@@ -82,8 +82,7 @@ def call(args) {
         return
     }
     
-    def existingBranchesInGit = [args.branchName, "branch2", "branch3"] // TODO
-    defectDojoService.deleteUnusedBranches(existingBranchesInGit, args.product)
+    defectDojoService.deleteUnusedBranches(args.branchesToKeep, args.product)
 
     List<Finding> findings = defectDojoService.receiveNonHandledFindings(args.product, engagementName, minimumServerity, new LinkedMultiValueMap<>());
     for(Finding finding : findings) {
