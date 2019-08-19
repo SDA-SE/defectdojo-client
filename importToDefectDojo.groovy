@@ -32,7 +32,7 @@ def call(args) {
 
     String reportContents = new File(args.reportPath).text
     def date = new Date()
-    def dateNow = date.format("yyyy-mm-dd")
+    def dateNow = date.format("yyyy-MM-dd")
     def timeNow = date.format("HH:mm:ss")
     def engagementName = "Dep Check " + args.branchName
     def reportType = "Dependency Check Scan"

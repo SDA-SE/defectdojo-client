@@ -4,7 +4,7 @@ RUN \
   unzip /scb-engine/app.jar
 
 FROM quay.io/sdase/openjdk-development:12-openj9
-LABEL org.opencontainers.image.version=0.3.10
+LABEL org.opencontainers.image.version=0.3.11
 
 USER root
 RUN \
