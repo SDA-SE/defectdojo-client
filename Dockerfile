@@ -1,10 +1,10 @@
-FROM docker.io/securecodebox/engine:feature-reImport AS scb
+FROM docker.io/securecodebox/engine:master AS scb
 RUN \
   cd /scb-engine/ && \
   unzip /scb-engine/app.jar
 
 FROM quay.io/sdase/openjdk-development:12-openj9
-LABEL org.opencontainers.image.version=0.3.17
+LABEL org.opencontainers.image.version=0.3.18
 
 USER root
 RUN \
