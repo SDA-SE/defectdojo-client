@@ -39,7 +39,7 @@ def call(args) {
     // In DefectDojo Version 1.5.4 you can specify test_type/testName
     //def testName = "${engagementName} ${timeNow}"
     def testName = reportType
-    def minimumServerity = "High"
+    def minimumSeverity = "High"
     
     TestPayload testPayload = new TestPayload()
     testPayload.setTitle(null) // for DefectDojo < 1.5.4 'null' should be used, afterwards testName can be given
@@ -85,14 +85,14 @@ def call(args) {
     }
     defectDojoService.deleteUnusedBranches(args.branchesToKeep, args.product)
 
-    List<Finding> findings = defectDojoService.receiveNonHandledFindings(args.product, engagementName, minimumServerity, new LinkedMultiValueMap<>());
+    List<Finding> findings = defectDojoService.receiveNonHandledFindings(args.product, engagementName, minimumSeverity, new LinkedMultiValueMap<>());
     for(Finding finding : findings) {
         println finding.getTitle() + " " + finding.getSeverity()
     }
     long findingSize = findings.size()
     if(findingSize > 0) {
         // Mark build as unstable
-        println "$findingSize vulnerabilities found with serverity $minimumServerity or higher"
+        println "$findingSize vulnerabilities found with severity $minimumSeverity or higher"
         System.exit(1)
     }
 }
