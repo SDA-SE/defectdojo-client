@@ -4,7 +4,7 @@ RUN \
   unzip /scb-engine/app.jar
 
 FROM quay.io/sdase/openjdk-development:12-openj9
-LABEL org.opencontainers.image.version=0.3.19
+LABEL org.opencontainers.image.version=0.3.20
 
 USER root
 RUN \
@@ -28,6 +28,7 @@ COPY --chown=999:999 --from=scb /scb-engine/lib/defectdojo-persistenceprovider-0
 
 COPY defectdojo.groovy /code/defectdojo.groovy
 COPY importToDefectDojo.groovy /code/importToDefectDojo.groovy
+COPY addDependenciesToDescription.groovy /code/addDependenciesToDescription.groovy
 
 ENV \
   DD_USER="tpagel" \
