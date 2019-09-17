@@ -13,6 +13,10 @@ This repository uses OWASP SecureCodeBox library for API calls against OWASP Def
 * Copy libs and run
 `/copyLibs.bash && groovy defectdojo.groovy`
 
+# Local Build
+`buildah unshare ./build.sh`
+## Test build like on jenkins (best on rhel 8)
+`BUILD_EXPORT_OCI_ARCHIVES=true buildah unshare ./build.sh`
 
 # Credits
 This project is based on https://github.com/secureCodeBox/engine

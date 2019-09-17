@@ -6,14 +6,16 @@ RUN \
 FROM quay.io/sdase/openjdk-development:12-openj9
 LABEL org.opencontainers.image.version=0.3.20
 
+USER 999
+RUN curl -L https://dl.bintray.com/groovy/maven/apache-groovy-binary-2.5.8.zip  --output /tmp/apache-groovy-binary.zip
+
 USER root
 RUN \
   cd /usr && \
   mkdir groovy && \  
   cd groovy && \  
-  curl -L https://dl.bintray.com/groovy/maven/apache-groovy-binary-2.5.8.zip  --output apache-groovy-binary.zip && ls -la && \
-  unzip /usr/groovy/apache-groovy-binary.zip && \
-  rm *.zip 
+  unzip /tmp/apache-groovy-binary.zip && \
+  rm /tmp/apache-groovy-binary.zip
 
 RUN \
   mkdir -p /.groovy/grapes/io.securecodebox.persistenceproviders/defectdojo-persistenceprovider/jars/ && \
