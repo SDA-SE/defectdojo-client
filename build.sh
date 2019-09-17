@@ -26,10 +26,10 @@ mkdir ${defectdojo_mnt}/code
 
 scb_dir_tmp="$(mktemp -d)"
 pushd "${scb_dir_tmp}"
+cp ${scb_mnt}/scb-engine/lib/defectdojo-persistenceprovider-0.0.1-SNAPSHOT-jar-with-dependencies.jar "${defectdojo_mnt}/.groovy/grapes/io.securecodebox.persistenceproviders/defectdojo-persistenceprovider/jars/defectdojo-persistenceprovider-0.0.1-SNAPSHOT.jar"
 unzip "${scb_mnt}/scb-engine/app.jar"
 cp ./BOOT-INF/lib/sdk-0.0.1-SNAPSHOT.jar "${defectdojo_mnt}/.groovy/grapes/io.securecodebox.core/sdk/jars/sdk-0.0.1-SNAPSHOT.jar"
 cp -r ./BOOT-INF/lib/ "${defectdojo_mnt}/.groovy/lib/"
-cp ./lib/defectdojo-persistenceprovider-0.0.1-SNAPSHOT-jar-with-dependencies.jar "${defectdojo_mnt}/.groovy/grapes/io.securecodebox.persistenceproviders/defectdojo-persistenceprovider/jars/defectdojo-persistenceprovider-0.0.1-SNAPSHOT.jar"
 popd
 cp defectdojo.groovy "${defectdojo_mnt}/code/defectdojo.groovy"
 cp importToDefectDojo.groovy "${defectdojo_mnt}/code/importToDefectDojo.groovy"
@@ -41,6 +41,7 @@ pushd groovy
 curl -L https://dl.bintray.com/groovy/maven/apache-groovy-binary-2.5.8.zip  --output apache-groovy-binary.zip
 unzip apache-groovy-binary.zip 
 rm apache-groovy-binary.zip
+popd
 
 oci_prefix="org.opencontainers.image"
 buildah config \
