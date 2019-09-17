@@ -48,7 +48,7 @@ buildah config \
   --label "${oci_prefix}.authors=SDA SE Engineers <engineers@sda-se.io>" \
   --label "${oci_prefix}.url=https://quay.io/sdase/centos" \
   --label "${oci_prefix}.source=https://github.com/SDA-SE/centos" \
-  --label "${oci_prefix}.version=0.3.20" \
+  --label "${oci_prefix}.version=0.3.21" \
   --label "${oci_prefix}.revision=$( git rev-parse HEAD )" \
   --label "${oci_prefix}.vendor=SDA SE Open Industry Solutions" \
   --label "${oci_prefix}.licenses=AGPL-3.0" \
