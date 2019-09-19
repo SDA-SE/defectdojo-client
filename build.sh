@@ -42,12 +42,14 @@ unzip apache-groovy-binary.zip
 rm apache-groovy-binary.zip
 popd
 
+chown -R 999:999 "${defectdojo_mnt}/.groovy"
+
 oci_prefix="org.opencontainers.image"
 buildah config \
   --label "${oci_prefix}.authors=SDA SE Engineers <engineers@sda-se.io>" \
   --label "${oci_prefix}.url=https://quay.io/sdase/centos" \
   --label "${oci_prefix}.source=https://github.com/SDA-SE/centos" \
-  --label "${oci_prefix}.version=0.3.23" \
+  --label "${oci_prefix}.version=0.3.24" \
   --label "${oci_prefix}.revision=$( git rev-parse HEAD )" \
   --label "${oci_prefix}.vendor=SDA SE Open Industry Solutions" \
   --label "${oci_prefix}.licenses=AGPL-3.0" \
