@@ -17,12 +17,12 @@ scb_container="$(buildah from docker.io/securecodebox/engine:master)"
 scb_mnt="$(buildah mount "${scb_container}")"
 
 defectdojo_container="$(buildah from quay.io/sdase/openjdk-development:12-openj9)"
-defectdojo_mnt="$(buildah mount "${scb_container}")"
+defectdojo_mnt="$(buildah mount "${defectdojo_container}")"
 
 mkdir -p "${defectdojo_mnt}/.groovy/grapes/io.securecodebox.core/sdk/jars/"
 mkdir -p "${defectdojo_mnt}/.groovy/lib/"
 mkdir -p "${defectdojo_mnt}/.groovy/grapes/io.securecodebox.persistenceproviders/defectdojo-persistenceprovider/jars/"
-mkdir ${defectdojo_mnt}/code
+mkdir -p "${defectdojo_mnt}/code"
 
 scb_dir_tmp="$(mktemp -d)"
 pushd "${scb_dir_tmp}"
@@ -35,11 +35,10 @@ cp defectdojo.groovy "${defectdojo_mnt}/code/defectdojo.groovy"
 cp importToDefectDojo.groovy "${defectdojo_mnt}/code/importToDefectDojo.groovy"
 cp addDependenciesToDescription.groovy "${defectdojo_mnt}/code/addDependenciesToDescription.groovy"
 
-pushd "${defectdojo_mnt}/usr"
-mkdir groovy
-pushd groovy
+mkdir -p "${defectdojo_mnt}/usr/groovy"
+pushd "${defectdojo_mnt}/usr/groovy"
 curl -L https://dl.bintray.com/groovy/maven/apache-groovy-binary-2.5.8.zip  --output apache-groovy-binary.zip
-unzip apache-groovy-binary.zip 
+unzip apache-groovy-binary.zip
 rm apache-groovy-binary.zip
 popd
 
