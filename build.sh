@@ -16,7 +16,7 @@ image="defectdojo-client"
 scb_container="$(buildah from docker.io/securecodebox/engine:master)"
 scb_mnt="$(buildah mount "${scb_container}")"
 
-defectdojo_container="$(buildah from docker.io/securecodebox/engine:master)"
+defectdojo_container="$(buildah from quay.io/sdase/openjdk-development:12-openj9)"
 defectdojo_mnt="$(buildah mount "${scb_container}")"
 
 mkdir -p "${defectdojo_mnt}/.groovy/grapes/io.securecodebox.core/sdk/jars/"
