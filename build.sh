@@ -29,7 +29,7 @@ pushd "${scb_dir_tmp}"
 cp ${scb_mnt}/scb-engine/lib/defectdojo-persistenceprovider-0.0.1-SNAPSHOT-jar-with-dependencies.jar "${defectdojo_mnt}/.groovy/grapes/io.securecodebox.persistenceproviders/defectdojo-persistenceprovider/jars/defectdojo-persistenceprovider-0.0.1-SNAPSHOT.jar"
 unzip "${scb_mnt}/scb-engine/app.jar"
 cp ./BOOT-INF/lib/sdk-0.0.1-SNAPSHOT.jar "${defectdojo_mnt}/.groovy/grapes/io.securecodebox.core/sdk/jars/sdk-0.0.1-SNAPSHOT.jar"
-cp -r ./BOOT-INF/lib/ "${defectdojo_mnt}/.groovy/lib/"
+cp -r ./BOOT-INF/lib/* "${defectdojo_mnt}/.groovy/lib/"
 popd
 cp defectdojo.groovy "${defectdojo_mnt}/code/defectdojo.groovy"
 cp importToDefectDojo.groovy "${defectdojo_mnt}/code/importToDefectDojo.groovy"
@@ -49,7 +49,7 @@ buildah config \
   --label "${oci_prefix}.authors=SDA SE Engineers <engineers@sda-se.io>" \
   --label "${oci_prefix}.url=https://quay.io/sdase/centos" \
   --label "${oci_prefix}.source=https://github.com/SDA-SE/centos" \
-  --label "${oci_prefix}.version=0.3.24" \
+  --label "${oci_prefix}.version=0.3.25" \
   --label "${oci_prefix}.revision=$( git rev-parse HEAD )" \
   --label "${oci_prefix}.vendor=SDA SE Open Industry Solutions" \
   --label "${oci_prefix}.licenses=AGPL-3.0" \
