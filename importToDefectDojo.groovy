@@ -27,8 +27,8 @@ def call(args) {
     EngagementPayload engagement = new EngagementPayload()
     engagement.setBranch args.branchName
     engagement.setBuildID args.buildId
-    engagement.setRepo args.sourceCodeManagementUri
     engagement.setDeduplicationOnEngagement true
+    engagement.setRepo args.sourceCodeManagementUri
 
     String reportContents = new File(args.reportPath).text
     def date = new Date()
@@ -36,22 +36,22 @@ def call(args) {
     def timeNow = date.format("HH:mm:ss")
     def engagementName = "Dep Check " + args.branchName
     def reportType = "Dependency Check Scan"
-    // In DefectDojo Version 1.5.4 you can specify test_type/testName
-    //def testName = "${engagementName} ${timeNow}"
-    def testName = reportType
+    // In DefectDojo Version 1.5.4 you can specify test_type/testName; BE AWARE: close_old_findings will not work by using something else than reportType
+    def testName = reportType // "${engagementName} ${timeNow}"
     def minimumSeverity = "High"
     
     TestPayload testPayload = new TestPayload()
-    testPayload.setTitle(null) // for DefectDojo < 1.5.4 'null' should be used, afterwards testName can be given
+    testPayload.setTitle(testName) // for DefectDojo < 1.5.4 'null' should be used, afterwards testName can be given
     testPayload.setTargetStart(dateNow + " " + timeNow)
     testPayload.setTargetEnd(dateNow + " " + timeNow)
     MultiValueMap<String, Object> options =  new LinkedMultiValueMap<String, Object>();
+    
     if(args.branchName.equals("master")) {
+        options.add("active", "true")  
         testPayload.setEnvironment("3")
-        options.add("active", "true")
     }else {
+        options.add("active", "false") 
         testPayload.setEnvironment("1")
-        options.add("active", "false")
     }
 
     if(args.importType.equals("import")) {
@@ -85,7 +85,8 @@ def call(args) {
     }
     defectDojoService.deleteUnusedBranches(args.branchesToKeep, args.product)
 
-    List<Finding> findings = defectDojoService.receiveNonHandledFindings(args.product, engagementName, minimumSeverity, new LinkedMultiValueMap<>());
+    // options from import, as there is no difference
+    List<Finding> findings = defectDojoService.receiveNonHandledFindings(args.product, engagementName, minimumSeverity, options);
     for(Finding finding : findings) {
         println finding.getTitle() + " " + finding.getSeverity()
     }
