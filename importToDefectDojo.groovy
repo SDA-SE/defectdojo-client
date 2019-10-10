@@ -87,7 +87,8 @@ def call(args) {
     }
     defectDojoService.deleteUnusedBranches(args.branchesToKeep, args.product)
 
-    // options from import, as there is no difference
+    MultiValueMap<String, Object> optionsToGetFindings =  new LinkedMultiValueMap<String, Object>();
+    optionsToGetFindings.add("active", "true")
     List<Finding> findings = defectDojoService.receiveNonHandledFindings(args.product, engagementName, minimumSeverity, options);
     for(Finding finding : findings) {
         println finding.getTitle() + " " + finding.getSeverity()
