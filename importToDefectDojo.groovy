@@ -47,10 +47,12 @@ def call(args) {
     MultiValueMap<String, Object> options =  new LinkedMultiValueMap<String, Object>();
     
     if(args.branchName.equals("master")) {
-        options.add("active", "true")  
+        options.add("active", "true")
+        options.add("verified", "true")
         testPayload.setEnvironment("3")
     }else {
-        options.add("active", "false") 
+        options.add("active", "false")
+        options.add("verified", "false")
         testPayload.setEnvironment("1")
     }
 
