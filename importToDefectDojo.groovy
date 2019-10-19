@@ -34,8 +34,7 @@ def call(args) {
     def date = new Date()
     def dateNow = date.format("yyyy-MM-dd")
     def timeNow = date.format("HH:mm:ss")
-    def prefix = "Dep Check "
-    def engagementName = prefix + args.branchName
+    def engagementName = "Dep Check " + args.branchName
     def reportType = "Dependency Check Scan"
     // In DefectDojo Version 1.5.4 you can specify test_type/testName; BE AWARE: close_old_findings will not work by using something else than reportType
     def testName = reportType // "${engagementName} ${timeNow}"
@@ -83,11 +82,8 @@ def call(args) {
         println "Error: importType not known"
         return
     }
-    def branchesToKeepWithPrefix = []
     for (branchToKeep in args.branchesToKeep) {
-        def branchToKeepWithPrefix = prefix + branchToKeep
-        branchesToKeepWithPrefix.add(branchToKeepWithPrefix)
-        println "Will keep the engagement '${branchToKeepWithPrefix}' (branchToKeep) in DefectDojo"
+        println "Will keep the enagagement with branch '${branchToKeep}' in DefectDojo"
     }
     defectDojoService.deleteUnusedBranches(args.branchesToKeep, args.product)
 
