@@ -14,8 +14,13 @@ import io.securecodebox.model.securitytest.SecurityTest
 import io.securecodebox.model.execution.Target
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.codehaus.jackson.map.DeserializationConfig
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
+import org.springframework.util.LinkedMultiValueMap
+import org.springframework.util.MultiValueMap
+import org.springframework.web.util.UriComponentsBuilder
+import org.springframework.web.client.RestTemplate
+import org.springframework.http.*
+import io.securecodebox.persistence.models.TestResponse
+
 
 def call(args) {
     DefectDojoService defectDojoService = new DefectDojoService();
@@ -99,5 +104,16 @@ def call(args) {
         println "$findingSize vulnerabilities found with severity $minimumSeverity or higher"
         System.exit(1)
     }
+
+    def testId = defectDojoService.getLatestTestIdByEngagementName(engagementName, args.product, testName, 0L)
+    if(!testId.isPresent()){
+        println "Could not find engagement"
+        System.exit(2)
+    }
+
+    def defectDojoTestLink = args.dojoUrl + "test/" + testId.get();
+    File file = new File("defectDojoTestLink.txt")
+    file.write defectDojoTestLink
+    print "DefectDojo test with scan results can be viewed at " + defectDojoTestLink + "\n"
 }
 
