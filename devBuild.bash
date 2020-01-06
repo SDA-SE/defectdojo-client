@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ENGINE_PATH="../engine"
+ENGINE_PATH="/home/tpagel/git/securecodebox/engine/"
 
 CURRENT_PATH=$(pwd)
 cd $ENGINE_PATH
