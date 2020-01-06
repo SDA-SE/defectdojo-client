@@ -111,7 +111,7 @@ def call(args) {
         System.exit(2)
     }
 
-    def defectDojoTestLink = args.dojoUrl + "test/" + testId.get();
+    def defectDojoTestLink = args.dojoUrl + "/test/" + testId.get();
     File file = new File("defectDojoTestLink.txt")
     file.write defectDojoTestLink
     print "DefectDojo test with scan results can be viewed at " + defectDojoTestLink + "\n"
