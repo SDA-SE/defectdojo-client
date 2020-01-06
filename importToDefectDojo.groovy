@@ -43,7 +43,7 @@ def call(args) {
     def reportType = "Dependency Check Scan"
     // In DefectDojo Version 1.5.4 you can specify test_type/testName; BE AWARE: close_old_findings will not work by using something else than reportType
     def testName = reportType // "${engagementName} ${timeNow}"
-    def minimumSeverity = "High"
+    def minimumSeverity = "Low"
     
     TestPayload testPayload = new TestPayload()
     testPayload.setTitle(testName) // for DefectDojo < 1.5.4 'null' should be used, afterwards testName can be given
