@@ -99,7 +99,6 @@ def call(args) {
         println finding.getTitle() + " " + finding.getSeverity()
     }
     long findingSize = findings.size()
-    println "findingSize: $findingSize"
 
     def testId = defectDojoService.getLatestTestIdByEngagementName(engagementName, args.product, testName, 0L)
     if(!testId.isPresent()){
