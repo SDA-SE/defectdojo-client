@@ -43,7 +43,7 @@ def call(args) {
     def reportType = "Dependency Check Scan"
     // In DefectDojo Version 1.5.4 you can specify test_type/testName; BE AWARE: close_old_findings will not work by using something else than reportType
     def testName = reportType // "${engagementName} ${timeNow}"
-    def minimumSeverity = "Low"
+    def minimumSeverity = "High"
     
     TestPayload testPayload = new TestPayload()
     testPayload.setTitle(testName) // for DefectDojo < 1.5.4 'null' should be used, afterwards testName can be given
@@ -99,21 +99,23 @@ def call(args) {
         println finding.getTitle() + " " + finding.getSeverity()
     }
     long findingSize = findings.size()
-    if(findingSize > 0) {
-        // Mark build as unstable
-        println "$findingSize vulnerabilities found with severity $minimumSeverity or higher"
-        System.exit(1)
-    }
 
     def testId = defectDojoService.getLatestTestIdByEngagementName(engagementName, args.product, testName, 0L)
     if(!testId.isPresent()){
         println "Could not find engagement"
         System.exit(2)
+    }    
+    def defectDojoTestLink = args.dojoUrl + "/test/" + testId.get();
+
+    if(findingSize > 0) {
+        // Mark build as unstable
+        println "$findingSize vulnerabilities found with severity $minimumSeverity or higher"
+        println "DefectDojo test with scan results can be viewed at $defectDojoTestLink"
+        System.exit(1)
     }
 
-    def defectDojoTestLink = args.dojoUrl + "/test/" + testId.get();
     File file = new File("defectDojoTestLink.txt")
     file.write defectDojoTestLink
-    print "DefectDojo test with scan results can be viewed at " + defectDojoTestLink + "\n"
+    println "DefectDojo test with scan results can be viewed at $defectDojoTestLink"
 }
 
