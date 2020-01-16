@@ -107,15 +107,15 @@ def call(args) {
     }    
     def defectDojoTestLink = args.dojoUrl + "/test/" + testId.get();
 
+    File file = new File("defectDojoTestLink.txt")
+    file.write defectDojoTestLink
+    println "DefectDojo test with scan results can be viewed at $defectDojoTestLink"
+
     if(findingSize > 0) {
         // Mark build as unstable
         println "$findingSize vulnerabilities found with severity $minimumSeverity or higher"
         println "DefectDojo test with scan results can be viewed at $defectDojoTestLink"
         System.exit(1)
     }
-
-    File file = new File("defectDojoTestLink.txt")
-    file.write defectDojoTestLink
-    println "DefectDojo test with scan results can be viewed at $defectDojoTestLink"
 }
 
