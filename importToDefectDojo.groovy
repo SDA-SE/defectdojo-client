@@ -87,10 +87,17 @@ def call(args) {
         println "Error: importType not known"
         return
     }
+
+    def keepAllBranches = false;
     for (branchToKeep in args.branchesToKeep) {
-        println "Will keep the enagagement with branch '${branchToKeep}' in DefectDojo"
+        if(branchToKeep.equals("*") {
+            keepAllBranches=true;
+            break;
+        } else {
+            println "Will keep the enagagement with branch '${branchToKeep}' in DefectDojo"
+        }
     }
-    defectDojoService.deleteUnusedBranches(args.branchesToKeep, args.product)
+    if(!keepAllBranches) defectDojoService.deleteUnusedBranches(args.branchesToKeep, args.product)
 
     MultiValueMap<String, Object> optionsToGetFindings =  new LinkedMultiValueMap<String, Object>();
     optionsToGetFindings.add("active", "true")
