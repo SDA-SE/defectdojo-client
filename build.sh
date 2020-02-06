@@ -43,6 +43,7 @@ rm apache-groovy-binary.zip
 popd
 
 chown -R 999:999 "${defectdojo_mnt}/.groovy"
+ln -s "${defectdojo_mnt}/.groovy" "${defectdojo_mnt}/code/.groovy"
 
 oci_prefix="org.opencontainers.image"
 buildah config \
