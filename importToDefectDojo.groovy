@@ -90,7 +90,7 @@ def call(args) {
 
     def keepAllBranches = false;
     for (branchToKeep in args.branchesToKeep) {
-        if(branchToKeep.equals("*") {
+        if(branchToKeep.equals("*")) {
             keepAllBranches=true;
             break;
         } else {
