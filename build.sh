@@ -45,6 +45,8 @@ echo "################################# the following error is not expected, but
 ${defectdojo_mnt}/usr/groovy/groovy-2.5.8/bin/groovy -Dgrape.root=${defectdojo_mnt}/code/.groovy/ importToDefectDojo.groovy || true # download needed libs
 chown -R 999:999 "${defectdojo_mnt}/code/.groovy"
 
+echo "35.242.237.92 defectdojo.sda-se.io" >> ${defectdojo_mnt}/etc/hosts # java is slow, boost performance
+
 oci_prefix="org.opencontainers.image"
 buildah config \
   --label "${oci_prefix}.authors=SDA SE Engineers <engineers@sda-se.io>" \
