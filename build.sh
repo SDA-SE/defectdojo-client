@@ -41,6 +41,7 @@ unzip apache-groovy-binary.zip
 rm apache-groovy-binary.zip
 popd
 
+echo "################################# the following error is not expected, but it still works!"
 ${defectdojo_mnt}/usr/groovy/groovy-2.5.8/bin/groovy -Dgrape.root=${defectdojo_mnt}/code/.groovy/ importToDefectDojo.groovy || true # download needed libs
 chown -R 999:999 "${defectdojo_mnt}/code/.groovy"
 
@@ -49,7 +50,7 @@ buildah config \
   --label "${oci_prefix}.authors=SDA SE Engineers <engineers@sda-se.io>" \
   --label "${oci_prefix}.url=https://quay.io/sdase/defectdojo-client" \
   --label "${oci_prefix}.source=https://github.com/SDA-SE/defectdojo-client" \
-  --label "${oci_prefix}.version=0.8.0" \
+  --label "${oci_prefix}.version=0.8.1" \
   --label "${oci_prefix}.revision=$( git rev-parse HEAD )" \
   --label "${oci_prefix}.vendor=SDA SE Open Industry Solutions" \
   --label "${oci_prefix}.licenses=Apache-2.0" \
