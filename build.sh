@@ -19,17 +19,16 @@ scb_mnt="$(buildah mount "${scb_container}")"
 defectdojo_container="$(buildah from quay.io/sdase/openjdk-development:12-openj9)"
 defectdojo_mnt="$(buildah mount "${defectdojo_container}")"
 
-mkdir -p "${defectdojo_mnt}/.groovy/grapes/io.securecodebox.core/sdk/jars/"
-mkdir -p "${defectdojo_mnt}/.groovy/lib/"
-mkdir -p "${defectdojo_mnt}/.groovy/grapes/io.securecodebox.persistenceproviders/defectdojo-persistenceprovider/jars/"
-mkdir -p "${defectdojo_mnt}/code"
+mkdir -p "${defectdojo_mnt}/code/.groovy/grapes/io.securecodebox.core/sdk/jars/"
+mkdir -p "${defectdojo_mnt}/code/.groovy/lib/"
+mkdir -p "${defectdojo_mnt}/code/.groovy/grapes/io.securecodebox.persistenceproviders/defectdojo-persistenceprovider/jars/"
 
 scb_dir_tmp="$(mktemp -d)"
 pushd "${scb_dir_tmp}"
-cp ${scb_mnt}/scb-engine/lib/defectdojo-persistenceprovider-0.0.1-SNAPSHOT-jar-with-dependencies.jar "${defectdojo_mnt}/.groovy/grapes/io.securecodebox.persistenceproviders/defectdojo-persistenceprovider/jars/defectdojo-persistenceprovider-0.0.1-SNAPSHOT.jar"
+cp ${scb_mnt}/scb-engine/lib/defectdojo-persistenceprovider-0.0.1-SNAPSHOT-jar-with-dependencies.jar "${defectdojo_mnt}/code/.groovy/grapes/io.securecodebox.persistenceproviders/defectdojo-persistenceprovider/jars/defectdojo-persistenceprovider-0.0.1-SNAPSHOT.jar"
 unzip "${scb_mnt}/scb-engine/app.jar"
-cp ./BOOT-INF/lib/sdk-0.0.1-SNAPSHOT.jar "${defectdojo_mnt}/.groovy/grapes/io.securecodebox.core/sdk/jars/sdk-0.0.1-SNAPSHOT.jar"
-cp -r ./BOOT-INF/lib/* "${defectdojo_mnt}/.groovy/lib/"
+cp ./BOOT-INF/lib/sdk-0.0.1-SNAPSHOT.jar "${defectdojo_mnt}/code/.groovy/grapes/io.securecodebox.core/sdk/jars/sdk-0.0.1-SNAPSHOT.jar"
+cp -r ./BOOT-INF/lib/* "${defectdojo_mnt}/code/.groovy/lib/"
 popd
 cp defectdojo.groovy "${defectdojo_mnt}/code/defectdojo.groovy"
 cp importToDefectDojo.groovy "${defectdojo_mnt}/code/importToDefectDojo.groovy"
@@ -42,15 +41,15 @@ unzip apache-groovy-binary.zip
 rm apache-groovy-binary.zip
 popd
 
-chown -R 999:999 "${defectdojo_mnt}/.groovy"
-cp -a "${defectdojo_mnt}/.groovy" "${defectdojo_mnt}/code/.groovy"
+${defectdojo_mnt}/usr/groovy/groovy-2.5.8/bin/groovy -Dgrape.root=${defectdojo_mnt}/code/.groovy/ importToDefectDojo.groovy || true # download needed libs
+chown -R 999:999 "${defectdojo_mnt}/code/.groovy"
 
 oci_prefix="org.opencontainers.image"
 buildah config \
   --label "${oci_prefix}.authors=SDA SE Engineers <engineers@sda-se.io>" \
   --label "${oci_prefix}.url=https://quay.io/sdase/defectdojo-client" \
   --label "${oci_prefix}.source=https://github.com/SDA-SE/defectdojo-client" \
-  --label "${oci_prefix}.version=0.6.1" \
+  --label "${oci_prefix}.version=0.8.0" \
   --label "${oci_prefix}.revision=$( git rev-parse HEAD )" \
   --label "${oci_prefix}.vendor=SDA SE Open Industry Solutions" \
   --label "${oci_prefix}.licenses=Apache-2.0" \
