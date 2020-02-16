@@ -51,7 +51,7 @@ def call(args) {
     testPayload.setTargetEnd(dateNow + " " + timeNow)
     MultiValueMap<String, Object> options =  new LinkedMultiValueMap<String, Object>();
     
-    if(args.branchName.equals("master") || args.isMarkedAsActive.equals("true")) {
+    if(args.branchName.equals("master") || args.isMarkedAsActive.equals) {
         options.add("active", "true")
         options.add("verified", "true")
         testPayload.setEnvironment("3")
@@ -122,7 +122,7 @@ def call(args) {
         // Mark build as unstable
         println "$findingSize vulnerabilities found with severity $minimumSeverity or higher"
         println "DefectDojo test with scan results can be viewed at $defectDojoTestLink"
-        System.exit(1)
+        System.exit(10)
     }
 }
 
