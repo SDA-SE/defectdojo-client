@@ -35,10 +35,7 @@ String sourceCodeManagementUri = System.getenv("DD_SOURCE_CODE_MANAGEMENT_URI")
 
 String branchesToKeepFromEnv =  System.getenv("DD_BRANCHES_TO_KEEP")
 
-String isMarkedAsActive = System.getenv("DD_IS_MARKED_AS_ACTIVE") ?: false
-if(isMarkedAsActive) {
-  isMarkedAsActive = isMarkedAsActive.toBoolean()
-}
+String isMarkedAsActive = System.getenv("DD_IS_MARKED_AS_ACTIVE") ?: "false"
 List<String> branchesToKeep;
 if(!branchesToKeepFromEnv) {
   println "Error: No DD_BRANCHES_TO_KEEP"
