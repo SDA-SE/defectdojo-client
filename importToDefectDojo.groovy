@@ -121,7 +121,6 @@ def call(args) {
     if(findingSize > 0) {
         // Mark build as unstable
         println "$findingSize vulnerabilities found with severity $minimumSeverity or higher"
-        println "DefectDojo test with scan results can be viewed at $defectDojoTestLink"
         System.exit(10)
     }
 }
