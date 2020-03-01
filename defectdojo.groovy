@@ -19,12 +19,14 @@ String user = System.getenv("DD_USER") ?: "admin"
 String dojoUrl = System.getenv("DD_URL") ?: "http://localhost:8080"
 
 String reportPath = System.getenv("DD_REPORT_PATH") ?: "/dependency-check-report.xml"
+String reportType = System.getenv("DD_REPORT_TYPE") ?: "Dependency Check Scan"
 String importType = System.getenv("DD_IMPORT_TYPE") ?: "import" // reimport
 String branchName = System.getenv("DD_BRANCH_NAME")
 if(!branchName) {
   println "Error: No branchName"
   return
 }
+
 String leadTemp = System.getenv("DD_LEAD")
 if(!leadTemp) {
   leadTemp = "1"
@@ -55,4 +57,5 @@ importToDefectDojo token: token,
   sourceCodeManagementUri: sourceCodeManagementUri,
   importType: importType,
   branchesToKeep: branchesToKeep,
-  isMarkedAsActive: isMarkedAsActive
+  isMarkedAsActive: isMarkedAsActive,
+  reportType: reportType

@@ -40,7 +40,7 @@ def call(args) {
     def dateNow = date.format("yyyy-MM-dd")
     def timeNow = date.format("HH:mm:ss")
     def engagementName = "Dep Check " + args.branchName
-    def reportType = "Dependency Check Scan"
+    def reportType = args.reportType
     // In DefectDojo Version 1.5.4 you can specify test_type/testName; BE AWARE: close_old_findings will not work by using something else than reportType
     def testName = reportType // "${engagementName} ${timeNow}"
     def minimumSeverity = "High"
