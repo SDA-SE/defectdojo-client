@@ -38,8 +38,14 @@ String sourceCodeManagementUri = System.getenv("DD_SOURCE_CODE_MANAGEMENT_URI")
 String branchesToKeepFromEnv =  System.getenv("DD_BRANCHES_TO_KEEP")
 String tagsAsString =  System.getenv("DD_TAGS")
 List<String> tags;
-if(tags) {
+if(!tagsAsString.isEmpty()) {
   tags = tagsAsString.split(' ')
+}
+
+String deduplicationOnEngagementAsString =  System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")
+Boolean deduplicationOnEngagement = true
+if(!deduplicationOnEngagementAsString.isEmpty) {
+  deduplicationOnEngagement = deduplicationOnEngagementAsString.toBoolean()
 }
 
 String isMarkedAsActive = System.getenv("DD_IS_MARKED_AS_ACTIVE") ?: "false"
@@ -64,4 +70,5 @@ importToDefectDojo token: token,
   branchesToKeep: branchesToKeep,
   isMarkedAsActive: isMarkedAsActive,
   reportType: reportType,
-  tags: tags
+  tags: tags,
+  deduplicationOnEngagement: deduplicationOnEngagement

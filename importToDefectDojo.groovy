@@ -33,6 +33,9 @@ def call(args) {
     engagement.setBranch args.branchName
     engagement.setBuildID args.buildId
     engagement.setDeduplicationOnEngagement true
+    if(args.deduplicationOnEngagement) {
+        engagement.setDeduplicationOnEngagement args.deduplicationOnEngagement
+    }
     engagement.setRepo args.sourceCodeManagementUri
     if(args.tags) {
         engagement.setTags args.tags
