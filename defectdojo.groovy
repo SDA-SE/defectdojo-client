@@ -38,13 +38,12 @@ String sourceCodeManagementUri = System.getenv("DD_SOURCE_CODE_MANAGEMENT_URI")
 String branchesToKeepFromEnv =  System.getenv("DD_BRANCHES_TO_KEEP")
 String tagsAsString =  System.getenv("DD_TAGS")
 List<String> tags;
-if(!tagsAsString.isEmpty()) {
+if(!tagsAsString) {
   tags = tagsAsString.split(' ')
 }
 
-String deduplicationOnEngagementAsString =  System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")
 Boolean deduplicationOnEngagement = true
-if(!deduplicationOnEngagementAsString.isEmpty) {
+if(!System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")) {
   deduplicationOnEngagement = deduplicationOnEngagementAsString.toBoolean()
 }
 
