@@ -69,7 +69,7 @@ buildah config \
   --env 'DD_BUILD_ID="1"' \
   --env 'DD_SOURCE_CODE_MANAGEMENT_URI=""' \
   --env 'DD_BRANCHES_TO_KEEP=""' \
-  --env "DD_TAGS"
+  --env 'DD_TAGS=""' \
   --cmd "/usr/groovy/groovy-2.5.8/bin/groovy /code/defectdojo.groovy" \
   "${defectdojo_container}"
 
