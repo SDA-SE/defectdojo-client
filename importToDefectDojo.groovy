@@ -34,6 +34,9 @@ def call(args) {
     engagement.setBuildID args.buildId
     engagement.setDeduplicationOnEngagement true
     engagement.setRepo args.sourceCodeManagementUri
+    if(args.tags) {
+        engagement.setTags args.tags
+    }
 
     String reportContents = new File(args.reportPath).text
     def date = new Date()

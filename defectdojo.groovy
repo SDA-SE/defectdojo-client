@@ -36,6 +36,11 @@ String buildId = System.getenv("DD_BUILD_ID")
 String sourceCodeManagementUri = System.getenv("DD_SOURCE_CODE_MANAGEMENT_URI")
 
 String branchesToKeepFromEnv =  System.getenv("DD_BRANCHES_TO_KEEP")
+String tagsAsString =  System.getenv("DD_TAGS")
+List<String> tags;
+if(tags) {
+  tags = tagsAsString.split(' ')
+}
 
 String isMarkedAsActive = System.getenv("DD_IS_MARKED_AS_ACTIVE") ?: "false"
 List<String> branchesToKeep;
@@ -58,4 +63,5 @@ importToDefectDojo token: token,
   importType: importType,
   branchesToKeep: branchesToKeep,
   isMarkedAsActive: isMarkedAsActive,
-  reportType: reportType
+  reportType: reportType,
+  tags: tags
