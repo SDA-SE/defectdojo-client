@@ -44,7 +44,7 @@ if(tagsAsString) {
 
 Boolean deduplicationOnEngagement = true
 if(System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")) {
-  deduplicationOnEngagement = deduplicationOnEngagementAsString.toBoolean()
+  deduplicationOnEngagement = System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT").toBoolean()
 }
 
 String isMarkedAsActive = System.getenv("DD_IS_MARKED_AS_ACTIVE") ?: "false"
