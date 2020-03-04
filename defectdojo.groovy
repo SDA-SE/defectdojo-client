@@ -50,6 +50,8 @@ String tagsAsString =  System.getenv("DD_PRODUCT_TAGS")
 List<String> productTags;
 if(tagsAsString) {
   productTags = tagsAsString.split(' ')
+} else {
+  productTags = java.util.Collections.emptyList();
 }
 
 Boolean deduplicationOnEngagement = true
