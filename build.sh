@@ -11,7 +11,7 @@ cleanup() {
   test -d "${scb_dir_tmp}" && rm -rf "${scb_dir_tmp}" || true
 }
 
-image="defectdojo-client-test"
+image="defectdojo-client"
 
 scb_container="$(buildah from securecodebox/engine@sha256:454408584a6359c77833e5a85b763cc0b66df2fbe0b93ac4636aed91dc0957f6)"
 scb_mnt="$(buildah mount "${scb_container}")"
