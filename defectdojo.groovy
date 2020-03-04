@@ -36,16 +36,6 @@ String buildId = System.getenv("DD_BUILD_ID")
 String sourceCodeManagementUri = System.getenv("DD_SOURCE_CODE_MANAGEMENT_URI")
 
 String branchesToKeepFromEnv =  System.getenv("DD_BRANCHES_TO_KEEP")
-String tagsAsString =  System.getenv("DD_TAGS")
-List<String> tags;
-if(tagsAsString) {
-  tags = tagsAsString.split(' ')
-}
-
-Boolean deduplicationOnEngagement = true
-if(System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")) {
-  deduplicationOnEngagement = System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT").toBoolean()
-}
 
 String isMarkedAsActive = System.getenv("DD_IS_MARKED_AS_ACTIVE") ?: "false"
 List<String> branchesToKeep;
@@ -54,6 +44,17 @@ if(!branchesToKeepFromEnv) {
   return
 }else {
   branchesToKeep = branchesToKeepFromEnv.replace('"', '').split(' ')
+}
+
+String tagsAsString =  System.getenv("DD_PRODUCT_TAGS")
+List<String> productTags;
+if(tagsAsString) {
+  productTags = tagsAsString.split(' ')
+}
+
+Boolean deduplicationOnEngagement = true
+if(System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")) {
+  deduplicationOnEngagement = System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT").toBoolean()
 }
 
 importToDefectDojo token: token, 
@@ -69,5 +70,5 @@ importToDefectDojo token: token,
   branchesToKeep: branchesToKeep,
   isMarkedAsActive: isMarkedAsActive,
   reportType: reportType,
-  tags: tags,
+  productTags: productTags,
   deduplicationOnEngagement: deduplicationOnEngagement

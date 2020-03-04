@@ -37,9 +37,6 @@ def call(args) {
         engagement.setDeduplicationOnEngagement args.deduplicationOnEngagement
     }
     engagement.setRepo args.sourceCodeManagementUri
-    if(args.tags) {
-        engagement.setTags args.tags
-    }
 
     String reportContents = new File(args.reportPath).text
     def date = new Date()
@@ -76,7 +73,9 @@ def call(args) {
             args.lead,
             engagement,
             testName,
-            options
+            options,
+            "No Description",
+            args.productTags
         );
     }else if(args.importType.equals("reimport")) {
         defectDojoService.createFindingsReImport(
@@ -88,7 +87,9 @@ def call(args) {
             reportType, 
             engagement, 
             testPayload, 
-            options)
+            options,
+            "No Description",
+            args.productTags)
     }else {
         println "Error: importType not known"
         return

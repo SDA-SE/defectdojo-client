@@ -13,7 +13,7 @@ cleanup() {
 
 image="defectdojo-client-test"
 
-scb_container="$(buildah from securecodebox/engine:feat-addProdTags)"
+scb_container="$(buildah from securecodebox/engine@sha256:454408584a6359c77833e5a85b763cc0b66df2fbe0b93ac4636aed91dc0957f6)"
 scb_mnt="$(buildah mount "${scb_container}")"
 
 defectdojo_container="$(buildah from quay.io/sdase/openjdk-development:12-openj9)"
