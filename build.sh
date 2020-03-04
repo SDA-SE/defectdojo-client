@@ -11,9 +11,9 @@ cleanup() {
   test -d "${scb_dir_tmp}" && rm -rf "${scb_dir_tmp}" || true
 }
 
-image="defectdojo-client"
+image="defectdojo-client-test"
 
-scb_container="$(buildah from docker.io/securecodebox/engine:master)"
+scb_container="$(buildah from securecodebox/engine:feat-addProdTags)"
 scb_mnt="$(buildah mount "${scb_container}")"
 
 defectdojo_container="$(buildah from quay.io/sdase/openjdk-development:12-openj9)"
