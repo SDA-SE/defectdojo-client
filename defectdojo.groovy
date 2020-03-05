@@ -37,6 +37,13 @@ String sourceCodeManagementUri = System.getenv("DD_SOURCE_CODE_MANAGEMENT_URI")
 
 String branchesToKeepFromEnv =  System.getenv("DD_BRANCHES_TO_KEEP")
 
+// inactive, because it can be inactive due to beeing a branch, also
+String isFindingInactive = false
+if(System.getenv("DD_IS_FINDING_INAKTIVE")) {
+  isFindingInactive = System.getenv("DD_IS_FINDING_INAKTIVE").toBoolean()
+}
+
+//overwrites isFindingInactive
 String isMarkedAsActive = System.getenv("DD_IS_MARKED_AS_ACTIVE") ?: "false"
 List<String> branchesToKeep;
 if(!branchesToKeepFromEnv) {
@@ -59,6 +66,8 @@ if(System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")) {
   deduplicationOnEngagement = System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT").toBoolean()
 }
 
+
+
 importToDefectDojo token: token, 
   user: user,
   dojoUrl: dojoUrl,
@@ -73,4 +82,5 @@ importToDefectDojo token: token,
   isMarkedAsActive: isMarkedAsActive,
   reportType: reportType,
   productTags: productTags,
-  deduplicationOnEngagement: deduplicationOnEngagement
+  deduplicationOnEngagement: deduplicationOnEngagement,
+  isFindingInactive: isFindingInactive

@@ -54,7 +54,7 @@ def call(args) {
     testPayload.setTargetEnd(dateNow + " " + timeNow)
     MultiValueMap<String, Object> options =  new LinkedMultiValueMap<String, Object>();
     
-    if(args.branchName.equals("master") || args.isMarkedAsActive.equals("true")) {
+    if((args.branchName.equals("master") && !args.isFindingInactive) || args.isMarkedAsActive.equals("true")) {
         options.add("active", "true")
         options.add("verified", "true")
         testPayload.setEnvironment("3")
