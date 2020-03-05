@@ -32,10 +32,8 @@ def call(args) {
     EngagementPayload engagement = new EngagementPayload()
     engagement.setBranch args.branchName
     engagement.setBuildID args.buildId
-    engagement.setDeduplicationOnEngagement true
-    if(args.deduplicationOnEngagement) {
-        engagement.setDeduplicationOnEngagement args.deduplicationOnEngagement
-    }
+    engagement.setDeduplicationOnEngagement args.deduplicationOnEngagement.toBoolean()
+
     engagement.setRepo args.sourceCodeManagementUri
 
     String reportContents = new File(args.reportPath).text
@@ -53,8 +51,8 @@ def call(args) {
     testPayload.setTargetStart(dateNow + " " + timeNow)
     testPayload.setTargetEnd(dateNow + " " + timeNow)
     MultiValueMap<String, Object> options =  new LinkedMultiValueMap<String, Object>();
-    
-    if((args.branchName.equals("master") && !args.isFindingInactive) || args.isMarkedAsActive.equals("true")) {
+
+    if((args.branchName.equals("master") && args.isFindingInactive.equals("false")) || args.isMarkedAsActive.equals("true")) {
         options.add("active", "true")
         options.add("verified", "true")
         testPayload.setEnvironment("3")

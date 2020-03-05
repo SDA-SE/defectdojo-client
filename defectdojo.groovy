@@ -37,10 +37,11 @@ String sourceCodeManagementUri = System.getenv("DD_SOURCE_CODE_MANAGEMENT_URI")
 
 String branchesToKeepFromEnv =  System.getenv("DD_BRANCHES_TO_KEEP")
 
+// passing boolean values is not possible
 // inactive, because it can be inactive due to beeing a branch, also
-String isFindingInactive = false
-if(System.getenv("DD_IS_FINDING_INAKTIVE")) {
-  isFindingInactive = System.getenv("DD_IS_FINDING_INAKTIVE").toBoolean()
+String isFindingInactive = "false"
+if (System.getenv("DD_IS_MARKED_AS_INACTIVE")) {
+  isFindingInactive = System.getenv("DD_IS_MARKED_AS_INACTIVE")
 }
 
 //overwrites isFindingInactive
@@ -61,9 +62,9 @@ if(tagsAsString) {
   productTags = java.util.Collections.emptyList();
 }
 
-Boolean deduplicationOnEngagement = true
+String deduplicationOnEngagement = "true"
 if(System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")) {
-  deduplicationOnEngagement = System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT").toBoolean()
+  deduplicationOnEngagement = System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")
 }
 
 
