@@ -46,14 +46,14 @@ ${defectdojo_mnt}/usr/groovy/groovy-2.5.8/bin/groovy -Dgrape.root=${defectdojo_m
 chown -R 999:999 "${defectdojo_mnt}/code/.groovy"
 
 echo "35.242.237.92 defectdojo.sda-se.io" >> ${defectdojo_mnt}/etc/hosts # java is slow, boost performance
-echo "export HOME=/code" >> ${defectdojo_mnt}/etc/profile
+echo "defectdojo:x:999:999:OWASP DefectDojo,,,:/code:/usr/sbin/nologin" >> ${defectdojo_mnt}/etc/passwd
 
 oci_prefix="org.opencontainers.image"
 buildah config \
   --label "${oci_prefix}.authors=SDA SE Engineers <engineers@sda-se.io>" \
   --label "${oci_prefix}.url=https://quay.io/sdase/defectdojo-client" \
   --label "${oci_prefix}.source=https://github.com/SDA-SE/defectdojo-client" \
-  --label "${oci_prefix}.version=0.9.7" \
+  --label "${oci_prefix}.version=0.9.8" \
   --label "${oci_prefix}.revision=$( git rev-parse HEAD )" \
   --label "${oci_prefix}.vendor=SDA SE Open Industry Solutions" \
   --label "${oci_prefix}.licenses=Apache-2.0" \
@@ -71,6 +71,7 @@ buildah config \
   --env 'DD_SOURCE_CODE_MANAGEMENT_URI=""' \
   --env 'DD_BRANCHES_TO_KEEP=""' \
   --env 'DD_PRODUCT_TAGS=""' \
+  --env 'HOME="/code"' \
   --cmd "/usr/groovy/groovy-2.5.8/bin/groovy /code/defectdojo.groovy" \
   "${defectdojo_container}"
 
