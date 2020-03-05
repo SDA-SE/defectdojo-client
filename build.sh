@@ -46,6 +46,7 @@ ${defectdojo_mnt}/usr/groovy/groovy-2.5.8/bin/groovy -Dgrape.root=${defectdojo_m
 chown -R 999:999 "${defectdojo_mnt}/code/.groovy"
 
 echo "35.242.237.92 defectdojo.sda-se.io" >> ${defectdojo_mnt}/etc/hosts # java is slow, boost performance
+echo "HOME=/code" >> ${defectdojo_mnt}/etc/profile
 
 oci_prefix="org.opencontainers.image"
 buildah config \
