@@ -72,6 +72,7 @@ buildah config \
   --env 'DD_BRANCHES_TO_KEEP=""' \
   --env 'DD_PRODUCT_TAGS=""' \
   --env 'HOME="/code"' \
+  --user 999 \
   --cmd "/usr/groovy/groovy-2.5.8/bin/groovy /code/defectdojo.groovy" \
   "${defectdojo_container}"
 
