@@ -108,9 +108,14 @@ def call(args) {
 
     MultiValueMap<String, Object> optionsToGetFindings =  new LinkedMultiValueMap<String, Object>();
     optionsToGetFindings.add("active", "true")
-    List<Finding> findings = defectDojoService.receiveNonHandledFindings(args.product, engagementName, minimumSeverity, optionsToGetFindings);
+    List<Finding> findings = new LinkedList<>();
+    if(args.deduplicationOnEngagement.toBoolean()) {
+        findings = defectDojoService.receiveNonHandledFindings(args.product, engagementName, minimumSeverity, optionsToGetFindings);
+    } else {
+        findings = defectDojoService.receiveNonHandledFindings(args.product, minimumSeverity, optionsToGetFindings);
+    }
     for(Finding finding : findings) {
-        println finding.getTitle() + " " + finding.getSeverity()
+        println "Finding: " + finding.getTitle() + " " + finding.getSeverity()
     }
     long findingSize = findings.size()
 
