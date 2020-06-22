@@ -73,7 +73,8 @@ def call(args) {
             testName,
             options,
             "No Description",
-            args.productTags
+            args.productTags,
+            args.productType
         );
     }else if(args.importType.equals("reimport")) {
         defectDojoService.createFindingsReImport(
@@ -87,7 +88,8 @@ def call(args) {
             testPayload, 
             options,
             "No Description",
-            args.productTags)
+            args.productTags,
+            args.productType)
     }else {
         println "Error: importType not known"
         return

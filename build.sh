@@ -13,7 +13,7 @@ cleanup() {
 
 image="defectdojo-client"
 
-scb_container="$(buildah from securecodebox/engine:master)"
+scb_container="$(buildah from securecodebox/engine:feat-prodtype)"
 scb_mnt="$(buildah mount "${scb_container}")"
 
 defectdojo_container="$(buildah from quay.io/sdase/openjdk-development:12-openj9)"
@@ -67,6 +67,7 @@ buildah config \
   --env 'DD_IMPORT_TYPE="import"' \
   --env 'DD_BRANCH_NAME=""' \
   --env 'DD_LEAD=1' \
+  --env 'DD_PRODUCT_TYPE=1' \
   --env 'DD_BUILD_ID="1"' \
   --env 'DD_SOURCE_CODE_MANAGEMENT_URI=""' \
   --env 'DD_BRANCHES_TO_KEEP=""' \
