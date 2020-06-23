@@ -29,6 +29,7 @@ cp ${scb_mnt}/scb-engine/lib/defectdojo-persistenceprovider-0.0.1-SNAPSHOT-jar-w
 unzip "${scb_mnt}/scb-engine/app.jar"
 cp ./BOOT-INF/lib/sdk-0.0.1-SNAPSHOT.jar "${defectdojo_mnt}/code/.groovy/grapes/io.securecodebox.core/sdk/jars/sdk-0.0.1-SNAPSHOT.jar"
 cp -r ./BOOT-INF/lib/* "${defectdojo_mnt}/code/.groovy/lib/"
+rm -Rf "${defectdojo_mnt}/code/.groovy/lib/camunda*"
 popd
 cp defectdojo.groovy "${defectdojo_mnt}/code/defectdojo.groovy"
 cp importToDefectDojo.groovy "${defectdojo_mnt}/code/importToDefectDojo.groovy"
@@ -53,7 +54,7 @@ buildah config \
   --label "${oci_prefix}.authors=SDA SE Engineers <engineers@sda-se.io>" \
   --label "${oci_prefix}.url=https://quay.io/sdase/defectdojo-client" \
   --label "${oci_prefix}.source=https://github.com/SDA-SE/defectdojo-client" \
-  --label "${oci_prefix}.version=1.0.0" \
+  --label "${oci_prefix}.version=1.0.1" \
   --label "${oci_prefix}.revision=$( git rev-parse HEAD )" \
   --label "${oci_prefix}.vendor=SDA SE Open Industry Solutions" \
   --label "${oci_prefix}.licenses=Apache-2.0" \
@@ -88,4 +89,3 @@ then
     "oci-archive:${build_dir}/${image//:/-}.tar"
     buildah rmi "${image}"
 fi
-
