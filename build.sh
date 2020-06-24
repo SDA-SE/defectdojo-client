@@ -13,7 +13,7 @@ cleanup() {
 
 image="defectdojo-client"
 
-scb_container="$(buildah from securecodebox/engine:develop)" # to be changed
+scb_container="$(buildah from securecodebox/engine@sha256:9d7d0a633b0daf32af5faa9e5deac2a47fb7da077ffcd981ab00f7c87c8b1a3e)" # to be changed
 scb_mnt="$(buildah mount "${scb_container}")"
 
 defectdojo_container="$(buildah from quay.io/sdase/openjdk-development:12-openj9)"
@@ -59,7 +59,7 @@ buildah config \
   --label "${oci_prefix}.authors=SDA SE Engineers <engineers@sda-se.io>" \
   --label "${oci_prefix}.url=https://quay.io/sdase/defectdojo-client" \
   --label "${oci_prefix}.source=https://github.com/SDA-SE/defectdojo-client" \
-  --label "${oci_prefix}.version=1.0.9" \
+  --label "${oci_prefix}.version=1.0.10" \
   --label "${oci_prefix}.revision=$( git rev-parse HEAD )" \
   --label "${oci_prefix}.vendor=SDA SE Open Industry Solutions" \
   --label "${oci_prefix}.licenses=Apache-2.0" \
