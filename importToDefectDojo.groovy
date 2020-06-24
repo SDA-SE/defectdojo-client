@@ -51,7 +51,16 @@ def call(args) {
     testPayload.setTargetStart(dateNow + " " + timeNow)
     testPayload.setTargetEnd(dateNow + " " + timeNow)
     MultiValueMap<String, Object> options =  new LinkedMultiValueMap<String, Object>();
-
+    MultiValueMap<String, Object> optionsToGetFindings =  new LinkedMultiValueMap<String, Object>();
+    optionsToGetFindings.add("active", "true")
+    List<Finding> findings = new LinkedList<>();
+    
+    if(args.deduplicationOnEngagement.toBoolean()) {
+        print "yeah"
+        findings = defectDojoService.receiveNonHandledFindings(args.product, engagementName, minimumSeverity, optionsToGetFindings);
+    } else {
+        findings = defectDojoService.receiveNonHandledFindings(args.product, minimumSeverity, optionsToGetFindings);
+    }
     if((args.branchName.equals("master") && args.isFindingInactive.equals("false")) || args.isMarkedAsActive.equals("true")) {
         options.add("active", "true")
         options.add("verified", "true")
@@ -106,14 +115,7 @@ def call(args) {
     }
     if(!keepAllBranches) defectDojoService.deleteUnusedBranches(args.branchesToKeep, args.product)
 
-    MultiValueMap<String, Object> optionsToGetFindings =  new LinkedMultiValueMap<String, Object>();
-    optionsToGetFindings.add("active", "true")
-    List<Finding> findings = new LinkedList<>();
-    if(args.deduplicationOnEngagement.toBoolean()) {
-        findings = defectDojoService.receiveNonHandledFindings(args.product, engagementName, minimumSeverity, optionsToGetFindings);
-    } else {
-        findings = defectDojoService.receiveNonHandledProductFindings(args.product, minimumSeverity, optionsToGetFindings);
-    }
+
     for(Finding finding : findings) {
         println "Finding: " + finding.getTitle() + " " + finding.getSeverity()
     }

@@ -13,4 +13,5 @@ export DD_SOURCE_CODE_MANAGEMENT_URI="" # https://github.com/XYZ
 export DD_IMPORT_TYPE="import" # reimport or import
 export DD_BRANCHES_TO_KEEP="master feature/3"
 export DD_PRODUCT_TYPE=1
+export DD_DEDUPLICATION_ON_ENGAGEMENT="false"
 groovy defectdojo.groovy
