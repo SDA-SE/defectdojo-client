@@ -112,7 +112,7 @@ def call(args) {
     if(args.deduplicationOnEngagement.toBoolean()) {
         findings = defectDojoService.receiveNonHandledFindings(args.product, engagementName, minimumSeverity, optionsToGetFindings);
     } else {
-        findings = defectDojoService.receiveNonHandledFindings(args.product, minimumSeverity, optionsToGetFindings);
+        findings = defectDojoService.receiveNonHandledProductFindings(args.product, minimumSeverity, optionsToGetFindings);
     }
     for(Finding finding : findings) {
         println "Finding: " + finding.getTitle() + " " + finding.getSeverity()
