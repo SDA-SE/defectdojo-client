@@ -21,7 +21,7 @@ String dojoUrl = System.getenv("DD_URL") ?: "http://localhost:8080"
 String reportPath = System.getenv("DD_REPORT_PATH") ?: "/dependency-check-report.xml"
 String reportType = System.getenv("DD_REPORT_TYPE") ?: "Dependency Check Scan"
 String importType = System.getenv("DD_IMPORT_TYPE") ?: "import" // reimport
-int productType = System.getenv("DD_PRODUCT_TYPE").toInteger() ?: 1
+
 String branchName = System.getenv("DD_BRANCH_NAME")
 if(!branchName) {
   println "Error: No branchName"
@@ -68,7 +68,10 @@ if(System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")) {
   deduplicationOnEngagement = System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")
 }
 
-
+int productType = 1
+if(System.getenv("DD_PRODUCT_TYPE") && !System.getenv("DD_PRODUCT_TYPE").isEmpty()) {
+  productType = System.getenv("DD_PRODUCT_TYPE").toInteger()
+}
 
 importToDefectDojo token: token, 
   user: user,
