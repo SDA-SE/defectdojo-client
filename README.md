@@ -18,5 +18,10 @@ This repository uses OWASP SecureCodeBox library for API calls against OWASP Def
 ## Test build like on jenkins (best on rhel 8)
 `BUILD_EXPORT_OCI_ARCHIVES=true buildah unshare ./build.sh`
 
+# Exit Codes
+1: Error, e.g. mandatory parameters are missing
+2: Engagement not found
+10: Vulnerabilities exists
+
 # Credits
 This project is based on https://github.com/secureCodeBox/engine
