@@ -19,9 +19,10 @@ This repository uses OWASP SecureCodeBox library for API calls against OWASP Def
 `BUILD_EXPORT_OCI_ARCHIVES=true buildah unshare ./build.sh`
 
 # Exit Codes
+0: Scan ok, no unhandled vulnerabilties
 1: Error, e.g. mandatory parameters are missing
 2: Engagement not found
-10: Vulnerabilities exists
+10: Unhandled vulnerabilities exists
 
 # Credits
 This project is based on https://github.com/secureCodeBox/engine
