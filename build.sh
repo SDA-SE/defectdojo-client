@@ -59,12 +59,13 @@ buildah config \
   --label "${oci_prefix}.authors=SDA SE Engineers <engineers@sda-se.io>" \
   --label "${oci_prefix}.url=https://quay.io/sdase/defectdojo-client" \
   --label "${oci_prefix}.source=https://github.com/SDA-SE/defectdojo-client" \
-  --label "${oci_prefix}.version=1.0.13" \
+  --label "${oci_prefix}.version=1.0.14" \
   --label "${oci_prefix}.revision=$( git rev-parse HEAD )" \
   --label "${oci_prefix}.vendor=SDA SE Open Industry Solutions" \
   --label "${oci_prefix}.licenses=Apache-2.0" \
   --label "${oci_prefix}.title=OWASP DefectDojo Client" \
   --label "${oci_prefix}.description=OWASP DefectDojo Client" \
+  --label "io.sda-se.image.bill-of-materials-hash="1.0.14" \
   --env "DD_USER=admin" \
   --env 'DD_TOKEN=""' \
   --env 'DD_PRODUCT_NAME=""' \
@@ -80,7 +81,7 @@ buildah config \
   --env 'DD_PRODUCT_TAGS=""' \
   --env 'HOME="/code"' \
   --user 999 \
-  --cmd "/usr/groovy/groovy-2.5.8/bin/groovy /code/defectdojo.groovy" \
+  --cmd "/usr/groovy/groovy-3.0.6/bin/groovy /code/defectdojo.groovy" \
   "${defectdojo_container}"
 
 # Create image
