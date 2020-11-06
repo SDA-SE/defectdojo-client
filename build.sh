@@ -48,7 +48,7 @@ rm apache-groovy-binary.zip
 popd
 
 echo "################################# the following error is not expected, but it still works!"
-${defectdojo_mnt}/usr/groovy/groovy-2.5.8/bin/groovy -Dgrape.root=${defectdojo_mnt}/code/.groovy/ importToDefectDojo.groovy || true # download needed libs
+${defectdojo_mnt}/usr/groovy/groovy-3.0.6/bin/groovy -Dgrape.root=${defectdojo_mnt}/code/.groovy/ importToDefectDojo.groovy || true # download needed libs
 chown -R 999:999 "${defectdojo_mnt}/code/.groovy"
 
 echo "35.242.237.92 defectdojo.sda-se.io" >> ${defectdojo_mnt}/etc/hosts # java is slow, boost performance
