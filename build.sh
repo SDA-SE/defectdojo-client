@@ -16,7 +16,7 @@ image="defectdojo-client"
 scb_container="$(buildah from quay.io/sdase/securecodeboxengine)" # to be changed
 scb_mnt="$(buildah mount "${scb_container}")"
 
-defectdojo_container="$(buildah from quay.io/sdase/openjdk-development:15.0-hotspot)"
+defectdojo_container="$(buildah from quay.io/sdase/openjdk-development:15-hotspot)"
 defectdojo_mnt="$(buildah mount "${defectdojo_container}")"
 
 mkdir -p "${defectdojo_mnt}/code/.groovy/grapes/io.securecodebox.core/sdk/jars/"
