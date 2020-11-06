@@ -65,7 +65,7 @@ buildah config \
   --label "${oci_prefix}.licenses=Apache-2.0" \
   --label "${oci_prefix}.title=OWASP DefectDojo Client" \
   --label "${oci_prefix}.description=OWASP DefectDojo Client" \
-  --label "io.sda-se.image.bill-of-materials-hash="1.0.14" \
+  --label "io.sda-se.image.bill-of-materials-hash=1.0.14" \
   --env "DD_USER=admin" \
   --env 'DD_TOKEN=""' \
   --env 'DD_PRODUCT_NAME=""' \
