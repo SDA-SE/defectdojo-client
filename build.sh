@@ -45,6 +45,7 @@ pushd "${defectdojo_mnt}/usr/groovy"
 curl -L https://dl.bintray.com/groovy/maven/apache-groovy-binary-3.0.6.zip  --output apache-groovy-binary.zip
 unzip apache-groovy-binary.zip
 rm apache-groovy-binary.zip
+ln -s  ${defectdojo_mnt}/usr/groovy/groovy-3.0.6/bin/groovy ${defectdojo_mnt}/usr/bin/grovy
 popd
 
 echo "################################# the following error is not expected, but it still works!"
@@ -59,15 +60,15 @@ buildah config \
   --label "${oci_prefix}.authors=SDA SE Engineers <engineers@sda-se.io>" \
   --label "${oci_prefix}.url=https://quay.io/sdase/defectdojo-client" \
   --label "${oci_prefix}.source=https://github.com/SDA-SE/defectdojo-client" \
-  --label "${oci_prefix}.version=1.0.14" \
+  --label "${oci_prefix}.version=1.0.15" \
   --label "${oci_prefix}.revision=$( git rev-parse HEAD )" \
   --label "${oci_prefix}.vendor=SDA SE Open Industry Solutions" \
   --label "${oci_prefix}.licenses=Apache-2.0" \
   --label "${oci_prefix}.title=OWASP DefectDojo Client" \
   --label "${oci_prefix}.description=OWASP DefectDojo Client" \
-  --label "io.sda-se.image.bill-of-materials-hash=1.0.14" \
+  --label "io.sda-se.image.bill-of-materials-hash=1.0.15" \
   --env "DD_USER=admin" \
-  --env 'DD_TOKEN=""' \
+  --env 'DD_TOKEN=""' \y  
   --env 'DD_PRODUCT_NAME=""' \
   --env 'DD_URL="http://localhost:8080"' \
   --env 'DD_REPORT_PATH="/dependency-check-report.xml"' \
@@ -81,7 +82,7 @@ buildah config \
   --env 'DD_PRODUCT_TAGS=""' \
   --env 'HOME="/code"' \
   --user 999 \
-  --cmd "/usr/groovy/groovy-3.0.6/bin/groovy /code/defectdojo.groovy" \
+  --cmd "/usr/bin/grovy /code/defectdojo.groovy" \
   "${defectdojo_container}"
 
 # Create image
