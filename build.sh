@@ -54,19 +54,19 @@ chown -R 999:999 "${defectdojo_mnt}/code/.groovy"
 
 echo "35.242.237.92 defectdojo.sda-se.io" >> ${defectdojo_mnt}/etc/hosts # java is slow, boost performance
 echo "defectdojo:x:999:999:OWASP DefectDojo,,,:/code:/usr/sbin/nologin" >> ${defectdojo_mnt}/etc/passwd
-
+version=1.0.17
 oci_prefix="org.opencontainers.image"
 buildah config \
   --label "${oci_prefix}.authors=SDA SE Engineers <engineers@sda-se.io>" \
   --label "${oci_prefix}.url=https://quay.io/sdase/defectdojo-client" \
   --label "${oci_prefix}.source=https://github.com/SDA-SE/defectdojo-client" \
-  --label "${oci_prefix}.version=1.0.17" \
+  --label "${oci_prefix}.version=${version}" \
   --label "${oci_prefix}.revision=$( git rev-parse HEAD )" \
   --label "${oci_prefix}.vendor=SDA SE Open Industry Solutions" \
   --label "${oci_prefix}.licenses=Apache-2.0" \
   --label "${oci_prefix}.title=OWASP DefectDojo Client" \
   --label "${oci_prefix}.description=OWASP DefectDojo Client" \
-  --label "io.sda-se.image.bill-of-materials-hash=1.0.14" \
+  --label "io.sda-se.image.bill-of-materials-hash=${version}" \
   --env "DD_USER=admin" \
   --env 'DD_TOKEN=""' \
   --env 'DD_PRODUCT_NAME=""' \
