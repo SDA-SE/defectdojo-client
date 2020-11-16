@@ -45,7 +45,7 @@ pushd "${defectdojo_mnt}/usr/groovy"
 curl -L https://dl.bintray.com/groovy/maven/apache-groovy-binary-3.0.6.zip  --output apache-groovy-binary.zip
 unzip apache-groovy-binary.zip
 rm apache-groovy-binary.zip
-ln -s  ${defectdojo_mnt}/usr/groovy/groovy-3.0.6/bin/groovy ${defectdojo_mnt}/usr/bin/groovy
+ln -s  ${defectdojo_mnt}/usr/groovy/groovy-3.0.6/bin/groovy /usr/bin/groovy
 popd
 
 echo "################################# the following error is not expected, but it still works!"
@@ -60,7 +60,7 @@ buildah config \
   --label "${oci_prefix}.authors=SDA SE Engineers <engineers@sda-se.io>" \
   --label "${oci_prefix}.url=https://quay.io/sdase/defectdojo-client" \
   --label "${oci_prefix}.source=https://github.com/SDA-SE/defectdojo-client" \
-  --label "${oci_prefix}.version=1.0.16" \
+  --label "${oci_prefix}.version=1.0.17" \
   --label "${oci_prefix}.revision=$( git rev-parse HEAD )" \
   --label "${oci_prefix}.vendor=SDA SE Open Industry Solutions" \
   --label "${oci_prefix}.licenses=Apache-2.0" \
