@@ -45,7 +45,7 @@ pushd "${defectdojo_mnt}/usr/groovy"
 curl -L https://dl.bintray.com/groovy/maven/apache-groovy-binary-3.0.6.zip  --output apache-groovy-binary.zip
 unzip apache-groovy-binary.zip
 rm apache-groovy-binary.zip
-ln -s  ${defectdojo_mnt}/usr/groovy/groovy-3.0.6/bin/groovy /usr/bin/groovy
+ln -s  /usr/groovy/groovy-3.0.6/bin/groovy ${defectdojo_mnt}/usr/bin/groovy
 popd
 
 echo "################################# the following error is not expected, but it still works!"
