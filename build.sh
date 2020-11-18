@@ -13,7 +13,7 @@ cleanup() {
 
 image="defectdojo-client"
 
-scb_container="$(buildah from quay.io/sdase/securecodeboxengine:develop)" # to be changed
+scb_container="$(buildah from securecodebox/engine:develop)" # to be changed
 scb_mnt="$(buildah mount "${scb_container}")"
 
 defectdojo_container="$(buildah from quay.io/sdase/openjdk-development:15.0-hotspot)"
