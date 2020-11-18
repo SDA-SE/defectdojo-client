@@ -13,7 +13,7 @@ cleanup() {
 
 image="defectdojo-client"
 
-scb_container="$(buildah from quay.io/sdase/securecodeboxengine)" # to be changed
+scb_container="$(buildah from quay.io/sdase/securecodeboxengine:develop)" # to be changed
 scb_mnt="$(buildah mount "${scb_container}")"
 
 defectdojo_container="$(buildah from quay.io/sdase/openjdk-development:15.0-hotspot)"
@@ -54,7 +54,7 @@ chown -R 999:999 "${defectdojo_mnt}/code/.groovy"
 
 echo "35.242.237.92 defectdojo.sda-se.io" >> ${defectdojo_mnt}/etc/hosts # java is slow, boost performance
 echo "defectdojo:x:999:999:OWASP DefectDojo,,,:/code:/usr/sbin/nologin" >> ${defectdojo_mnt}/etc/passwd
-version=1.0.17
+version=1.0.18
 oci_prefix="org.opencontainers.image"
 buildah config \
   --label "${oci_prefix}.authors=SDA SE Engineers <engineers@sda-se.io>" \
