@@ -55,7 +55,7 @@ chown -R 999:999 "${defectdojo_mnt}/code/.groovy"
 
 echo "defectdojo:x:999:999:OWASP DefectDojo,,,:/code:/usr/sbin/nologin" >> ${defectdojo_mnt}/etc/passwd
 
-version=1.0.18
+version=1.0.20
 oci_prefix="org.opencontainers.image"
 buildah config \
   --label "${oci_prefix}.authors=SDA SE Engineers <engineers@sda-se.io>" \
