@@ -112,9 +112,7 @@ def call(args) {
     if(args.deduplicationOnEngagement.toBoolean()) {
         findings = defectDojoService.receiveNonHandledFindings(args.product, engagementName, minimumSeverity, optionsToGetFindings);
     } else {
-        //findings = defectDojoService.receiveNonHandledProductFindings(args.product, minimumSeverity, optionsToGetFindings);
-        println "Error, this is not supported anymore"
-        System.exit(99)
+        findings = defectDojoService.receiveNonHandledProductFindings(args.product, minimumSeverity, optionsToGetFindings);
     }
     for(Finding finding : findings) {
         println "Finding: " + finding.getTitle() + " " + finding.getSeverity()

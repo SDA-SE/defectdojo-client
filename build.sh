@@ -16,7 +16,8 @@ image="defectdojo-client"
 scb_container="$(buildah from securecodebox/engine:develop)" # to be changed
 scb_mnt="$(buildah mount "${scb_container}")"
 
-defectdojo_container="$(buildah from quay.io/sdase/openjdk-development:15.0-hotspot)"
+_base_image="quay.io/sdase/openjdk-development:15.0-hotspot"
+defectdojo_container="$(buildah from $_base_image)"
 defectdojo_mnt="$(buildah mount "${defectdojo_container}")"
 
 mkdir -p "${defectdojo_mnt}/code/.groovy/grapes/io.securecodebox.core/sdk/jars/"
@@ -52,8 +53,8 @@ echo "################################# the following error is not expected, but
 ${defectdojo_mnt}/usr/groovy/groovy-3.0.6/bin/groovy -Dgrape.root=${defectdojo_mnt}/code/.groovy/ importToDefectDojo.groovy || true # download needed libs
 chown -R 999:999 "${defectdojo_mnt}/code/.groovy"
 
-echo "35.242.237.92 defectdojo.sda-se.io" >> ${defectdojo_mnt}/etc/hosts # java is slow, boost performance
 echo "defectdojo:x:999:999:OWASP DefectDojo,,,:/code:/usr/sbin/nologin" >> ${defectdojo_mnt}/etc/passwd
+
 version=1.0.18
 oci_prefix="org.opencontainers.image"
 buildah config \
