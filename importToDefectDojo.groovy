@@ -7,7 +7,7 @@ import io.securecodebox.persistence.defectdojo.TestType
 @Grab(group='org.codehaus.jackson', module='jackson-mapper-asl', version='1.9.13')
 @Grab(group= 'org.springframework', module='spring-web', version='5.2.12.RELEASE')
 @GrabResolver(name='maven-snapshot', root='https://oss.sonatype.org/content/repositories/snapshots/')
-@Grab("io.securecodebox:defectdojo-client:0.0.2-SNAPSHOT")
+@Grab("io.securecodebox:defectdojo-client:0.0.3-SNAPSHOT")
 
 import io.securecodebox.persistence.defectdojo.config.DefectDojoConfig
 import io.securecodebox.persistence.defectdojo.models.Engagement
@@ -25,7 +25,7 @@ import io.securecodebox.persistence.defectdojo.service.TestService
 import io.securecodebox.persistence.defectdojo.service.UserService;
 
 def call(args) {
-    def conf = new DefectDojoConfig("https://defectdojo-test.tools.sda-se.io/", "200340706073fb8112f2a706b0c71fb1283fa5e5");
+    def conf = new DefectDojoConfig("https://defectdojo-test.tools.sda-se.io/", "200340706073fb8112f2a706b0c71fb1283fa5e5", "clusterscanner");
     def productTypeService = new ProductTypeService(conf);
     def productService = new ProductService(conf);
     def engagementService = new EngagementService(conf)
@@ -137,7 +137,6 @@ def call(args) {
     }
 
     def minimumSeverity = Finding.Severity.High
-    // todo(@j12934) doesn't seem to work correctly
     def findings = findingService.getUnhandledFindingsForEngagement(engagement.id, minimumSeverity)
 
     println("Got ${findings.size()} unhandled findings")
