@@ -13,44 +13,27 @@ cleanup() {
 
 image="defectdojo-client"
 
-scb_container="$(buildah from securecodebox/engine:master)" # to be changed
-scb_mnt="$(buildah mount "${scb_container}")"
-
-_base_image="quay.io/sdase/openjdk-development:15.0-hotspot"
+_base_image="quay.io/sdase/openjdk-runtime:15-hotspot-distroless"
 defectdojo_container="$(buildah from $_base_image)"
 defectdojo_mnt="$(buildah mount "${defectdojo_container}")"
 
-mkdir -p "${defectdojo_mnt}/code/.groovy/grapes/io.securecodebox.core/sdk/jars/"
-mkdir -p "${defectdojo_mnt}/code/.groovy/lib/"
-mkdir -p "${defectdojo_mnt}/code/.groovy/grapes/io.securecodebox.persistenceproviders/defectdojo-persistenceprovider/jars/"
-
-scb_dir_tmp="$(mktemp -d)"
-pushd "${scb_dir_tmp}"
-cp ${scb_mnt}/scb-engine/lib/defectdojo-persistenceprovider-0.0.1-SNAPSHOT-jar-with-dependencies.jar "${defectdojo_mnt}/code/.groovy/grapes/io.securecodebox.persistenceproviders/defectdojo-persistenceprovider/jars/defectdojo-persistenceprovider-0.0.1-SNAPSHOT.jar"
-unzip "${scb_mnt}/scb-engine/app.jar"
-cp ./BOOT-INF/lib/sdk-0.0.1-SNAPSHOT.jar "${defectdojo_mnt}/code/.groovy/grapes/io.securecodebox.core/sdk/jars/sdk-0.0.1-SNAPSHOT.jar"
-cp -r ./BOOT-INF/lib/* "${defectdojo_mnt}/code/.groovy/lib/"
-rm -Rf "${defectdojo_mnt}/code/.groovy/lib/camunda*"
-rm -Rf "${defectdojo_mnt}/code/.groovy/lib/tomcat-embed*"
-rm -Rf "${defectdojo_mnt}/code/.groovy/lib/springfox-swagger*"
-rm -Rf "${defectdojo_mnt}/code/.groovy/lib/mysql*"
-rm -Rf "${defectdojo_mnt}/code/.groovy/lib/h2*"
-rm -Rf "${defectdojo_mnt}/code/.groovy/lib/hiber*"
-popd
+mkdir "${defectdojo_mnt}/code"
+mkdir -p "${defectdojo_mnt}/usr/bin"
 cp defectdojo.groovy "${defectdojo_mnt}/code/defectdojo.groovy"
 cp importToDefectDojo.groovy "${defectdojo_mnt}/code/importToDefectDojo.groovy"
 cp addDependenciesToDescription.groovy "${defectdojo_mnt}/code/addDependenciesToDescription.groovy"
 
+GROOVY_VERSION=3.0.7
 mkdir -p "${defectdojo_mnt}/usr/groovy"
 pushd "${defectdojo_mnt}/usr/groovy"
-curl -L https://dl.bintray.com/groovy/maven/apache-groovy-binary-3.0.6.zip  --output apache-groovy-binary.zip
+curl -L https://dl.bintray.com/groovy/maven/apache-groovy-binary-$GROOVY_VERSION.zip  --output apache-groovy-binary.zip
 unzip apache-groovy-binary.zip
 rm apache-groovy-binary.zip
-ln -s  /usr/groovy/groovy-3.0.6/bin/groovy ${defectdojo_mnt}/usr/bin/groovy
+ln -s  /usr/groovy/groovy-$GROOVY_VERSION/bin/groovy ${defectdojo_mnt}/usr/bin/groovy
 popd
 
 echo "################################# the following error is not expected, but it still works!"
-${defectdojo_mnt}/usr/groovy/groovy-3.0.6/bin/groovy -Dgrape.root=${defectdojo_mnt}/code/.groovy/ importToDefectDojo.groovy || true # download needed libs
+${defectdojo_mnt}/usr/groovy/groovy-$GROOVY_VERSION/bin/groovy -Dgrape.root=${defectdojo_mnt}/code/.groovy/ importToDefectDojo.groovy || true # download needed libs
 chown -R 999:999 "${defectdojo_mnt}/code/.groovy"
 
 echo "defectdojo:x:999:999:OWASP DefectDojo,,,:/code:/usr/sbin/nologin" >> ${defectdojo_mnt}/etc/passwd
