@@ -1,139 +1,156 @@
 #!/usr/bin/env groovy
-
+import io.securecodebox.persistence.defectdojo.ScanType
+import io.securecodebox.persistence.defectdojo.TestType
 @GrabConfig(systemClassLoader=true)
 @Grab(group='com.fasterxml.jackson.core', module='jackson-core', version='2.9.9')
 @Grab(group='com.fasterxml.jackson.core', module='jackson-databind', version='2.9.9.2')
 @Grab(group='org.codehaus.jackson', module='jackson-mapper-asl', version='1.9.13')
-@Grab('io.securecodebox.core:sdk:0.0.1-SNAPSHOT')
-@Grab('io.securecodebox.persistenceproviders:defectdojo-persistenceprovider:0.0.1-SNAPSHOT')
+@Grab(group= 'org.springframework', module='spring-web', version='5.2.12.RELEASE')
+@GrabResolver(name='maven-snapshot', root='https://oss.sonatype.org/content/repositories/snapshots/')
+@Grab("io.securecodebox:defectdojo-client:0.0.2-SNAPSHOT")
 
-import io.securecodebox.persistence.*
-import io.securecodebox.persistence.models.*
-import io.securecodebox.model.rest.Report
-import io.securecodebox.model.securitytest.SecurityTest
-import io.securecodebox.model.execution.Target
-import com.fasterxml.jackson.databind.ObjectMapper
-import org.codehaus.jackson.map.DeserializationConfig
-import org.springframework.util.LinkedMultiValueMap
-import org.springframework.util.MultiValueMap
-import org.springframework.web.util.UriComponentsBuilder
-import org.springframework.web.client.RestTemplate
-import org.springframework.http.*
-import io.securecodebox.persistence.models.TestResponse
-
+import io.securecodebox.persistence.defectdojo.config.DefectDojoConfig
+import io.securecodebox.persistence.defectdojo.models.Engagement
+import io.securecodebox.persistence.defectdojo.models.Finding
+import io.securecodebox.persistence.defectdojo.models.Product
+import io.securecodebox.persistence.defectdojo.models.ProductType
+import io.securecodebox.persistence.defectdojo.models.Test
+import io.securecodebox.persistence.defectdojo.models.User
+import io.securecodebox.persistence.defectdojo.service.EngagementService
+import io.securecodebox.persistence.defectdojo.service.FindingService
+import io.securecodebox.persistence.defectdojo.service.ImportScanService
+import io.securecodebox.persistence.defectdojo.service.ProductService;
+import io.securecodebox.persistence.defectdojo.service.ProductTypeService;
+import io.securecodebox.persistence.defectdojo.service.TestService
+import io.securecodebox.persistence.defectdojo.service.UserService;
 
 def call(args) {
-    DefectDojoService defectDojoService = new DefectDojoService();
+    def conf = new DefectDojoConfig("https://defectdojo-test.tools.sda-se.io/", "200340706073fb8112f2a706b0c71fb1283fa5e5");
+    def productTypeService = new ProductTypeService(conf);
+    def productService = new ProductService(conf);
+    def engagementService = new EngagementService(conf)
+    def testService = new TestService(conf)
+    def userService = new UserService(conf)
+    def findingService = new FindingService(conf)
+    def importScanService = new ImportScanService(conf)
 
-    defectDojoService.defectDojoUrl = args.dojoUrl
-    defectDojoService.defectDojoApiKey = args.token
-    defectDojoService.defectDojoDefaultUserName = args.user
+    def productType = productTypeService.searchUnique(ProductType.builder().name(args.productTypeName).build()).orElseGet { // TODO Parameter in dfectdojo
+        return productTypeService.create(
+                ProductType.builder()
+                        .name(args.productTypeName)
+                        .build()
+        );
+    }
 
-    EngagementPayload engagement = new EngagementPayload()
-    engagement.setBranch args.branchName
-    engagement.setBuildID args.buildId
-    engagement.setDeduplicationOnEngagement args.deduplicationOnEngagement.toBoolean()
+    def product = productService.searchUnique(Product.builder().name(args.productName).productType(productType.id).build()).orElseGet {
+        return productService.create(
+                Product.builder()
+                        .name(args.productName)
+                        .description(args.productName) // TODO
+                        .productType(productType.id)
+                        .tags(["foobar"]) // TODO productTags
+                        .build()
+        );
+    }
 
-    engagement.setRepo args.sourceCodeManagementUri
+    System.out.println("Product:" + product.name);
 
-    String reportContents = new File(args.reportPath).text
+    def engagementObj = Engagement.builder()
+        .name("Dep Check " + args.branchName)
+        .branch(args.branchName)
+        .buildID(args.buildId)
+        .deduplicationOnEngagement(args.deduplicationOnEngagement.toBoolean())
+        .repo(args.sourceCodeManagementUri)
+        .product(product.id)
+        .build()
+
     def date = new Date()
     def dateNow = date.format("yyyy-MM-dd")
     def timeNow = date.format("HH:mm:ss")
-    def engagementName = "Dep Check " + args.branchName
+
+    def engagement = engagementService.searchUnique(engagementObj).orElseGet {
+        engagementObj.setTargetStart(dateNow)
+        engagementObj.setTargetEnd(dateNow)
+
+        return engagementService.create(engagementObj);
+    }
+
+    //TODO Test with reimport
+
+    def leadUser = userService.searchUnique(User.builder().username(args.leadUsername).build()).orElseThrow {
+        return new RuntimeException("Failed to find user '${args.leadUsername}' in DefectDojo")
+    }
+
+    def test = testService.create(
+            Test.builder()
+                    .title(args.reportType)
+                    .targetStart(dateNow + " " + timeNow)
+                    .targetEnd(dateNow + " " + timeNow)
+                    .engagement(engagement.id)
+                    .percentComplete(100L)
+                    .lead(leadUser.id)
+                    .testType(TestType.STATIC_CHECK.id)
+                    .build()
+    )
+
+    String reportContents = new File(args.reportPath).text
+
     def reportType = args.reportType
     // In DefectDojo Version 1.5.4 you can specify test_type/testName; BE AWARE: close_old_findings will not work by using something else than reportType
-    def testName = reportType // "${engagementName} ${timeNow}"
-    def minimumSeverity = "High"
-    
-    TestPayload testPayload = new TestPayload()
-    testPayload.setTitle(testName) // for DefectDojo < 1.5.4 'null' should be used, afterwards testName can be given
-    testPayload.setTargetStart(dateNow + " " + timeNow)
-    testPayload.setTargetEnd(dateNow + " " + timeNow)
-    MultiValueMap<String, Object> options =  new LinkedMultiValueMap<String, Object>();
 
+    def response = importScanService.reimportScan(
+            reportContents,
+            test.id,
+            leadUser.id,
+            dateNow,
+            ScanType.DEPENDENCY_CHECK_SCAN, // TODO
+            TestType.STATIC_CHECK
+    )
+
+    println("Uploaded Finding.")
+
+
+/* todo(@j12934)
+    MultiValueMap<String, Object> options =  new LinkedMultiValueMap<String, Object>();
     if((args.branchName.equals("master") && args.isFindingInactive.equals("false")) || args.isMarkedAsActive.equals("true")) {
         options.add("active", "true")
         options.add("verified", "true")
-        testPayload.setEnvironment("3")
     }else {
         options.add("active", "false")
         options.add("verified", "false")
-        testPayload.setEnvironment("1")
     }
+    */
 
-    if(args.importType.equals("import")) {
-        defectDojoService.createFindingsForEngagementName(
-            engagementName,
-            reportContents,
-            reportType,
-            args.product,
-            args.lead,
-            engagement,
-            testName,
-            options,
-            "No Description",
-            args.productTags,
-            args.productType
-        );
-    }else if(args.importType.equals("reimport")) {
-        defectDojoService.createFindingsReImport(
-            reportContents, 
-            args.product, 
-            engagementName,  
-            args.lead, 
-            dateNow, 
-            reportType, 
-            engagement, 
-            testPayload, 
-            options,
-            "No Description",
-            args.productTags,
-            args.productType)
-    }else {
-        println "Error: importType not known"
-        return
-    }
+    // Delete engagements for deleted branches
+    List<String> branchesToKeep = args.branchesToKeep
+    if (!branchesToKeep.contains("*")) {
+        engagementService.search([ product: Long.toString(product.id) ]).each {
+            println("Engagement: '${it.name}', Branch: '${it.branch}'")
 
-    def keepAllBranches = false;
-    for (branchToKeep in args.branchesToKeep) {
-        if(branchToKeep.equals("*")) {
-            keepAllBranches=true;
-            break;
-        } else {
-            println "Will keep the enagagement with branch '${branchToKeep}' in DefectDojo"
+            if (branchesToKeep.contains(it.branch)) {
+                return
+            }
+
+            println("Deleting Engagment(${it.name}) for branch ${it.branch}")
+            engagementService.delete(it.id)
         }
     }
-    if(!keepAllBranches) defectDojoService.deleteUnusedBranches(args.branchesToKeep, args.product)
 
-    MultiValueMap<String, Object> optionsToGetFindings =  new LinkedMultiValueMap<String, Object>();
-    optionsToGetFindings.add("active", "true")
-    List<Finding> findings = new LinkedList<>();
-    if(args.deduplicationOnEngagement.toBoolean()) {
-        findings = defectDojoService.receiveNonHandledFindings(args.product, engagementName, minimumSeverity, optionsToGetFindings);
-    } else {
-        findings = defectDojoService.receiveNonHandledProductFindings(args.product, minimumSeverity, optionsToGetFindings);
-    }
-    for(Finding finding : findings) {
-        println "Finding: " + finding.getTitle() + " " + finding.getSeverity()
-    }
-    long findingSize = findings.size()
+    def minimumSeverity = Finding.Severity.High
+    // todo(@j12934) doesn't seem to work correctly
+    def findings = findingService.getUnhandledFindingsForEngagement(engagement.id, minimumSeverity)
 
-    def testId = defectDojoService.getLatestTestIdByEngagementName(engagementName, args.product, testName, 0L)
-    if(!testId.isPresent()){
-        println "Could not find engagement"
-        System.exit(2)
-    }    
-    def defectDojoTestLink = args.dojoUrl + "/test/" + testId.get();
+    println("Got ${findings.size()} unhandled findings")
+
+    def defectDojoTestLink = args.dojoUrl + "/test/" + test.id;
 
     File file = new File("defectDojoTestLink.txt")
     file.write defectDojoTestLink
     println "DefectDojo test with scan results can be viewed at $defectDojoTestLink"
 
-    if(findingSize > 0) {
+    if(findings.size() > 0) {
         // Mark build as unstable
-        println "$findingSize vulnerabilities found with severity $minimumSeverity or higher"
+        println "${findings.size()} vulnerabilities found with severity $minimumSeverity or higher"
         System.exit(10)
     }
 }
-

@@ -1,8 +1,10 @@
 #!/bin/bash
 
-ENGINE_PATH="/home/tpagel/git/securecodebox/engine/"
+ENGINE_PATH="/home/tpagel/git/securecodebox/defectdojo-client-java"
 
-cp $ENGINE_PATH/scb-sdk/target/sdk-0.0.1-SNAPSHOT.jar lib/ ; cp $ENGINE_PATH/scb-persistenceproviders/defectdojo-persistenceprovider/target/defectdojo-persistenceprovider-0.0.1-SNAPSHOT-jar-with-dependencies.jar lib/ ; rm -Rf $HOME/.groovy/grapes/io.securecodebo*; rm -Rf $HOME./repository/io/securecodebox
+VERSION=0.0.1-SNAPSHOT
+#mkdir -p ~/.groovy/grapes/io.securecodebox/defectdojo-client/jars/ || true
+#cp $ENGINE_PATH/build/libs/defectdojo-client-1.0-SNAPSHOT.jar ~/.groovy/grapes/io.securecodebox/defectdojo-client/jars/defectdojo-client-${VERSION}.jar
 
 export DD_TOKEN="8319a3b466240ef6e162f5d26eafc336e693f840"
 export DD_PRODUCT_NAME="test8"

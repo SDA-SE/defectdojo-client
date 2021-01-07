@@ -15,12 +15,12 @@ if(!productName) {
   return
 }
 
-String user = System.getenv("DD_USER") ?: "admin"
-String dojoUrl = System.getenv("DD_URL") ?: "http://localhost:8080"
+String user = System.getenv("DD_USER") ?: "clusterscanner"
+String dojoUrl = System.getenv("DD_URL") ?: "https://defectdojo-test.tools.sda-se.io/"
 
 String reportPath = System.getenv("DD_REPORT_PATH") ?: "/dependency-check-report.xml"
 String reportType = System.getenv("DD_REPORT_TYPE") ?: "Dependency Check Scan"
-String importType = System.getenv("DD_IMPORT_TYPE") ?: "import" // reimport
+String importType = System.getenv("DD_IMPORT_TYPE") ?: "import"
 
 String branchName = System.getenv("DD_BRANCH_NAME")
 if(!branchName) {
@@ -76,7 +76,7 @@ if(System.getenv("DD_PRODUCT_TYPE") && !System.getenv("DD_PRODUCT_TYPE").isEmpty
 importToDefectDojo token: token, 
   user: user,
   dojoUrl: dojoUrl,
-  product: productName,
+  productName: productName,
   reportPath: reportPath,
   branchName: branchName,
   lead: lead,
@@ -89,4 +89,6 @@ importToDefectDojo token: token,
   productTags: productTags,
   deduplicationOnEngagement: deduplicationOnEngagement,
   isFindingInactive: isFindingInactive,
-  productType: productType
+  productType: productType,
+  productTypeName: "mrkaplan", //TODO
+  leadUsername: "clusterscanner"
