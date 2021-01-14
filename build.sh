@@ -59,7 +59,7 @@ buildah config \
   --env 'DD_IMPORT_TYPE="import"' \
   --env 'DD_BRANCH_NAME=""' \
   --env 'DD_LEAD=1' \
-  --env 'DD_PRODUCT_TYPE=1' \
+  --env 'DD_TEAM=mrkaplan' \
   --env 'DD_BUILD_ID="1"' \
   --env 'DD_SOURCE_CODE_MANAGEMENT_URI=""' \
   --env 'DD_BRANCHES_TO_KEEP=""' \
