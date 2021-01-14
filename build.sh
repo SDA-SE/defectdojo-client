@@ -23,6 +23,7 @@ mnt_tools="$( buildah mount "${ctr_tools}" )"
 
 mkdir "${defectdojo_mnt}/code"
 mkdir -p "${defectdojo_mnt}/usr/bin"
+mkdir -p "${defectdojo_mnt}/bin"
 cp defectdojo.groovy "${defectdojo_mnt}/code/defectdojo.groovy"
 cp importToDefectDojo.groovy "${defectdojo_mnt}/code/importToDefectDojo.groovy"
 cp addDependenciesToDescription.groovy "${defectdojo_mnt}/code/addDependenciesToDescription.groovy"
