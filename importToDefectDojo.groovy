@@ -34,7 +34,7 @@ def call(args) {
     def findingService = new FindingService(conf)
     def importScanService = new ImportScanService(conf)
 
-    def productType = productTypeService.searchUnique(ProductType.builder().name(args.productTypeName).build()).orElseGet { // TODO Parameter in dfectdojo
+    def productType = productTypeService.searchUnique(ProductType.builder().name(args.productTypeName).build()).orElseGet {
         return productTypeService.create(
                 ProductType.builder()
                         .name(args.productTypeName)
@@ -46,9 +46,9 @@ def call(args) {
         return productService.create(
                 Product.builder()
                         .name(args.productName)
-                        .description(args.productName) // TODO
+                        .description(args.productDescription)
                         .productType(productType.id)
-                        .tags(["foobar"]) // TODO productTags
+                        .tags(args.productTags)
                         .build()
         );
     }
@@ -90,6 +90,7 @@ def call(args) {
                     .percentComplete(100L)
                     .lead(leadUser.id)
                     .testType(TestType.STATIC_CHECK.id)
+                    .description(args.testDescription)
                     .build()
     )
 

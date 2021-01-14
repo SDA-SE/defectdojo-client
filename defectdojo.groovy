@@ -15,6 +15,8 @@ if(!productName) {
   return
 }
 
+String productDescription = System.getenv("DD_PRODUCT_DESCRIPTION") ?: productName
+
 String user = System.getenv("DD_USER") ?: "clusterscanner"
 String dojoUrl = System.getenv("DD_URL") ?: "https://defectdojo-test.tools.sda-se.io/"
 
@@ -69,12 +71,14 @@ if(System.getenv("DD_TEAM") && !System.getenv("DD_TEAM").isEmpty()) {
 }
 
 String leadUsername = System.getenv("DD_LEAD_USERNAME") ?: "clusterscanner"
+String testDescription = System.getenv("DD_TEST_DESCRIPTION") ?: ""
 
 
 importToDefectDojo token: token,
   user: user,
   dojoUrl: dojoUrl,
   productName: productName,
+  productDescription: productDescription,
   reportPath: reportPath,
   branchName: branchName,
   buildId: buildId,
@@ -86,4 +90,6 @@ importToDefectDojo token: token,
   deduplicationOnEngagement: deduplicationOnEngagement,
   isFindingInactive: isFindingInactive,
   productTypeName: productType,
-  leadUsername: leadUsername
+  leadUsername: leadUsername,
+  testDescription: testDescription
+

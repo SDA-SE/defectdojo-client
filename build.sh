@@ -54,6 +54,7 @@ buildah config \
   --env "DD_USER=admin" \
   --env 'DD_TOKEN=""' \
   --env 'DD_PRODUCT_NAME=""' \
+  --env 'DD_PRODUCT_DESCRIPTION=""' \
   --env 'DD_URL="http://localhost:8080"' \
   --env 'DD_REPORT_PATH="/dependency-check-report.xml"' \
   --env 'DD_IMPORT_TYPE="import"' \
