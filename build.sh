@@ -13,7 +13,7 @@ cleanup() {
 
 image="defectdojo-client"
 
-_base_image="quay.io/sdase/openjdk-runtime:15-hotspot-distroless"
+_base_image="quay.io/sdase/openjdk-runtime:15-hotspot" # -distroless not possible, it is used in jenkins which starts "cat"
 defectdojo_container="$(buildah from $_base_image)"
 defectdojo_mnt="$(buildah mount "${defectdojo_container}")"
 
@@ -89,3 +89,4 @@ then
     "oci-archive:${build_dir}/${image//:/-}.tar"
     buildah rmi "${image}"
 fi
+
