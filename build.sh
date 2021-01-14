@@ -45,17 +45,7 @@ chown -R 999:999 "${defectdojo_mnt}/code/.groovy"
 
 echo "defectdojo:x:999:999:OWASP DefectDojo,,,:/code:/usr/sbin/nologin" >> ${defectdojo_mnt}/etc/passwd
 
-bill_of_materials="$(buildah run --volume ${defectdojo_mnt}:/mnt ${ctr_tools} -- /usr/bin/rpm \
-  --query \
-  --all \
-  --queryformat "%{NAME} %{VERSION} %{RELEASE} %{ARCH}" \
-  --dbpath="/mnt/var/lib/rpm" \
-  | sort )"
-
-bill_of_materials_hash="$( ( cat "${0}";
-  echo "${bill_of_materials}"; \
-  cat *;
-  ) | sha256sum | awk '{ print $1; }' )"
+bill_of_materials_hash="$(find -type f -exec md5sum "{}" + ${defectdojo_mnt})"
 version=2.0.0
 oci_prefix="org.opencontainers.image"
 buildah config \
