@@ -45,6 +45,17 @@ chown -R 999:999 "${defectdojo_mnt}/code/.groovy"
 
 echo "defectdojo:x:999:999:OWASP DefectDojo,,,:/code:/usr/sbin/nologin" >> ${defectdojo_mnt}/etc/passwd
 
+bill_of_materials="$(buildah run --volume ${defectdojo_mnt}:/mnt ${ctr_tools} -- /usr/bin/rpm \
+  --query \
+  --all \
+  --queryformat "%{NAME} %{VERSION} %{RELEASE} %{ARCH}" \
+  --dbpath="/mnt/var/lib/rpm" \
+  | sort )"
+
+bill_of_materials_hash="$( ( cat "${0}";
+  echo "${bill_of_materials}"; \
+  cat *;
+  ) | sha256sum | awk '{ print $1; }' )"
 version=2.0.0
 oci_prefix="org.opencontainers.image"
 buildah config \
@@ -57,7 +68,7 @@ buildah config \
   --label "${oci_prefix}.licenses=Apache-2.0" \
   --label "${oci_prefix}.title=OWASP DefectDojo Client" \
   --label "${oci_prefix}.description=OWASP DefectDojo Client" \
-  --label "io.sda-se.image.bill-of-materials-hash=${version}" \
+  --label "io.sda-se.image.bill-of-materials-hash=${bill_of_materials_hash}" \
   --env "DD_USER=admin" \
   --env 'DD_TOKEN=""' \
   --env 'DD_PRODUCT_NAME=""' \
