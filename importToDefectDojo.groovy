@@ -110,18 +110,6 @@ def call(args) {
 
     println("Uploaded Finding.")
 
-
-/* todo(@j12934)
-    MultiValueMap<String, Object> options =  new LinkedMultiValueMap<String, Object>();
-    if((args.branchName.equals("master") && args.isFindingInactive.equals("false")) || args.isMarkedAsActive.equals("true")) {
-        options.add("active", "true")
-        options.add("verified", "true")
-    }else {
-        options.add("active", "false")
-        options.add("verified", "false")
-    }
-    */
-
     // Delete engagements for deleted branches
     List<String> branchesToKeep = args.branchesToKeep
     if (!branchesToKeep.contains("*")) {
@@ -137,6 +125,7 @@ def call(args) {
         }
     }
 
+    //TOOD Timo Deaktivierung nicht master
     def minimumSeverity = Finding.Severity.High
     def findings = findingService.getUnhandledFindingsForEngagement(engagement.id, minimumSeverity)
 
