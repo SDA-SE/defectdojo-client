@@ -17,11 +17,18 @@ _base_image="quay.io/sdase/openjdk-runtime:15-hotspot-distroless"
 defectdojo_container="$(buildah from $_base_image)"
 defectdojo_mnt="$(buildah mount "${defectdojo_container}")"
 
+base_image="registry.access.redhat.com/ubi8/ubi-minimal"
+ctr_tools="$( buildah from --pull --quiet ${base_image} )"
+mnt_tools="$( buildah mount "${ctr_tools}" )"
+
 mkdir "${defectdojo_mnt}/code"
 mkdir -p "${defectdojo_mnt}/usr/bin"
+mkdir -p "${defectdojo_mnt}/bin"
 cp defectdojo.groovy "${defectdojo_mnt}/code/defectdojo.groovy"
 cp importToDefectDojo.groovy "${defectdojo_mnt}/code/importToDefectDojo.groovy"
 cp addDependenciesToDescription.groovy "${defectdojo_mnt}/code/addDependenciesToDescription.groovy"
+
+cp "${mnt_tools}/bin/cat" "${defectdojo_mnt}/bin/cat" # needed for jenkins pipeline which starts a container with cat
 
 GROOVY_VERSION=3.0.7
 mkdir -p "${defectdojo_mnt}/usr/groovy"
@@ -38,7 +45,8 @@ chown -R 999:999 "${defectdojo_mnt}/code/.groovy"
 
 echo "defectdojo:x:999:999:OWASP DefectDojo,,,:/code:/usr/sbin/nologin" >> ${defectdojo_mnt}/etc/passwd
 
-version=2.0.21
+bill_of_materials_hash="$(find ${defectdojo_mnt} -type f -exec md5sum "{}" +)"
+version=2.0.0
 oci_prefix="org.opencontainers.image"
 buildah config \
   --label "${oci_prefix}.authors=SDA SE Engineers <engineers@sda-se.io>" \
@@ -50,16 +58,17 @@ buildah config \
   --label "${oci_prefix}.licenses=Apache-2.0" \
   --label "${oci_prefix}.title=OWASP DefectDojo Client" \
   --label "${oci_prefix}.description=OWASP DefectDojo Client" \
-  --label "io.sda-se.image.bill-of-materials-hash=${version}" \
+  --label "io.sda-se.image.bill-of-materials-hash=${bill_of_materials_hash}" \
   --env "DD_USER=admin" \
   --env 'DD_TOKEN=""' \
   --env 'DD_PRODUCT_NAME=""' \
+  --env 'DD_PRODUCT_DESCRIPTION=""' \
   --env 'DD_URL="http://localhost:8080"' \
   --env 'DD_REPORT_PATH="/dependency-check-report.xml"' \
   --env 'DD_IMPORT_TYPE="import"' \
   --env 'DD_BRANCH_NAME=""' \
   --env 'DD_LEAD=1' \
-  --env 'DD_PRODUCT_TYPE=1' \
+  --env 'DD_TEAM=mrkaplan' \
   --env 'DD_BUILD_ID="1"' \
   --env 'DD_SOURCE_CODE_MANAGEMENT_URI=""' \
   --env 'DD_BRANCHES_TO_KEEP=""' \

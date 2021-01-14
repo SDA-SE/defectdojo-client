@@ -15,12 +15,13 @@ if(!productName) {
   return
 }
 
+String productDescription = System.getenv("DD_PRODUCT_DESCRIPTION") ?: productName
+
 String user = System.getenv("DD_USER") ?: "clusterscanner"
-String dojoUrl = System.getenv("DD_URL") ?: "https://defectdojo-test.tools.sda-se.io/"
+String dojoUrl = System.getenv("DD_URL") ?: "https://localhost:8080/"
 
 String reportPath = System.getenv("DD_REPORT_PATH") ?: "/dependency-check-report.xml"
 String reportType = System.getenv("DD_REPORT_TYPE") ?: "Dependency Check Scan"
-String importType = System.getenv("DD_IMPORT_TYPE") ?: "import"
 
 String branchName = System.getenv("DD_BRANCH_NAME")
 if(!branchName) {
@@ -28,11 +29,6 @@ if(!branchName) {
   return
 }
 
-String leadTemp = System.getenv("DD_LEAD")
-if(!leadTemp) {
-  leadTemp = "1"
-}
-long lead = Long.valueOf(leadTemp)
 String buildId = System.getenv("DD_BUILD_ID")
 String sourceCodeManagementUri = System.getenv("DD_SOURCE_CODE_MANAGEMENT_URI")
 
@@ -68,27 +64,32 @@ if(System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")) {
   deduplicationOnEngagement = System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")
 }
 
-int productType = 1
-if(System.getenv("DD_PRODUCT_TYPE") && !System.getenv("DD_PRODUCT_TYPE").isEmpty()) {
-  productType = System.getenv("DD_PRODUCT_TYPE").toInteger()
+String productType = "unset-team"
+if(System.getenv("DD_TEAM") && !System.getenv("DD_TEAM").isEmpty()) {
+  productType = System.getenv("DD_TEAM")
+  productTags.add(System.getenv("DD_TEAM"))
 }
 
-importToDefectDojo token: token, 
+String leadUsername = System.getenv("DD_LEAD_USERNAME") ?: "clusterscanner"
+String testDescription = System.getenv("DD_TEST_DESCRIPTION") ?: ""
+
+
+importToDefectDojo token: token,
   user: user,
   dojoUrl: dojoUrl,
   productName: productName,
+  productDescription: productDescription,
   reportPath: reportPath,
   branchName: branchName,
-  lead: lead,
   buildId: buildId,
   sourceCodeManagementUri: sourceCodeManagementUri,
-  importType: importType,
   branchesToKeep: branchesToKeep,
   isMarkedAsActive: isMarkedAsActive,
   reportType: reportType,
   productTags: productTags,
   deduplicationOnEngagement: deduplicationOnEngagement,
   isFindingInactive: isFindingInactive,
-  productType: productType,
-  productTypeName: "mrkaplan", //TODO
-  leadUsername: "clusterscanner"
+  productTypeName: productType,
+  leadUsername: leadUsername,
+  testDescription: testDescription
+
