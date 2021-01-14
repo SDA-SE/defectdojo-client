@@ -18,7 +18,7 @@ if(!productName) {
 String productDescription = System.getenv("DD_PRODUCT_DESCRIPTION") ?: productName
 
 String user = System.getenv("DD_USER") ?: "clusterscanner"
-String dojoUrl = System.getenv("DD_URL") ?: "https://defectdojo-test.tools.sda-se.io/"
+String dojoUrl = System.getenv("DD_URL") ?: "https://localhost:8080/"
 
 String reportPath = System.getenv("DD_REPORT_PATH") ?: "/dependency-check-report.xml"
 String reportType = System.getenv("DD_REPORT_TYPE") ?: "Dependency Check Scan"
