@@ -45,7 +45,7 @@ chown -R 999:999 "${defectdojo_mnt}/code/.groovy"
 
 echo "defectdojo:x:999:999:OWASP DefectDojo,,,:/code:/usr/sbin/nologin" >> ${defectdojo_mnt}/etc/passwd
 
-bill_of_materials_hash="$(find -type f -exec md5sum "{}" + ${defectdojo_mnt})"
+bill_of_materials_hash="$(find ${defectdojo_mnt} -type f -exec md5sum "{}" +)"
 version=2.0.0
 oci_prefix="org.opencontainers.image"
 buildah config \
