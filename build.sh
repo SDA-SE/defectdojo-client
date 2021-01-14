@@ -17,7 +17,7 @@ _base_image="quay.io/sdase/openjdk-runtime:15-hotspot-distroless"
 defectdojo_container="$(buildah from $_base_image)"
 defectdojo_mnt="$(buildah mount "${defectdojo_container}")"
 
-base_image="registry.access.redhat.com/ubi8/ubi-init"
+base_image="registry.access.redhat.com/ubi8/ubi-minimal"
 ctr_tools="$( buildah from --pull --quiet ${base_image} )"
 mnt_tools="$( buildah mount "${ctr_tools}" )"
 
