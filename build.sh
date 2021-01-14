@@ -17,11 +17,17 @@ _base_image="quay.io/sdase/openjdk-runtime:15-hotspot-distroless"
 defectdojo_container="$(buildah from $_base_image)"
 defectdojo_mnt="$(buildah mount "${defectdojo_container}")"
 
+base_image="registry.access.redhat.com/ubi8/ubi-init"
+ctr_tools="$( buildah from --pull --quiet ${base_image} )"
+mnt_tools="$( buildah mount "${ctr_tools}" )"
+
 mkdir "${defectdojo_mnt}/code"
 mkdir -p "${defectdojo_mnt}/usr/bin"
 cp defectdojo.groovy "${defectdojo_mnt}/code/defectdojo.groovy"
 cp importToDefectDojo.groovy "${defectdojo_mnt}/code/importToDefectDojo.groovy"
 cp addDependenciesToDescription.groovy "${defectdojo_mnt}/code/addDependenciesToDescription.groovy"
+
+cp "${mnt_tools}/bin/cat" "${defectdojo_mnt}/bin/cat" # needed for jenkins pipeline which starts a container with cat
 
 GROOVY_VERSION=3.0.7
 mkdir -p "${defectdojo_mnt}/usr/groovy"
