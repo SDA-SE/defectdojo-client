@@ -125,7 +125,6 @@ def call(args) {
         }
     }
 
-    //TOOD Timo Deaktivierung nicht master
     def minimumSeverity = Finding.Severity.High
     def findings = findingService.getUnhandledFindingsForEngagement(engagement.id, minimumSeverity)
 
