@@ -1,10 +1,10 @@
 #!/bin/bash
 
-ENGINE_PATH="/home/tpagel/git/securecodebox/engine/"
+ENGINE_PATH="/home/tpagel/git/securecodebox/defectdojo-client-java"
 
 CURRENT_PATH=$(pwd)
 cd $ENGINE_PATH
-mvn clean install -T6 -DskipTests=true -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+./gradlew build
 exitcode=$?
 cd $CURRENT_PATH
 exit $exitcode

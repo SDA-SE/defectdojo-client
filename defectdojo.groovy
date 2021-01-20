@@ -15,45 +15,25 @@ if(!productName) {
   return
 }
 
-String user = System.getenv("DD_USER") ?: "admin"
-String dojoUrl = System.getenv("DD_URL") ?: "http://localhost:8080"
-
-String reportPath = System.getenv("DD_REPORT_PATH") ?: "/dependency-check-report.xml"
-String reportType = System.getenv("DD_REPORT_TYPE") ?: "Dependency Check Scan"
-String importType = System.getenv("DD_IMPORT_TYPE") ?: "import" // reimport
-
 String branchName = System.getenv("DD_BRANCH_NAME")
 if(!branchName) {
   println "Error: No branchName"
   return
 }
 
-String leadTemp = System.getenv("DD_LEAD")
-if(!leadTemp) {
-  leadTemp = "1"
-}
-long lead = Long.valueOf(leadTemp)
+String productDescription = System.getenv("DD_PRODUCT_DESCRIPTION") ?: productName
+
+String dojoUser = System.getenv("DD_USER") ?: "clusterscanner"
+String dojoUrl = System.getenv("DD_URL") ?: "https://localhost:8080/"
+
+String reportPath = System.getenv("DD_REPORT_PATH") ?: "/dependency-check-report-10.xml"
+String scanType = System.getenv("DD_REPORT_TYPE") ?: "Dependency Check Scan"
+
 String buildId = System.getenv("DD_BUILD_ID")
 String sourceCodeManagementUri = System.getenv("DD_SOURCE_CODE_MANAGEMENT_URI")
 
-String branchesToKeepFromEnv =  System.getenv("DD_BRANCHES_TO_KEEP")
-
-// passing boolean values is not possible
-// inactive, because it can be inactive due to beeing a branch, also
-String isFindingInactive = "false"
-if (System.getenv("DD_IS_MARKED_AS_INACTIVE")) {
-  isFindingInactive = System.getenv("DD_IS_MARKED_AS_INACTIVE")
-}
-
-//overwrites isFindingInactive
-String isMarkedAsActive = System.getenv("DD_IS_MARKED_AS_ACTIVE") ?: "false"
-List<String> branchesToKeep;
-if(!branchesToKeepFromEnv) {
-  println "Error: No DD_BRANCHES_TO_KEEP"
-  return
-}else {
-  branchesToKeep = branchesToKeepFromEnv.replace('"', '').split(' ')
-}
+String branchesToKeepFromEnv =  System.getenv("DD_BRANCHES_TO_KEEP") ?: "*"
+List<String> branchesToKeep = branchesToKeepFromEnv.replace('"', '').split(' ')
 
 String tagsAsString =  System.getenv("DD_PRODUCT_TAGS")
 List<String> productTags;
@@ -68,25 +48,30 @@ if(System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")) {
   deduplicationOnEngagement = System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")
 }
 
-int productType = 1
-if(System.getenv("DD_PRODUCT_TYPE") && !System.getenv("DD_PRODUCT_TYPE").isEmpty()) {
-  productType = System.getenv("DD_PRODUCT_TYPE").toInteger()
+String productType = "unset-team"
+if(System.getenv("DD_TEAM") && !System.getenv("DD_TEAM").isEmpty()) {
+  productType = System.getenv("DD_TEAM")
+  productTags.add(System.getenv("DD_TEAM"))
 }
 
-importToDefectDojo token: token, 
-  user: user,
+String leadUsername = System.getenv("DD_LEAD_USERNAME") ?: dojoUser
+String testDescription = System.getenv("DD_TEST_DESCRIPTION") ?: ""
+
+
+importToDefectDojo dojoToken: token,
+  dojoUser: dojoUser,
   dojoUrl: dojoUrl,
-  product: productName,
+  productName: productName,
+  productDescription: productDescription,
   reportPath: reportPath,
   branchName: branchName,
-  lead: lead,
   buildId: buildId,
   sourceCodeManagementUri: sourceCodeManagementUri,
-  importType: importType,
   branchesToKeep: branchesToKeep,
-  isMarkedAsActive: isMarkedAsActive,
-  reportType: reportType,
+  scanType: scanType,
   productTags: productTags,
   deduplicationOnEngagement: deduplicationOnEngagement,
-  isFindingInactive: isFindingInactive,
-  productType: productType
+  productTypeName: productType,
+  leadUsername: leadUsername,
+  testDescription: testDescription
+

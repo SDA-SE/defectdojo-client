@@ -1,15 +1,8 @@
 # DefectDojo Java Client Library
-This repository uses OWASP SecureCodeBox library for API calls against OWASP DefectDojo. It is especially useful for Jenkins builds in the Jenkinsfile.
-
-
-
-# Jenkins integration
-
+This repository uses OWASP SecureCodeBox defectdojo client library for API calls against OWASP DefectDojo. It is especially useful for Jenkins builds in the Jenkinsfile.
 
 # Development
-
 * `defectdojo.groovy` simulates Jenkins, all parameters (e.g. token) needs to be adjusted here
-* Build libs in engine folder
 * Copy libs and run
 `/copyLibs.bash && groovy defectdojo.groovy`
 
@@ -25,4 +18,4 @@ This repository uses OWASP SecureCodeBox library for API calls against OWASP Def
 * 10: Unhandled vulnerabilities exists
 
 # Credits
-This project is based on https://github.com/secureCodeBox/engine
+This project is based on https://github.com/secureCodeBox/defectdojo-client-java

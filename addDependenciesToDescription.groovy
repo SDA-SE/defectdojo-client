@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def dependencyCheckReportPath = args[0] // e.g. 'build/reports/dependency-check-report.xml'
+def dependencyCheckReportPath = args[0] // e.g. 'build/reports/dependency-check-report-10.xml'
 def dependencies = new File(args[1]).text // e.g. 'dependencies.txt'
 
 def list = new XmlSlurper(false, false).parse(dependencyCheckReportPath)

@@ -13,49 +13,44 @@ cleanup() {
 
 image="defectdojo-client"
 
-scb_container="$(buildah from securecodebox/engine:master)" # to be changed
-scb_mnt="$(buildah mount "${scb_container}")"
-
-_base_image="quay.io/sdase/openjdk-development:15.0-hotspot"
+_base_image="quay.io/sdase/openjdk-runtime:15-hotspot" # -distroless not possible, it is used in jenkins which starts "cat"
 defectdojo_container="$(buildah from $_base_image)"
 defectdojo_mnt="$(buildah mount "${defectdojo_container}")"
 
-mkdir -p "${defectdojo_mnt}/code/.groovy/grapes/io.securecodebox.core/sdk/jars/"
-mkdir -p "${defectdojo_mnt}/code/.groovy/lib/"
-mkdir -p "${defectdojo_mnt}/code/.groovy/grapes/io.securecodebox.persistenceproviders/defectdojo-persistenceprovider/jars/"
+base_image="registry.access.redhat.com/ubi8/ubi-minimal"
+ctr_tools="$( buildah from --pull --quiet ${base_image} )"
+mnt_tools="$( buildah mount "${ctr_tools}" )"
 
-scb_dir_tmp="$(mktemp -d)"
-pushd "${scb_dir_tmp}"
-cp ${scb_mnt}/scb-engine/lib/defectdojo-persistenceprovider-0.0.1-SNAPSHOT-jar-with-dependencies.jar "${defectdojo_mnt}/code/.groovy/grapes/io.securecodebox.persistenceproviders/defectdojo-persistenceprovider/jars/defectdojo-persistenceprovider-0.0.1-SNAPSHOT.jar"
-unzip "${scb_mnt}/scb-engine/app.jar"
-cp ./BOOT-INF/lib/sdk-0.0.1-SNAPSHOT.jar "${defectdojo_mnt}/code/.groovy/grapes/io.securecodebox.core/sdk/jars/sdk-0.0.1-SNAPSHOT.jar"
-cp -r ./BOOT-INF/lib/* "${defectdojo_mnt}/code/.groovy/lib/"
-rm -Rf "${defectdojo_mnt}/code/.groovy/lib/camunda*"
-rm -Rf "${defectdojo_mnt}/code/.groovy/lib/tomcat-embed*"
-rm -Rf "${defectdojo_mnt}/code/.groovy/lib/springfox-swagger*"
-rm -Rf "${defectdojo_mnt}/code/.groovy/lib/mysql*"
-rm -Rf "${defectdojo_mnt}/code/.groovy/lib/h2*"
-rm -Rf "${defectdojo_mnt}/code/.groovy/lib/hiber*"
-popd
+mkdir "${defectdojo_mnt}/code"
+mkdir -p "${defectdojo_mnt}/usr/bin"
+mkdir -p "${defectdojo_mnt}/bin"
 cp defectdojo.groovy "${defectdojo_mnt}/code/defectdojo.groovy"
 cp importToDefectDojo.groovy "${defectdojo_mnt}/code/importToDefectDojo.groovy"
 cp addDependenciesToDescription.groovy "${defectdojo_mnt}/code/addDependenciesToDescription.groovy"
 
+cp "${mnt_tools}/bin/cat" "${defectdojo_mnt}/bin/cat" # needed for jenkins pipeline which starts a container with cat
+
+GROOVY_VERSION=3.0.7
 mkdir -p "${defectdojo_mnt}/usr/groovy"
 pushd "${defectdojo_mnt}/usr/groovy"
-curl -L https://dl.bintray.com/groovy/maven/apache-groovy-binary-3.0.6.zip  --output apache-groovy-binary.zip
+curl -L https://dl.bintray.com/groovy/maven/apache-groovy-binary-$GROOVY_VERSION.zip  --output apache-groovy-binary.zip
 unzip apache-groovy-binary.zip
 rm apache-groovy-binary.zip
-ln -s  /usr/groovy/groovy-3.0.6/bin/groovy ${defectdojo_mnt}/usr/bin/groovy
+ln -s  /usr/groovy/groovy-$GROOVY_VERSION/bin/groovy ${defectdojo_mnt}/usr/bin/groovy
 popd
 
 echo "################################# the following error is not expected, but it still works!"
-${defectdojo_mnt}/usr/groovy/groovy-3.0.6/bin/groovy -Dgrape.root=${defectdojo_mnt}/code/.groovy/ importToDefectDojo.groovy || true # download needed libs
-chown -R 999:999 "${defectdojo_mnt}/code/.groovy"
+${defectdojo_mnt}/usr/groovy/groovy-$GROOVY_VERSION/bin/groovy -Dgrape.root=${defectdojo_mnt}/code/.groovy/ importToDefectDojo.groovy || true # download needed libs
+chown -R 1001:1001 "${defectdojo_mnt}/code/.groovy"
+chmod -R 755 "${defectdojo_mnt}/code/.groovy"
 
-echo "defectdojo:x:999:999:OWASP DefectDojo,,,:/code:/usr/sbin/nologin" >> ${defectdojo_mnt}/etc/passwd
+echo "defectdojo:x:1001:1001:OWASP DefectDojo,,,:/code:/usr/sbin/nologin" >> ${defectdojo_mnt}/etc/passwd
 
-version=1.0.21
+touch "${defectdojo_mnt}/code/defectDojoTestLink.txt"
+chown 1001:1001 "${defectdojo_mnt}/code/defectDojoTestLink.txt"
+
+bill_of_materials_hash="$(find ${defectdojo_mnt} -type f -exec md5sum "{}" +  | md5sum)"
+version=2.0.3
 oci_prefix="org.opencontainers.image"
 buildah config \
   --label "${oci_prefix}.authors=SDA SE Engineers <engineers@sda-se.io>" \
@@ -67,23 +62,25 @@ buildah config \
   --label "${oci_prefix}.licenses=Apache-2.0" \
   --label "${oci_prefix}.title=OWASP DefectDojo Client" \
   --label "${oci_prefix}.description=OWASP DefectDojo Client" \
-  --label "io.sda-se.image.bill-of-materials-hash=${version}" \
+  --label "io.sda-se.image.bill-of-materials-hash=${bill_of_materials_hash}" \
   --env "DD_USER=admin" \
   --env 'DD_TOKEN=""' \
   --env 'DD_PRODUCT_NAME=""' \
+  --env 'DD_PRODUCT_DESCRIPTION=""' \
   --env 'DD_URL="http://localhost:8080"' \
-  --env 'DD_REPORT_PATH="/dependency-check-report.xml"' \
+  --env 'DD_REPORT_PATH="/dependency-check-report-10.xml"' \
   --env 'DD_IMPORT_TYPE="import"' \
   --env 'DD_BRANCH_NAME=""' \
   --env 'DD_LEAD=1' \
-  --env 'DD_PRODUCT_TYPE=1' \
+  --env 'DD_TEAM=mrkaplan' \
   --env 'DD_BUILD_ID="1"' \
   --env 'DD_SOURCE_CODE_MANAGEMENT_URI=""' \
   --env 'DD_BRANCHES_TO_KEEP=""' \
   --env 'DD_PRODUCT_TAGS=""' \
   --env 'HOME="/code"' \
-  --user 999 \
-  --cmd "/usr/bin/groovy /code/defectdojo.groovy" \
+  --user 1001 \
+  --entrypoint '' \
+  --cmd '/usr/bin/groovy /code/defectdojo.groovy' \
   "${defectdojo_container}"
 
 # Create image
@@ -97,3 +94,4 @@ then
     "oci-archive:${build_dir}/${image//:/-}.tar"
     buildah rmi "${image}"
 fi
+
