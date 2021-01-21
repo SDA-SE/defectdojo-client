@@ -44,7 +44,7 @@ def call(args) {
         );
     }
 
-    def product = productService.searchUnique(Product.builder().name(args.productName).productType(productType.id).build()).orElseGet {
+    def product = productService.searchUnique(Product.builder().name(args.productName).build()).orElseGet {
         return productService.create(
                 Product.builder()
                         .name(args.productName)
