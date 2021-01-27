@@ -36,6 +36,10 @@ def call(args) {
     def findingService = new FindingService(conf)
     def importScanService = new ImportScanService(conf)
 
+    def leadUser = userService.searchUnique(User.builder().username(args.leadUsername).build()).orElseThrow {
+        return new RuntimeException("Failed to find user '${args.leadUsername}' in DefectDojo")
+    }
+
     def productType = productTypeService.searchUnique(ProductType.builder().name(args.productTypeName).build()).orElseGet {
         return productTypeService.create(
                 ProductType.builder()
@@ -63,6 +67,7 @@ def call(args) {
         .deduplicationOnEngagement(args.deduplicationOnEngagement.toBoolean())
         .repo(args.sourceCodeManagementUri)
         .product(product.id)
+        .lead(leadUser.id)
         .build()
 
     def date = new Date()
@@ -76,9 +81,7 @@ def call(args) {
         return engagementService.create(engagementObj);
     }
 
-    def leadUser = userService.searchUnique(User.builder().username(args.leadUsername).build()).orElseThrow {
-        return new RuntimeException("Failed to find user '${args.leadUsername}' in DefectDojo")
-    }
+
 
     String reportContents = new File(args.reportPath).text
 

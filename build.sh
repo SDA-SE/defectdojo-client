@@ -49,7 +49,7 @@ echo "defectdojo:x:1001:1001:OWASP DefectDojo,,,:/code:/usr/sbin/nologin" >> ${d
 touch "${defectdojo_mnt}/code/defectDojoTestLink.txt"
 chown 1001:1001 "${defectdojo_mnt}/code/defectDojoTestLink.txt"
 
-bill_of_materials_hash="$(find ${defectdojo_mnt} -type f -exec md5sum "{}" +  | md5sum)"
+bill_of_materials_hash="$(find ${defectdojo_mnt} -type f -exec md5sum "{}" +  | md5sum | awk "{print $1}")"
 version=2.1.0
 oci_prefix="org.opencontainers.image"
 buildah config \
@@ -91,6 +91,6 @@ then
     buildah push --quiet \
     "localhost/${image}" \
     "oci-archive:${build_dir}/${image//:/-}.tar"
-    buildah rmi "${image}"
+    buildah rmi "${image}" || true
 fi
 
