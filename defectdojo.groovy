@@ -29,7 +29,6 @@ String dojoUrl = System.getenv("DD_URL") ?: "https://localhost:8080/"
 String reportPath = System.getenv("DD_REPORT_PATH") ?: "/dependency-check-report-10.xml"
 String scanType = System.getenv("DD_REPORT_TYPE") ?: "Dependency Check Scan"
 
-String buildId = System.getenv("DD_BUILD_ID")
 String sourceCodeManagementUri = System.getenv("DD_SOURCE_CODE_MANAGEMENT_URI")
 
 String branchesToKeepFromEnv =  System.getenv("DD_BRANCHES_TO_KEEP") ?: "*"
@@ -65,7 +64,6 @@ importToDefectDojo dojoToken: token,
   productDescription: productDescription,
   reportPath: reportPath,
   branchName: branchName,
-  buildId: buildId,
   sourceCodeManagementUri: sourceCodeManagementUri,
   branchesToKeep: branchesToKeep,
   scanType: scanType,

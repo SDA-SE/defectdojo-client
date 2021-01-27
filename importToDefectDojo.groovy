@@ -60,7 +60,6 @@ def call(args) {
     def engagementObj = Engagement.builder()
         .name("Dep Check " + args.branchName)
         .branch(args.branchName)
-        .buildID(args.buildId)
         .deduplicationOnEngagement(args.deduplicationOnEngagement.toBoolean())
         .repo(args.sourceCodeManagementUri)
         .product(product.id)
@@ -77,24 +76,9 @@ def call(args) {
         return engagementService.create(engagementObj);
     }
 
-    //TODO Test with reimport
-
     def leadUser = userService.searchUnique(User.builder().username(args.leadUsername).build()).orElseThrow {
         return new RuntimeException("Failed to find user '${args.leadUsername}' in DefectDojo")
     }
-
-    def test = testService.create(
-            Test.builder()
-                    .title(args.scanType)
-                    .targetStart(dateNow + " " + timeNow)
-                    .targetEnd(dateNow + " " + timeNow)
-                    .engagement(engagement.id)
-                    .percentComplete(100L)
-                    .lead(leadUser.id)
-                    .testType(TestType.STATIC_CHECK.id)
-                    .description(args.testDescription)
-                    .build()
-    )
 
     String reportContents = new File(args.reportPath).text
 
@@ -105,9 +89,9 @@ def call(args) {
             scanType = scanTypeMatch;
         }
     }
-    def response = importScanService.reimportScan(
+    def response = importScanService.importScan(
             reportContents,
-            test.id,
+            engagement.id,
             leadUser.id,
             dateNow,
             scanType,
@@ -135,7 +119,7 @@ def call(args) {
 
     println("Got ${findings.size()} unhandled findings")
 
-    def defectDojoTestLink = args.dojoUrl + "/test/" + test.id;
+    def defectDojoTestLink = args.dojoUrl + "/test/" + response.getTestId();
 
     File file = new File("/code/defectDojoTestLink.txt")
     file.write defectDojoTestLink
