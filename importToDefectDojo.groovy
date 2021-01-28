@@ -105,6 +105,7 @@ def call(args) {
     Map<String, String> queryParams = new HashMap<>();
     queryParams.put("id", String.valueOf(response.getTestId()));
     Test test = testService.search(queryParams).first();
+    test.setDescription(args.testDescription)
     test.setTitle(scanType.getTestType() + " " + dateNow + " " + timeNow);
     testService.update(test, test.getId());
     println("Changed Test Name.")
