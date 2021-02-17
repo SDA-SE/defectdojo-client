@@ -7,7 +7,7 @@ import io.securecodebox.persistence.defectdojo.TestType
 @Grab(group='org.codehaus.jackson', module='jackson-mapper-asl', version='1.9.13')
 @Grab(group= 'org.springframework', module='spring-web', version='5.2.12.RELEASE')
 @GrabResolver(name='maven-snapshot', root='https://oss.sonatype.org/content/repositories/snapshots/')
-@Grab("io.securecodebox:defectdojo-client:0.0.4-SNAPSHOT")
+@Grab("io.securecodebox:defectdojo-client:0.0.7-SNAPSHOT")
 
 import io.securecodebox.persistence.defectdojo.config.DefectDojoConfig
 import io.securecodebox.persistence.defectdojo.models.Engagement
@@ -15,6 +15,7 @@ import io.securecodebox.persistence.defectdojo.models.Finding
 import io.securecodebox.persistence.defectdojo.models.Product
 import io.securecodebox.persistence.defectdojo.models.ProductType
 import io.securecodebox.persistence.defectdojo.models.Test
+import io.securecodebox.persistence.defectdojo.models.TestType
 import io.securecodebox.persistence.defectdojo.models.User
 import io.securecodebox.persistence.defectdojo.service.EngagementService
 import io.securecodebox.persistence.defectdojo.service.FindingService
@@ -22,6 +23,7 @@ import io.securecodebox.persistence.defectdojo.service.ImportScanService
 import io.securecodebox.persistence.defectdojo.service.ProductService;
 import io.securecodebox.persistence.defectdojo.service.ProductTypeService;
 import io.securecodebox.persistence.defectdojo.service.TestService
+import io.securecodebox.persistence.defectdojo.service.TestTypeService
 import io.securecodebox.persistence.defectdojo.service.UserService
 
 import java.util.stream.Stream;
@@ -32,6 +34,7 @@ def call(args) {
     def productService = new ProductService(conf);
     def engagementService = new EngagementService(conf)
     def testService = new TestService(conf)
+    def testTypeService = new TestTypeService(conf)
     def userService = new UserService(conf)
     def findingService = new FindingService(conf)
     def importScanService = new ImportScanService(conf)
@@ -92,13 +95,19 @@ def call(args) {
             scanType = scanTypeMatch;
         }
     }
+
+    TestType testType = testTypeService.searchUnique(ScanType.STATIC_CHECK.getTestType().build())
+        .orElseThrow{
+            new Exception("Could not find test type '" + ScanType.STATIC_CHECK.getTestType() + "' in DefectDojo API. DefectDojo might be running in an unsupported version.")
+        };
+
     def response = importScanService.importScan(
             reportContents,
             engagement.id,
             leadUser.id,
             dateNow,
             scanType,
-            TestType.STATIC_CHECK
+            testType.getId()
     )
     println("Uploaded Finding.")
 
