@@ -1,6 +1,4 @@
 #!/usr/bin/env groovy
-import io.securecodebox.persistence.defectdojo.ScanType
-import io.securecodebox.persistence.defectdojo.TestType
 @GrabConfig(systemClassLoader=true)
 @Grab(group='com.fasterxml.jackson.core', module='jackson-core', version='2.9.9')
 @Grab(group='com.fasterxml.jackson.core', module='jackson-databind', version='2.9.9.2')
@@ -25,8 +23,7 @@ import io.securecodebox.persistence.defectdojo.service.ProductTypeService;
 import io.securecodebox.persistence.defectdojo.service.TestService
 import io.securecodebox.persistence.defectdojo.service.TestTypeService
 import io.securecodebox.persistence.defectdojo.service.UserService
-
-import java.util.stream.Stream;
+import io.securecodebox.persistence.defectdojo.ScanType
 
 def call(args) {
     def conf = new DefectDojoConfig(args.dojoUrl, args.dojoToken, args.dojoUser);
