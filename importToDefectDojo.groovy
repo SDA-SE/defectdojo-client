@@ -93,7 +93,7 @@ def call(args) {
         }
     }
 
-    TestType testType = testTypeService.searchUnique(ScanType.STATIC_CHECK.getTestType().build())
+    TestType testType = testTypeService.searchUnique(TestType.builder().name(ScanType.STATIC_CHECK.getTestType()).build())
         .orElseThrow{
             new Exception("Could not find test type '" + ScanType.STATIC_CHECK.getTestType() + "' in DefectDojo API. DefectDojo might be running in an unsupported version.")
         };

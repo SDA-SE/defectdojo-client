@@ -1,8 +1,8 @@
 #!/bin/bash
-
+set -e
 ENGINE_PATH="/home/tpagel/git/securecodebox/defectdojo-client-java"
 
-#VERSION=0.0.4-SNAPSHOT
+#VERSION=0.0.7-SNAPSHOT
 #mkdir -p ~/.groovy/grapes/io.securecodebox/defectdojo-client/jars/ || true
 #cp $ENGINE_PATH/build/libs/defectdojo-client-$VERSION.jar ~/.groovy/grapes/io.securecodebox/defectdojo-client/jars/defectdojo-client-${VERSION}.jar
 
