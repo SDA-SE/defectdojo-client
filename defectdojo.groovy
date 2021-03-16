@@ -29,7 +29,7 @@ String dojoUrl = System.getenv("DD_URL") ?: "https://localhost:8080/"
 String reportPath = System.getenv("DD_REPORT_PATH") ?: "/dependency-check-report-10.xml"
 String scanType = System.getenv("DD_REPORT_TYPE") ?: "Dependency Check Scan"
 
-String sourceCodeManagementUri = System.getenv("DD_SOURCE_CODE_MANAGEMENT_URI")
+String sourceCodeManagementUri = System.getenv("DD_SOURCE_CODE_MANAGEMENT_URI") ?: "https://github.com/SDA-SE/set-me"
 
 String branchesToKeepFromEnv =  System.getenv("DD_BRANCHES_TO_KEEP") ?: "*"
 List<String> branchesToKeep = branchesToKeepFromEnv.replace('"', '').split(' ')
