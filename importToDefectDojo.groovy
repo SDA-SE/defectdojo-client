@@ -1,9 +1,9 @@
 #!/usr/bin/env groovy
 @GrabConfig(systemClassLoader=true)
-@Grab(group='com.fasterxml.jackson.core', module='jackson-core', version='2.9.9')
-@Grab(group='com.fasterxml.jackson.core', module='jackson-databind', version='2.9.9.2')
-@Grab(group='org.codehaus.jackson', module='jackson-mapper-asl', version='1.9.13')
-@Grab(group= 'org.springframework', module='spring-web', version='5.2.12.RELEASE')
+//#@Grab(group='com.fasterxml.jackson.core', module='jackson-core', version='2.9.9')
+//@Grab(group='com.fasterxml.jackson.core', module='jackson-databind', version='2.9.9.2')
+//@Grab(group='org.codehaus.jackson', module='jackson-mapper-asl', version='1.9.13')
+//@Grab(group= 'org.springframework', module='spring-web', version='5.2.12.RELEASE')
 @GrabResolver(name='maven-snapshot', root='https://oss.sonatype.org/content/repositories/snapshots/')
 @Grab("io.securecodebox:defectdojo-client:0.0.7-SNAPSHOT")
 

@@ -50,7 +50,7 @@ touch "${defectdojo_mnt}/code/defectDojoTestLink.txt"
 chown 1001:1001 "${defectdojo_mnt}/code/defectDojoTestLink.txt"
 
 bill_of_materials_hash="$(find ${defectdojo_mnt} -type f -exec md5sum "{}" +  | md5sum | awk "{print $1}")"
-version=2.2.1
+version=2.2.3
 oci_prefix="org.opencontainers.image"
 buildah config \
   --label "${oci_prefix}.authors=SDA SE Engineers <engineers@sda-se.io>" \
@@ -61,7 +61,7 @@ buildah config \
   --label "${oci_prefix}.vendor=SDA SE Open Industry Solutions" \
   --label "${oci_prefix}.licenses=Apache-2.0" \
   --label "${oci_prefix}.title=OWASP DefectDojo Client" \
-  --label "${oci_prefix}.description=OWASP DefectDojo Client" \
+  --label "${oci_prefix}.description=OWASP DefectDojo Client made with OWASP SecureCodeBox Java Client" \
   --label "io.sda-se.image.bill-of-materials-hash=${bill_of_materials_hash}" \
   --env "DD_USER=admin" \
   --env 'DD_TOKEN=""' \
