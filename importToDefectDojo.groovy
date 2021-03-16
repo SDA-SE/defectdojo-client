@@ -62,7 +62,7 @@ def call(args) {
     System.out.println("Created or found Product: " + product.name + ", id :" + product.id);
 
     def engagementObj = Engagement.builder()
-        .name("Dep Check " + args.branchName)
+        .name(args.scanType + " " + args.branchName)
         .branch(args.branchName)
         .deduplicationOnEngagement(args.deduplicationOnEngagement.toBoolean())
         .repo(args.sourceCodeManagementUri)
