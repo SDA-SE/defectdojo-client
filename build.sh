@@ -69,6 +69,7 @@ buildah config \
   --env 'DD_PRODUCT_DESCRIPTION=""' \
   --env 'DD_URL="http://localhost:8080"' \
   --env 'DD_REPORT_PATH="/dependency-check-report-10.xml"' \
+  --env 'DD_REPORT_TYPE="Dependency Check Scan"'
   --env 'DD_IMPORT_TYPE="import"' \
   --env 'DD_BRANCH_NAME=""' \
   --env 'DD_LEAD=1' \

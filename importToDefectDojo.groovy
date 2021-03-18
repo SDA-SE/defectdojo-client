@@ -5,7 +5,7 @@
 //@Grab(group='org.codehaus.jackson', module='jackson-mapper-asl', version='1.9.13')
 //@Grab(group= 'org.springframework', module='spring-web', version='5.2.12.RELEASE')
 @GrabResolver(name='maven-snapshot', root='https://oss.sonatype.org/content/repositories/snapshots/')
-@Grab("io.securecodebox:defectdojo-client:0.0.7-SNAPSHOT")
+@Grab("io.securecodebox:defectdojo-client:0.0.11-SNAPSHOT")
 
 import io.securecodebox.persistence.defectdojo.config.DefectDojoConfig
 import io.securecodebox.persistence.defectdojo.models.Engagement
@@ -60,9 +60,9 @@ def call(args) {
     }
 
     System.out.println("Created or found Product: " + product.name + ", id :" + product.id);
-
+    def branchParameter = args.branchName.split(":")
     def engagementObj = Engagement.builder()
-        .name(args.scanType + " " + args.branchName)
+        .name(args.scanType + " " + branchParameter[0])
         .branch(args.branchName)
         .deduplicationOnEngagement(args.deduplicationOnEngagement.toBoolean())
         .repo(args.sourceCodeManagementUri)
@@ -84,6 +84,7 @@ def call(args) {
 
 
     String reportContents = new File(args.reportPath).text
+
 
     // In DefectDojo Version 1.5.4 you can specify test_type/testName; BE AWARE: close_old_findings will not work by using something else than reportType
     ScanType scanType;
@@ -112,7 +113,7 @@ def call(args) {
     queryParams.put("id", String.valueOf(response.getTestId()));
     Test test = testService.search(queryParams).first();
     test.setDescription(args.testDescription)
-    test.setTitle(scanType.getTestType() + " " + dateNow + " " + timeNow);
+    test.setTitle(branchParameter[1] +" " + scanType.getTestType() + " " + dateNow + " " + timeNow);
     testService.update(test, test.getId());
     println("Changed Test Name.")
 
