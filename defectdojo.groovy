@@ -56,10 +56,8 @@ if(System.getenv("DD_TEAM") && !System.getenv("DD_TEAM").isEmpty()) {
 String leadUsername = System.getenv("DD_LEAD_USERNAME") ?: dojoUser
 String testDescription = System.getenv("DD_TEST_DESCRIPTION") ?: ""
 
-int exitCodeOnFinding = 10
-if(System.getenv("EXIT_CODE_ON_FINDING") && !System.getenv("EXIT_CODE_ON_FINDING").isEmpty()) {
-  exitCodeOnFinding = Integer.valueOf(System.getenv("EXIT_CODE_ON_FINDING"))
-}
+String exitCodeOnFinding = System.getenv("EXIT_CODE_ON_FINDING") ?: "10"
+
 importToDefectDojo dojoToken: token,
   dojoUser: dojoUser,
   dojoUrl: dojoUrl,
