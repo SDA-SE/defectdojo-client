@@ -2,10 +2,6 @@
 #set -e
 ENGINE_PATH="/home/tpagel/git/securecodebox/defectdojo-client-java"
 
-#VERSION=0.0.7-SNAPSHOT
-#mkdir -p ~/.groovy/grapes/io.securecodebox/defectdojo-client/jars/ || true
-#cp $ENGINE_PATH/build/libs/defectdojo-client-$VERSION.jar ~/.groovy/grapes/io.securecodebox/defectdojo-client/jars/defectdojo-client-${VERSION}.jar
-
 if [ "$DD_TOKEN" == "" ]; then
   echo "DD_TOKEN not set"
   exit;
@@ -13,7 +9,7 @@ fi
 
 export DD_URL="https://defectdojo-test.tools.sda-se.io/"
 export DD_USER="clusterscanner"
-export DD_PRODUCT_NAME="test-2021-03-18-dedup-on-engagement-level-engagement-per-image"
+export DD_PRODUCT_NAME="test-2021-03-22-dedup-on-engagement-level-engagement-per-image"
 export DD_PRODUCT_DESCRIPTION="Test defectdojo by tpagel"
 export DD_BRANCH_NAME="image:2.0.0"
 #export DD_BUILD_ID=1

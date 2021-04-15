@@ -50,7 +50,7 @@ touch "${defectdojo_mnt}/code/defectDojoTestLink.txt"
 chown 1001:1001 "${defectdojo_mnt}/code/defectDojoTestLink.txt"
 
 bill_of_materials_hash="$(find ${defectdojo_mnt} -type f -exec md5sum "{}" +  | md5sum | awk "{print $1}")"
-version=3.0.0
+version=3.0.1
 oci_prefix="org.opencontainers.image"
 buildah config \
   --label "${oci_prefix}.authors=SDA SE Engineers <engineers@sda-se.io>" \
@@ -79,6 +79,7 @@ buildah config \
   --env 'DD_PRODUCT_TAGS=""' \
   --env 'HOME="/code"' \
   --env 'WORKING_DIR="/code"' \
+  --env 'EXIT_CODE_ON_FINDING="10"' \
   --user 1001 \
   --entrypoint '' \
   --cmd '/usr/bin/groovy /code/defectdojo.groovy' \

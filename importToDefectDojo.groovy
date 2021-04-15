@@ -5,7 +5,7 @@
 //@Grab(group='org.codehaus.jackson', module='jackson-mapper-asl', version='1.9.13')
 //@Grab(group= 'org.springframework', module='spring-web', version='5.2.12.RELEASE')
 @GrabResolver(name='maven-snapshot', root='https://oss.sonatype.org/content/repositories/snapshots/')
-@Grab("io.securecodebox:defectdojo-client:0.0.11-SNAPSHOT")
+@Grab("io.securecodebox:defectdojo-client:0.0.12-SNAPSHOT")
 
 import io.securecodebox.persistence.defectdojo.config.DefectDojoConfig
 import io.securecodebox.persistence.defectdojo.models.Engagement
@@ -61,6 +61,9 @@ def call(args) {
 
     System.out.println("Created or found Product: " + product.name + ", id :" + product.id);
     def branchParameter = args.branchName.split(":")
+    if(branchParameter.size() != 2) {
+	branchParameter[1] = ""
+    }
     def engagementObj = Engagement.builder()
         .name(args.scanType + " " + branchParameter[0])
         .branch(args.branchName)
@@ -143,9 +146,14 @@ def call(args) {
     file.write defectDojoTestLink
     println "DefectDojo test with scan results can be viewed at $defectDojoTestLink"
 
+    File isFindingFile = new File("/code/isFinding")
     if(findings.size() > 0) {
-        // Mark build as unstable
+        // Mark build as unstable in Jenkins via exit code
         println "${findings.size()} vulnerabilities found with severity $minimumSeverity or higher"
-        System.exit(10)
+
+        isFindingFile.write "true"
+        System.exit(args.exitCodeOnFinding)
+    } else {
+        isFindingFile.write "false"
     }
 }
