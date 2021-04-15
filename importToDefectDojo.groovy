@@ -152,7 +152,7 @@ def call(args) {
         println "${findings.size()} vulnerabilities found with severity $minimumSeverity or higher"
 
         isFindingFile.write "true"
-        System.exit(args.exitCodeOnFinding)
+        System.exit(Integer.valueOf(args.exitCodeOnFinding))
     } else {
         isFindingFile.write "false"
     }
