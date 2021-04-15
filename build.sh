@@ -67,13 +67,13 @@ buildah config \
   --label "${oci_prefix}.description=OWASP DefectDojo Java Client made with OWASP SecureCodeBox Java Client" \
   --label "io.sda-se.image.bill-of-materials-hash=${bill_of_materials_hash}" \
   --env "DD_USER=admin" \
-  --env 'DD_TOKEN="TODO"' \
-  --env 'DD_PRODUCT_NAME="test"' \
-  --env 'DD_PRODUCT_DESCRIPTION="test product"' \
+  --env 'DD_TOKEN=TODO' \
+  --env 'DD_PRODUCT_NAME=test' \
+  --env 'DD_PRODUCT_DESCRIPTION=test product' \
   --env 'DD_URL="http://localhost:8080"' \
   --env 'DD_REPORT_PATH="/dependency-check-report.xml"' \
   --env 'DD_REPORT_TYPE="Dependency Check Scan"' \
-  --env 'DD_IMPORT_TYPE="import"' \
+  --env 'DD_IMPORT_TYPE=import' \
   --env 'DD_BRANCH_NAME="myimage:1.0.0"' \
   --env 'DD_LEAD=1' \
   --env 'DD_TEAM=nobody' \
@@ -82,7 +82,7 @@ buildah config \
   --env 'DD_PRODUCT_TAGS=""' \
   --env 'HOME="/code"' \
   --env 'WORKING_DIR="/code"' \
-  --env 'EXIT_CODE_ON_FINDING="10"' \
+  --env 'EXIT_CODE_ON_FINDING=10' \
   --user 1001 \
   --entrypoint '' \
   --cmd '/usr/bin/groovy /code/defectdojo.groovy' \
