@@ -49,6 +49,9 @@ echo "defectdojo:x:1001:1001:OWASP DefectDojo,,,:/code:/usr/sbin/nologin" >> ${d
 touch "${defectdojo_mnt}/code/defectDojoTestLink.txt"
 chown 1001:1001 "${defectdojo_mnt}/code/defectDojoTestLink.txt"
 
+touch "${defectdojo_mnt}/code/isFinding"
+chown 1001:1001 "${defectdojo_mnt}/code/isFinding"
+
 bill_of_materials_hash="$(find ${defectdojo_mnt} -type f -exec md5sum "{}" +  | md5sum | awk "{print $1}")"
 version=3.0.1
 oci_prefix="org.opencontainers.image"
