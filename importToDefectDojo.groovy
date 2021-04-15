@@ -60,9 +60,11 @@ def call(args) {
     }
 
     System.out.println("Created or found Product: " + product.name + ", id :" + product.id);
-    def branchParameter = args.branchName.split(":")
-    if(branchParameter.size() != 2) {
-        branchParameter.add("")
+    def branchParameter
+    if(args.branchName.contains(":")) {
+        branchParameter = args.branchName.split(":")
+    } else {
+        branchParameter = [args.branchName, args.branchName] // name, test title
     }
     def engagementObj = Engagement.builder()
         .name(args.scanType + " " + branchParameter[0])
