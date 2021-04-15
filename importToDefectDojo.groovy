@@ -62,7 +62,7 @@ def call(args) {
     System.out.println("Created or found Product: " + product.name + ", id :" + product.id);
     def branchParameter = args.branchName.split(":")
     if(branchParameter.size() != 2) {
-	branchParameter[1] = ""
+        branchParameter.add("")
     }
     def engagementObj = Engagement.builder()
         .name(args.scanType + " " + branchParameter[0])
