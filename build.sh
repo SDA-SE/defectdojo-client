@@ -63,8 +63,8 @@ buildah config \
   --label "${oci_prefix}.revision=$( git rev-parse HEAD )" \
   --label "${oci_prefix}.vendor=SDA SE Open Industry Solutions" \
   --label "${oci_prefix}.licenses=Apache-2.0" \
-  --label "${oci_prefix}.title=OWASP DefectDojo Client" \
-  --label "${oci_prefix}.description=OWASP DefectDojo Client made with OWASP SecureCodeBox Java Client" \
+  --label "${oci_prefix}.title=OWASP DefectDojo Java Client" \
+  --label "${oci_prefix}.description=OWASP DefectDojo Java Client made with OWASP SecureCodeBox Java Client" \
   --label "io.sda-se.image.bill-of-materials-hash=${bill_of_materials_hash}" \
   --env "DD_USER=admin" \
   --env 'DD_TOKEN="TODO"' \
