@@ -150,10 +150,12 @@ def call(args) {
 
     File isFindingFile = new File("/code/isFinding")
     if(findings.size() > 0) {
+        File findingsFiles = new File("/code/findings.json")
         // Mark build as unstable in Jenkins via exit code
         println "${findings.size()} vulnerabilities found with severity $minimumSeverity or higher"
 
         isFindingFile.write "true"
+        findingsFiles.write groovy.json.JsonOutput.toJson(findings)
         System.exit(args.exitCodeOnFinding.toInteger())
     } else {
         isFindingFile.write "false"

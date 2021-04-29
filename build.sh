@@ -1,6 +1,24 @@
 #!/bin/bash
 set -xe
 
+if [ $# -ne 7 ]; then
+  echo "Parameters are not set correctly"
+  exit 1
+fi
+
+REGISTRY=$1
+ORGANIZATION=$2
+IMAGE_NAME=$3
+VERSION=$4
+REGISTRY_USER=$5
+REGISTRY_TOKEN=$6
+BUILD_EXPORT_OCI_ARCHIVES=$7
+
+MAJOR=$(echo "${VERSION}" | tr  '.' "\n" | sed -n 1p)
+MINOR=$(echo "${VERSION}" | tr  '.' "\n" | sed -n 2p)
+
+echo "Building ${IMAGE_NAME}"
+
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 build_dir="${dir}/build"
 
@@ -28,7 +46,7 @@ cp defectdojo.groovy "${defectdojo_mnt}/code/defectdojo.groovy"
 cp importToDefectDojo.groovy "${defectdojo_mnt}/code/importToDefectDojo.groovy"
 cp addDependenciesToDescription.groovy "${defectdojo_mnt}/code/addDependenciesToDescription.groovy"
 
-cp "${mnt_tools}/bin/cat" "${defectdojo_mnt}/bin/cat" # needed for jenkins pipeline which starts a container with cat
+#cp "${mnt_tools}/bin/cat" "${defectdojo_mnt}/bin/cat" # needed for jenkins pipeline which starts a container with cat
 
 GROOVY_VERSION=3.0.7
 mkdir -p "${defectdojo_mnt}/usr/groovy"
@@ -51,6 +69,9 @@ chown 1001:1001 "${defectdojo_mnt}/code/defectDojoTestLink.txt"
 
 touch "${defectdojo_mnt}/code/isFinding"
 chown 1001:1001 "${defectdojo_mnt}/code/isFinding"
+echo "{}" "${defectdojo_mnt}/code/findings.json"
+chown 1001:1001 "${defectdojo_mnt}/code/findings.json"
+
 
 bill_of_materials_hash="$(find ${defectdojo_mnt} -type f -exec md5sum "{}" +  | md5sum | awk "{print $1}")"
 version=3.0.1
@@ -88,15 +109,21 @@ buildah config \
   --cmd '/usr/bin/groovy /code/defectdojo.groovy' \
   "${defectdojo_container}"
 
-# Create image
-buildah commit --quiet --rm "${defectdojo_container}" "${image}" && defectdojo_container=
+buildah commit --quiet "${ctr}" "${IMAGE_NAME}:${VERSION}" && ctr=
 
 if [ -n "${BUILD_EXPORT_OCI_ARCHIVES}" ]
 then
-    mkdir --parent "${build_dir}"
-    buildah push --quiet \
-    "localhost/${image}" \
-    "oci-archive:${build_dir}/${image//:/-}.tar"
-    buildah rmi "${image}" || true
+  mkdir -p "${build_dir}"
+  image="docker://${REGISTRY}/${ORGANIZATION}/${IMAGE_NAME}:${VERSION}"
+  buildah push --quiet --creds "${REGISTRY_USER}:${REGISTRY_TOKEN}" "${IMAGE_NAME}:${VERSION}" "${image}"
+
+  image="docker://${REGISTRY}/${ORGANIZATION}/${IMAGE_NAME}:${MAJOR}.${MINOR}"
+  buildah push --quiet --creds "${REGISTRY_USER}:${REGISTRY_TOKEN}" "${IMAGE_NAME}:${VERSION}" "${image}"
+
+  image="docker://${REGISTRY}/${ORGANIZATION}/${IMAGE_NAME}:${MAJOR}"
+  buildah push --quiet --creds "${REGISTRY_USER}:${REGISTRY_TOKEN}" "${IMAGE_NAME}:${VERSION}" "${image}"
+
+  buildah rmi "${IMAGE_NAME}:${VERSION}"
 fi
 
+cleanup
