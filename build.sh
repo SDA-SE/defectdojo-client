@@ -69,7 +69,7 @@ chown 1001:1001 "${defectdojo_mnt}/code/defectDojoTestLink.txt"
 
 touch "${defectdojo_mnt}/code/isFinding"
 chown 1001:1001 "${defectdojo_mnt}/code/isFinding"
-echo "{}" "${defectdojo_mnt}/code/findings.json"
+echo "{}" >> "${defectdojo_mnt}/code/findings.json"
 chown 1001:1001 "${defectdojo_mnt}/code/findings.json"
 
 
