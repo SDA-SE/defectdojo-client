@@ -24,9 +24,8 @@ build_dir="${dir}/build"
 
 trap cleanup INT EXIT
 cleanup() {
-  test -n "${scb_container}" && buildah rm "${scb_container}" || true
+  test -n "${ctr_tools}" && buildah rm "${ctr_tools}" || true
   test -n "${defectdojo_container}" && buildah rm "${defectdojo_container}" || true
-  test -d "${scb_dir_tmp}" && rm -rf "${scb_dir_tmp}" || true
 }
 
 image="defectdojo-client"
@@ -69,11 +68,25 @@ chown 1001:1001 "${defectdojo_mnt}/code/defectDojoTestLink.txt"
 
 touch "${defectdojo_mnt}/code/isFinding"
 chown 1001:1001 "${defectdojo_mnt}/code/isFinding"
-echo "{}" >> "${defectdojo_mnt}/code/findings.json"
+touch "${defectdojo_mnt}/code/findings.json"
 chown 1001:1001 "${defectdojo_mnt}/code/findings.json"
 
 
-bill_of_materials_hash="$(find ${defectdojo_mnt} -type f -exec md5sum "{}" +  | md5sum | awk "{print $1}")"
+# Get a bill of materials
+bill_of_materials="$(buildah run --volume "${mnt}":/mnt "${ctr_tools}" -- /usr/bin/rpm \
+  --query \
+  --all \
+  --queryformat "%{NAME} %{VERSION} %{RELEASE} %{ARCH}" \
+  --dbpath="/mnt/var/lib/rpm" \
+  | sort )"
+echo "bill_of_materials: ${bill_of_materials}";
+# Get bill of materials hash – the content
+# of this script is included in hash, too.
+bill_of_materials_hash="$( ( cat "${0}";
+  echo "${bill_of_materials}"; \
+  cat ./*;
+  ) | sha256sum | awk '{ print $1 }' )"
+
 version=3.0.1
 oci_prefix="org.opencontainers.image"
 buildah config \
@@ -109,7 +122,7 @@ buildah config \
   --cmd '/usr/bin/groovy /code/defectdojo.groovy' \
   "${defectdojo_container}"
 
-buildah commit --quiet "${ctr}" "${IMAGE_NAME}:${VERSION}" && ctr=
+buildah commit --quiet "${defectdojo_container}" "${IMAGE_NAME}:${VERSION}" && defectdojo_container=
 
 if [ -n "${BUILD_EXPORT_OCI_ARCHIVES}" ]
 then
