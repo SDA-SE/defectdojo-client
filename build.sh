@@ -52,6 +52,9 @@ mkdir -p "${defectdojo_mnt}/usr/groovy"
 pushd "${defectdojo_mnt}/usr/groovy"
 curl -L https://github.com/apache/groovy/archive/refs/tags/GROOVY_$GROOVY_VERSION.zip  --output apache-groovy-binary.zip
 unzip apache-groovy-binary.zip > /dev/null
+ls -la "${defectdojo_mnt}/usr/groovy"
+ls -la
+find .
 rm apache-groovy-binary.zip
 ln -s  /usr/groovy/groovy-GROOVY_$GROOVY_VERSION/bin/groovy ${defectdojo_mnt}/usr/bin/groovy
 popd
