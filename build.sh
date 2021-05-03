@@ -87,13 +87,12 @@ bill_of_materials_hash="$( ( cat "${0}";
   cat ./*;
   ) | sha256sum | awk '{ print $1 }' )"
 
-version=3.0.2
 oci_prefix="org.opencontainers.image"
 buildah config \
   --label "${oci_prefix}.authors=SDA SE Engineers <engineers@sda-se.io>" \
   --label "${oci_prefix}.url=https://quay.io/sdase/defectdojo-client" \
   --label "${oci_prefix}.source=https://github.com/SDA-SE/defectdojo-client" \
-  --label "${oci_prefix}.version=${version}" \
+  --label "${oci_prefix}.version=${VERSION}" \
   --label "${oci_prefix}.revision=$( git rev-parse HEAD )" \
   --label "${oci_prefix}.vendor=SDA SE Open Industry Solutions" \
   --label "${oci_prefix}.licenses=Apache-2.0" \
