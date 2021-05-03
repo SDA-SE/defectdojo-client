@@ -51,13 +51,14 @@ GROOVY_VERSION=3_0_8
 mkdir -p "${defectdojo_mnt}/usr/groovy"
 pushd "${defectdojo_mnt}/usr/groovy"
 curl -L https://github.com/apache/groovy/archive/refs/tags/GROOVY_$GROOVY_VERSION.zip  --output apache-groovy-binary.zip
-unzip apache-groovy-binary.zip
+unzip apache-groovy-binary.zip > /dev/null
 rm apache-groovy-binary.zip
 ln -s  /usr/groovy/groovy-$GROOVY_VERSION/bin/groovy ${defectdojo_mnt}/usr/bin/groovy
 popd
 
 echo "################################# the following error is not expected, but it still works!"
 ${defectdojo_mnt}/usr/groovy/groovy-$GROOVY_VERSION/bin/groovy -Dgrape.root=${defectdojo_mnt}/code/.groovy/ importToDefectDojo.groovy || true # download needed libs
+echo "test"
 chown -R 1001:1001 "${defectdojo_mnt}/code/.groovy"
 chmod -R 755 "${defectdojo_mnt}/code/.groovy"
 
@@ -71,7 +72,7 @@ chown 1001:1001 "${defectdojo_mnt}/code/isFinding"
 touch "${defectdojo_mnt}/code/findings.json"
 chown 1001:1001 "${defectdojo_mnt}/code/findings.json"
 
-echo "test"
+
 # Get a bill of materials
 bill_of_materials="$(buildah run --volume "${mnt}":/mnt "${ctr_tools}" -- /usr/bin/rpm \
   --query \
