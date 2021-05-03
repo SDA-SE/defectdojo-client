@@ -47,10 +47,10 @@ cp addDependenciesToDescription.groovy "${defectdojo_mnt}/code/addDependenciesTo
 
 #cp "${mnt_tools}/bin/cat" "${defectdojo_mnt}/bin/cat" # needed for jenkins pipeline which starts a container with cat
 
-GROOVY_VERSION=3.0.7
+GROOVY_VERSION=3_0_8
 mkdir -p "${defectdojo_mnt}/usr/groovy"
 pushd "${defectdojo_mnt}/usr/groovy"
-curl -L https://dl.bintray.com/groovy/maven/apache-groovy-binary-$GROOVY_VERSION.zip  --output apache-groovy-binary.zip
+curl -L https://github.com/apache/groovy/archive/refs/tags/GROOVY_$GROOVY_VERSION.zip  --output apache-groovy-binary.zip
 unzip apache-groovy-binary.zip
 rm apache-groovy-binary.zip
 ln -s  /usr/groovy/groovy-$GROOVY_VERSION/bin/groovy ${defectdojo_mnt}/usr/bin/groovy
