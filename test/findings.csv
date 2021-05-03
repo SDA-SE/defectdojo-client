@@ -1,5 +1,5 @@
 Date,Title,CweId,Url,Severity,Description,Mitigation,Impact,References,Active,Verified
-03/16/2021,Image age > 14 days,0,,High,"
+03/16/2021,Image age > 14 days,1104,,High,"
 Image has a build date of 2021-01-28T08:08:10.365051407Z, which is over the defined lifetime of 14.
 Image ###IMAGE###
 Cluster test

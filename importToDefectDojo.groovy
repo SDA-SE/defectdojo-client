@@ -149,15 +149,17 @@ def call(args) {
     println "DefectDojo test with scan results can be viewed at $defectDojoTestLink"
 
     File isFindingFile = new File("/code/isFinding")
+    File findingsFiles = new File("/code/findings.json")
     if(findings.size() > 0) {
-        File findingsFiles = new File("/code/findings.json")
         // Mark build as unstable in Jenkins via exit code
         println "${findings.size()} vulnerabilities found with severity $minimumSeverity or higher"
 
         isFindingFile.write "true"
+        file.bytes = new byte[0] //mainly for testing to delete content
         findingsFiles.write groovy.json.JsonOutput.toJson(findings)
         System.exit(args.exitCodeOnFinding.toInteger())
     } else {
         isFindingFile.write "false"
+        findingsFiles.write "{}"
     }
 }

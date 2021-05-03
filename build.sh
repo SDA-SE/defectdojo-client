@@ -102,6 +102,7 @@ buildah config \
   --label "io.sda-se.image.bill-of-materials-hash=${bill_of_materials_hash}" \
   --env "DD_USER=admin" \
   --env 'DD_TOKEN=TODO' \
+  --env 'DD_DEDUPLICATION_ON_ENGAGEMENT=true' \
   --env 'DD_PRODUCT_NAME=test' \
   --env 'DD_PRODUCT_DESCRIPTION=test product' \
   --env 'DD_URL="http://localhost:8080"' \
