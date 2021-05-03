@@ -160,5 +160,5 @@ def call(args) {
     } else {
         isFindingFile.write "false"
     }
-
+    printf findingsFiles.text
 }
