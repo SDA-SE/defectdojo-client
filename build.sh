@@ -71,7 +71,7 @@ chown 1001:1001 "${defectdojo_mnt}/code/isFinding"
 touch "${defectdojo_mnt}/code/findings.json"
 chown 1001:1001 "${defectdojo_mnt}/code/findings.json"
 
-
+echo "test"
 # Get a bill of materials
 bill_of_materials="$(buildah run --volume "${mnt}":/mnt "${ctr_tools}" -- /usr/bin/rpm \
   --query \
@@ -87,7 +87,7 @@ bill_of_materials_hash="$( ( cat "${0}";
   cat ./*;
   ) | sha256sum | awk '{ print $1 }' )"
 
-version=3.0.1
+version=3.0.2
 oci_prefix="org.opencontainers.image"
 buildah config \
   --label "${oci_prefix}.authors=SDA SE Engineers <engineers@sda-se.io>" \
