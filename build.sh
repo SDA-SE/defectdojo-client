@@ -45,8 +45,6 @@ cp defectdojo.groovy "${defectdojo_mnt}/code/defectdojo.groovy"
 cp importToDefectDojo.groovy "${defectdojo_mnt}/code/importToDefectDojo.groovy"
 cp addDependenciesToDescription.groovy "${defectdojo_mnt}/code/addDependenciesToDescription.groovy"
 
-#cp "${mnt_tools}/bin/cat" "${defectdojo_mnt}/bin/cat" # needed for jenkins pipeline which starts a container with cat
-
 GROOVY_VERSION=3.0.8
 mkdir -p "${defectdojo_mnt}/usr/groovy"
 pushd "${defectdojo_mnt}/usr/groovy"
