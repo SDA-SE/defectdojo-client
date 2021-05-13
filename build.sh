@@ -30,7 +30,7 @@ cleanup() {
 
 image="defectdojo-client"
 
-_base_image="quay.io/sdase/openjdk-runtime:15-hotspoti-distroless"
+_base_image="quay.io/sdase/openjdk-runtime:15-hotspot-distroless"
 defectdojo_container="$(buildah from $_base_image)"
 defectdojo_mnt="$(buildah mount "${defectdojo_container}")"
 
