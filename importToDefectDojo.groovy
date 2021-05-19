@@ -67,8 +67,9 @@ def call(args) {
         branchParameter = [args.branchName, args.branchName] // name, test title
     }
     def engagementObj = Engagement.builder()
-        .name(args.scanType + " " + branchParameter[0])
-        .branch(args.branchName)
+        .name(args.scanType + " | " + branchParameter[0])
+        .branch(branchParameter[0])
+        .description(branchParameter[0])
         .deduplicationOnEngagement(args.deduplicationOnEngagement.toBoolean())
         .repo(args.sourceCodeManagementUri)
         .product(product.id)
@@ -117,8 +118,8 @@ def call(args) {
     Map<String, String> queryParams = new HashMap<>();
     queryParams.put("id", String.valueOf(response.getTestId()));
     Test test = testService.search(queryParams).first();
-    test.setDescription(args.testDescription)
-    test.setTitle(branchParameter[1] +" " + scanType.getTestType() + " " + dateNow + " " + timeNow);
+    test.setDescription("Date: " + dateNow + " " + timeNow + "\nImage: " + branchParameter[0] + "\nTag: " + branchParameter[1] +"\nTest Scan Type: " + scanType.getTestType() + "\n" + args.testDescription)
+    test.setTitle(dateNow + " " + timeNow + " | " + branchParameter[1] +" | " + scanType.getTestType());
     testService.update(test, test.getId());
     println("Changed Test Name.")
 
