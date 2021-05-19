@@ -119,7 +119,7 @@ def call(args) {
     queryParams.put("id", String.valueOf(response.getTestId()));
     Test test = testService.search(queryParams).first();
     test.setDescription("Date: " + dateNow + " " + timeNow + "\nImage: " + branchParameter[0] + "\nTag: " + branchParameter[1] +"\nTest Scan Type: " + scanType.getTestType() + "\n" + args.testDescription)
-    test.setTitle(dateNow + " " + timeNow + " | " + branchParameter[1] +" | " + scanType.getTestType());
+    test.setTitle(dateNow + " " + timeNow + " | " + branchParameter[1] +" (" + scanType.getTestType() + ")");
     testService.update(test, test.getId());
     println("Changed Test Name.")
 
