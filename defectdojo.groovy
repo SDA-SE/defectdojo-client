@@ -22,6 +22,7 @@ if(!branchName) {
 }
 
 String productDescription = System.getenv("DD_PRODUCT_DESCRIPTION") ?: productName
+println "productName: " + productName
 
 String dojoUser = System.getenv("DD_USER") ?: "clusterscanner"
 String dojoUrl = System.getenv("DD_URL") ?: "https://localhost:8080/"
@@ -42,20 +43,13 @@ if(tagsAsString) {
   productTags = java.util.Collections.emptyList();
 }
 
-String deduplicationOnEngagement = "true"
-if(System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")) {
-  deduplicationOnEngagement = System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")
-}
+deduplicationOnEngagement = System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")
 
-String productType = "unset-team"
-if(System.getenv("DD_TEAM") && !System.getenv("DD_TEAM").isEmpty()) {
-  productType = System.getenv("DD_TEAM")
-  productTags.add(System.getenv("DD_TEAM"))
-}
+String productType = System.getenv("DD_TEAM")
+productTags.add("team/" + System.getenv("DD_TEAM"))
 
 String leadUsername = System.getenv("DD_LEAD_USERNAME") ?: dojoUser
 String testDescription = System.getenv("DD_TEST_DESCRIPTION") ?: ""
-
 String exitCodeOnFinding = System.getenv("EXIT_CODE_ON_FINDING") ?: "10"
 
 importToDefectDojo dojoToken: token,
