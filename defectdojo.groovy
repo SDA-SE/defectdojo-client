@@ -28,6 +28,11 @@ String dojoUser = System.getenv("DD_USER") ?: "clusterscanner"
 String dojoUrl = System.getenv("DD_URL") ?: "https://localhost:8080/"
 
 String reportPath = System.getenv("DD_REPORT_PATH") ?: "/dependency-check-report-10.xml"
+File report = new File(reportPath)
+if(!report.exists()) {
+  println("Report ${reportPath} doesn't exists, exit")
+  System.exit(2)
+}
 String scanType = System.getenv("DD_REPORT_TYPE") ?: "Dependency Check Scan"
 
 String sourceCodeManagementUri = System.getenv("DD_SOURCE_CODE_MANAGEMENT_URI") ?: "https://github.com/SDA-SE/setme"
