@@ -102,6 +102,8 @@ buildah config \
   --env 'DD_DEDUPLICATION_ON_ENGAGEMENT=true' \
   --env 'DD_PRODUCT_NAME=test' \
   --env 'DD_PRODUCT_DESCRIPTION=test product' \
+  --env 'ENVIRONMENT=' \
+  --env 'NAMESPACE=' \
   --env 'DD_URL="http://localhost:8080"' \
   --env 'DD_REPORT_PATH="/dependency-check-report.xml"' \
   --env 'DD_REPORT_TYPE="Dependency Check Scan"' \

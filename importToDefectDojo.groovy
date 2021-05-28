@@ -12,6 +12,7 @@ import io.securecodebox.persistence.defectdojo.models.Engagement
 import io.securecodebox.persistence.defectdojo.models.Finding
 import io.securecodebox.persistence.defectdojo.models.Product
 import io.securecodebox.persistence.defectdojo.models.ProductType
+import io.securecodebox.persistence.defectdojo.models.ScanFile
 import io.securecodebox.persistence.defectdojo.models.Test
 import io.securecodebox.persistence.defectdojo.models.TestType
 import io.securecodebox.persistence.defectdojo.models.User
@@ -48,6 +49,7 @@ def call(args) {
         );
     }
 
+    println("Will fetch or create ${args.productName}")
     def product = productService.searchUnique(Product.builder().name(args.productName).build()).orElseGet {
         return productService.create(
                 Product.builder()
@@ -88,10 +90,7 @@ def call(args) {
     }
 
 
-
-    String reportContents = new File(args.reportPath).text
-
-
+    ScanFile reportContents = new ScanFile(new File(args.reportPath).text);
     // In DefectDojo Version 1.5.4 you can specify test_type/testName; BE AWARE: close_old_findings will not work by using something else than reportType
     ScanType scanType;
     for(ScanType scanTypeMatch : ScanType.values()) {

@@ -22,7 +22,6 @@ if(!branchName) {
 }
 
 String productDescription = System.getenv("DD_PRODUCT_DESCRIPTION") ?: productName
-println "productName: " + productName
 
 String dojoUser = System.getenv("DD_USER") ?: "clusterscanner"
 String dojoUrl = System.getenv("DD_URL") ?: "https://localhost:8080/"
@@ -41,17 +40,17 @@ String branchesToKeepFromEnv =  System.getenv("DD_BRANCHES_TO_KEEP") ?: "*"
 List<String> branchesToKeep = branchesToKeepFromEnv.replace('"', '').split(' ')
 
 String tagsAsString =  System.getenv("DD_PRODUCT_TAGS")
-List<String> productTags;
+List<String> productTags = new ArrayList<String>();
 if(tagsAsString) {
   productTags = tagsAsString.split(' ')
-} else {
-  productTags = java.util.Collections.emptyList();
 }
 
 deduplicationOnEngagement = System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")
 
 String productType = System.getenv("DD_TEAM")
 productTags.add("team/" + System.getenv("DD_TEAM"))
+if(!System.getenv("ENVIRONMENT")) productTags.add("cluster/" + System.getenv("ENVIRONMENT"))
+if(!System.getenv("namespace")) productTags.add("namespace/" + System.getenv("NAMESPACE"))
 
 String leadUsername = System.getenv("DD_LEAD_USERNAME") ?: dojoUser
 String testDescription = System.getenv("DD_TEST_DESCRIPTION") ?: ""
