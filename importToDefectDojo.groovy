@@ -60,6 +60,17 @@ def call(args) {
                         .build()
         );
     }
+    println("Will update product")
+    if(!args.productDescription && product.getDescription() != args.productDescription) {
+        product.setDescription(args.productDescription);
+    }
+    product.setProductType(productType.id)
+    List<String> combinedTags = product.getTags();
+    combinedTags.addAll(args.productTags)
+    combinedTags.unique()
+    product.setTags(combinedTags)
+    productService.update(product, product.getId())
+
 
     System.out.println("Created or found Product: " + product.name + ", id :" + product.id);
     def branchParameter

@@ -27,10 +27,14 @@ String dojoUser = System.getenv("DD_USER") ?: "clusterscanner"
 String dojoUrl = System.getenv("DD_URL") ?: "https://localhost:8080/"
 
 String reportPath = System.getenv("DD_REPORT_PATH") ?: "/dependency-check-report-10.xml"
+
 File report = new File(reportPath)
 if(!report.exists()) {
   println("Report ${reportPath} doesn't exists, exit")
-  System.exit(2)
+  String exitCodeOnMissingReportString = System.getenv("EXIT_CODE_ON_MISSING_REPORT")
+  int exitCodeOnMissingReport = 2
+  if(exitCodeOnMissingReportString) exitCodeOnMissingReport = System.getenv("EXIT_CODE_ON_MISSING_REPORT").toInteger()
+  System.exit(exitCodeOnMissingReport)
 }
 String scanType = System.getenv("DD_REPORT_TYPE") ?: "Dependency Check Scan"
 
