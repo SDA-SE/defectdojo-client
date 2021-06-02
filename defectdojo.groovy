@@ -52,6 +52,7 @@ if(tagsAsString) {
 deduplicationOnEngagement = System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")
 
 String productType = System.getenv("DD_TEAM")
+if(!productType) productType="nobody"
 productTags.add("team/" + System.getenv("DD_TEAM"))
 if(!System.getenv("ENVIRONMENT")) productTags.add("cluster/" + System.getenv("ENVIRONMENT"))
 if(!System.getenv("NAMESPACE")) productTags.add("namespace/" + System.getenv("NAMESPACE"))
