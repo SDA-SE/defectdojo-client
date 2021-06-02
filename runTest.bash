@@ -1,14 +1,13 @@
 #!/bin/bash
 #set -e
 
-export DD_TOKEN=a8ee73484825b65392019aadf9427c50120789e1
 if [ "$DD_TOKEN" == "" ]; then
   echo "DD_TOKEN not set"
   exit;
 fi
 
 export DD_URL="https://defectdojo-test.tools.sda-se.io/"
-export DD_URL=http://localhost:8081/
+#export DD_URL=http://localhost:8081/
 
 export DD_USER="admin"
 export DD_PRODUCT_NAME="test-2021-03-22-dedup-on-engagement-level-engagement-per-image"
