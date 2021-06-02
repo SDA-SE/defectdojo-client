@@ -54,7 +54,7 @@ deduplicationOnEngagement = System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")
 String productType = System.getenv("DD_TEAM")
 productTags.add("team/" + System.getenv("DD_TEAM"))
 if(!System.getenv("ENVIRONMENT")) productTags.add("cluster/" + System.getenv("ENVIRONMENT"))
-if(!System.getenv("namespace")) productTags.add("namespace/" + System.getenv("NAMESPACE"))
+if(!System.getenv("NAMESPACE")) productTags.add("namespace/" + System.getenv("NAMESPACE"))
 
 String leadUsername = System.getenv("DD_LEAD_USERNAME") ?: dojoUser
 String testDescription = System.getenv("DD_TEST_DESCRIPTION") ?: ""
