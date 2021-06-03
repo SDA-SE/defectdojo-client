@@ -63,7 +63,7 @@ def call(args) {
     if(!args.productDescription && product.getDescription() != args.productDescription) {
         product.setDescription(args.productDescription);
     }
-    //product.setProductType(productType.id) // will cause invalid pk
+    //product.setProductType(productType.id) // will cause invalid pk TODO: Delete and re-create
     List<String> combinedTags = product.getTags();
     for (int i = 0; i <combinedTags.size(); i++) {
         if(combinedTags.get(i).startsWith("team/")) { // refresh team every time
