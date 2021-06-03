@@ -107,7 +107,7 @@ buildah config \
   --env 'DD_URL="http://localhost:8080"' \
   --env 'DD_REPORT_PATH="/dependency-check-report.xml"' \
   --env 'EXIT_CODE_ON_MISSING_REPORT=2' \
-  --env 'DD_REPORT_TYPE="Dependency Check Scan"' \
+  --env 'DD_REPORT_TYPE=Dependency Check Scan' \
   --env 'DD_IMPORT_TYPE=import' \
   --env 'DD_BRANCH_NAME="myimage:1.0.0"' \
   --env 'DD_LEAD=1' \
