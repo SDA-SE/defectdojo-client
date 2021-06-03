@@ -37,7 +37,7 @@ if(!report.exists()) {
   System.exit(exitCodeOnMissingReport)
 }
 String scanType = System.getenv("DD_REPORT_TYPE") ?: "Dependency Check Scan"
-
+println "using scanType ${scanType}"
 String sourceCodeManagementUri = System.getenv("DD_SOURCE_CODE_MANAGEMENT_URI") ?: "https://github.com/SDA-SE/setme"
 
 String branchesToKeepFromEnv =  System.getenv("DD_BRANCHES_TO_KEEP") ?: "*"
