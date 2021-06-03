@@ -114,7 +114,7 @@ buildah config \
   --env 'DD_TEAM=nobody' \
   --env 'DD_SOURCE_CODE_MANAGEMENT_URI=""' \
   --env 'DD_BRANCHES_TO_KEEP=""' \
-  --env 'DD_PRODUCT_TAGS=""' \
+  --env 'DD_PRODUCT_TAGS=' \
   --env 'HOME="/code"' \
   --env 'WORKING_DIR="/code"' \
   --env 'EXIT_CODE_ON_FINDING=10' \
