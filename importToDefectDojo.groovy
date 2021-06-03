@@ -67,6 +67,11 @@ def call(args) {
     List<String> combinedTags = product.getTags();
     combinedTags.addAll(args.productTags)
     combinedTags.unique()
+    for (int i = 0; i <combinedTags.size(); i++) {
+        if(combinedTags.get(i).equals("")) {
+            combinedTags.remove(i)
+        }
+    }
     product.setTags(combinedTags)
     productService.update(product, product.getId())
 
