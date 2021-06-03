@@ -65,13 +65,13 @@ def call(args) {
     }
     product.setProductType(productType.id)
     List<String> combinedTags = product.getTags();
-    combinedTags.addAll(args.productTags)
-    combinedTags.unique()
     for (int i = 0; i <combinedTags.size(); i++) {
-        if(combinedTags.get(i).equals("")) {
+        if(combinedTags.get(i).startsWith("team/")) { // refresh team every time
             combinedTags.remove(i)
         }
     }
+    combinedTags.addAll(args.productTags)
+    combinedTags.unique()
     product.setTags(combinedTags)
     productService.update(product, product.getId())
 
