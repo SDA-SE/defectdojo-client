@@ -56,6 +56,7 @@ def call(args) {
                         .name(args.productName)
                         .description(args.productDescription)
                         .productType(productType.id)
+                        .tags(args.productTags)
                         .build()
         );
     }
@@ -70,10 +71,10 @@ def call(args) {
             combinedTags.remove(i)
         }
     }
-    combinedTags.addAll(args.productTags)
-    combinedTags.unique()
-    product.setTags(combinedTags)
-    productService.update(product, product.getId())
+    //combinedTags.addAll(args.productTags)
+    //combinedTags.unique()
+    //product.setTags(combinedTags)
+    //productService.update(product, product.getId())
 
 
     System.out.println("Created or found Product: " + product.name + ", id :" + product.id);
