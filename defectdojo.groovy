@@ -45,7 +45,7 @@ List<String> branchesToKeep = branchesToKeepFromEnv.replace('"', '').split(' ')
 
 String tagsAsString =  System.getenv("DD_PRODUCT_TAGS")
 List<String> productTags = new ArrayList<String>();
-if(tagsAsString) {
+if(tagsAsString && !tagsAsString.isEmpty()) {
   productTags = tagsAsString.split(' ')
 }
 
