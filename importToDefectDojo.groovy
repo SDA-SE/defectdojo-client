@@ -56,7 +56,6 @@ def call(args) {
                         .name(args.productName)
                         .description(args.productDescription)
                         .productType(productType.id)
-                        .tags(args.productTags)
                         .build()
         );
     }
