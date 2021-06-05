@@ -66,15 +66,18 @@ def call(args) {
     }
     //product.setProductType(productType.id) // will cause invalid pk TODO: Delete and re-create
     List<String> combinedTags = product.getTags();
+    combinedTags.addAll(args.productTags)
+    combinedTags.unique()
     for (int i = 0; i <combinedTags.size(); i++) {
         if(combinedTags.get(i).startsWith("team/")) { // refresh team every time
             combinedTags.remove(i)
         }
+        if(combinedTags.get(i) == '""') {
+            combinedTags.remove(i) // TODO: Find why there are some of this
+        }
     }
-    //combinedTags.addAll(args.productTags)
-    //combinedTags.unique()
-    //product.setTags(combinedTags)
-    //productService.update(product, product.getId())
+    product.setTags(combinedTags)
+    productService.update(product, product.getId())
 
 
     System.out.println("Created or found Product: " + product.name + ", id :" + product.id);
