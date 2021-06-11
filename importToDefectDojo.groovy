@@ -66,19 +66,26 @@ def call(args) {
     }
     product.setProductType(productType.id)
     List<String> combinedTags = product.getTags();
-    for (int i = 0; i <combinedTags.size(); i++) {
-        if(combinedTags.get(i).startsWith("team/")) { // refresh team every time
-            println("removing ${combinedTags.get(i)}")
-            combinedTags.remove(i)
+    List<String> removeTags = new ArrayList<>();
+    for (int i = 0; i < combinedTags.size(); i++) {
+        if(combinedTags.get(i).contains("team")) { // refresh team every time
+            println("removing ${combinedTags.get(i)}, ${i}")
+            removeTags.add(i)
+        }else {
+            println "Tag1: ${combinedTags.get(i)}, ${i}"
         }
     }
+    combinedTags.removeAll(removeTags);
+    removeTags.clear()
+
     combinedTags.addAll(args.productTags)
     combinedTags.unique()
     for (int i = 0; i <combinedTags.size(); i++) {
         if(combinedTags.get(i) == '""') {
-            combinedTags.remove(i) // TODO: Find why there are some of this
+            removeTags.remove(i) // TODO: Find why there are some of this
         }
     }
+    combinedTags.removeAll(removeTags);
     for (int i = 0; i <combinedTags.size(); i++) {
         println "Tag: ${combinedTags.get(i)}"
     }
