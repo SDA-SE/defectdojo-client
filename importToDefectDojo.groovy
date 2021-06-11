@@ -64,21 +64,24 @@ def call(args) {
     if(!args.productDescription && product.getDescription() != args.productDescription) {
         product.setDescription(args.productDescription);
     }
-    product.setProductType(productType.id)
+    //product.setProductType(productType.id)
     List<String> combinedTags = product.getTags();
-    for (int i = 0; i <combinedTags.size()-1; i++) {
+    for (int i = 0; i <combinedTags.size(); i++) {
         if(combinedTags.get(i).startsWith("team/")) { // refresh team every time
+            println("removing ${combinedTags.get(i)}")
             combinedTags.remove(i)
         }
     }
     combinedTags.addAll(args.productTags)
     combinedTags.unique()
-    for (int i = 0; i <combinedTags.size()-1; i++) {
+    for (int i = 0; i <combinedTags.size(); i++) {
         if(combinedTags.get(i) == '""') {
             combinedTags.remove(i) // TODO: Find why there are some of this
         }
     }
-
+    for (int i = 0; i <combinedTags.size(); i++) {
+        println "Tag: ${combinedTags.get(i)}"
+    }
     product.setTags(combinedTags)
     productService.update(product, product.getId())
 
