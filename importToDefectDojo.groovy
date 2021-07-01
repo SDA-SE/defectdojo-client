@@ -5,7 +5,7 @@
 //@Grab(group='org.codehaus.jackson', module='jackson-mapper-asl', version='1.9.13')
 //@Grab(group= 'org.springframework', module='spring-web', version='5.2.12.RELEASE')
 @GrabResolver(name='maven-snapshot', root='https://oss.sonatype.org/content/repositories/snapshots/')
-@Grab("io.securecodebox:defectdojo-client:0.0.16-SNAPSHOT")
+@Grab("io.securecodebox:defectdojo-client:0.0.17-SNAPSHOT")
 
 import io.securecodebox.persistence.defectdojo.config.DefectDojoConfig
 import io.securecodebox.persistence.defectdojo.models.Engagement
@@ -57,6 +57,7 @@ def call(args) {
                         .description(args.productDescription)
                         .productType(productType.id)
                         .tags(args.productTags)
+                        .enableSimpleRiskAcceptance(true)
                         .build()
         );
     }
@@ -90,6 +91,7 @@ def call(args) {
         println "Tag: ${combinedTags.get(i)}"
     }
     product.setTags(combinedTags)
+    product.setEnableSimpleRiskAcceptance(true)
     productService.update(product, product.getId())
 
 
