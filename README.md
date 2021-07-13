@@ -1,5 +1,5 @@
 # DefectDojo Java Client Library
-This repository uses OWASP SecureCodeBox defectdojo client library for API calls against OWASP DefectDojo. It is especially useful for Jenkins builds in the Jenkinsfile.
+This repository uses OWASP SecureCodeBox defectdojo client library for API calls against OWASP DefectDojo. It is especially useful for Jenkins builds in the Jenkinsfile or for tools like the [ClusterScanner](https://github.com/SDA-SE/clusterscanner).
 
 # Development
 * `defectdojo.groovy` simulates Jenkins, all parameters (e.g. token) needs to be adjusted here
