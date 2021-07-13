@@ -24,3 +24,6 @@ ALT+Enter on @Grab("io...."") -> "Fetch the artifacts"
 
 # Credits
 This project is based on https://github.com/secureCodeBox/defectdojo-client-java
+
+# Author Information
+This project is developed by [Signal Iduna](https://www.signal-iduna.de) and [SDA SE](https://sda.se/).
