@@ -1,80 +1,87 @@
 #!/usr/bin/env groovy
+@GrabConfig(systemClassLoader=true)
+//#@Grab(group='com.fasterxml.jackson.core', module='jackson-core', version='2.9.9')
+//@Grab(group='com.fasterxml.jackson.core', module='jackson-databind', version='2.9.9.2')
+//@Grab(group='org.codehaus.jackson', module='jackson-mapper-asl', version='1.9.13')
+//@Grab(group= 'org.springframework', module='spring-web', version='5.2.12.RELEASE')
+@GrabResolver(name='maven-snapshot', root='https://oss.sonatype.org/content/repositories/snapshots/')
+@Grab("io.securecodebox:defectdojo-client:0.0.14-SNAPSHOT")
 
-File sourceFile = new File("importToDefectDojo.groovy");
-Class groovyClass = new GroovyClassLoader(getClass().getClassLoader()).parseClass(sourceFile);
-GroovyObject importToDefectDojo = (GroovyObject) groovyClass.newInstance();
+import io.securecodebox.persistence.defectdojo.config.DefectDojoConfig
+import io.securecodebox.persistence.defectdojo.models.Engagement
+import io.securecodebox.persistence.defectdojo.models.Finding
+import io.securecodebox.persistence.defectdojo.models.Product
+import io.securecodebox.persistence.defectdojo.models.ProductType
+import io.securecodebox.persistence.defectdojo.models.Test
+import io.securecodebox.persistence.defectdojo.models.TestType
+import io.securecodebox.persistence.defectdojo.models.User
+import io.securecodebox.persistence.defectdojo.service.EndpointService
+import io.securecodebox.persistence.defectdojo.service.EngagementService
+import io.securecodebox.persistence.defectdojo.service.FindingService
+import io.securecodebox.persistence.defectdojo.service.ImportScanService
+import io.securecodebox.persistence.defectdojo.service.ProductService;
+import io.securecodebox.persistence.defectdojo.service.ProductTypeService;
+import io.securecodebox.persistence.defectdojo.service.TestService
+import io.securecodebox.persistence.defectdojo.service.TestTypeService
+import io.securecodebox.persistence.defectdojo.service.UserService
+import io.securecodebox.persistence.defectdojo.ScanType
 
-String token = System.getenv("DD_TOKEN")
-if(!token) {
-  println "Error: No token"
-  return
+import java.util.stream.Collectors
+
+String dojoUrl = System.getenv("DD_URL")
+
+String dojoToken = System.getenv("DD_TOKEN")
+String dojoUser = System.getenv("DD_USER")
+
+def conf = new DefectDojoConfig(dojoUrl, dojoToken, dojoUser);
+def productTypeService = new ProductTypeService(conf);
+def productService = new ProductService(conf);
+def testService = new TestService(conf);
+def engagagementService = new EngagementService(conf)
+def endpointService = new EndpointService(conf)
+def findingService = new FindingService(conf)
+
+// delete all findings based on name
+/*
+Map<String, String> queryParamsFinding = new HashMap<>();
+queryParamsFinding.put("test__engagement__product", it.id);
+queryParamsFinding.put("name", 'ImageAge > 10');
+findingService.search(queryParamsFinding).each {
+    println "Deleting finding ${it.id}"
+    findingService.delete(it.id)
 }
-String productName = System.getenv("DD_PRODUCT_NAME")
-if(!productName) {
-  println "Error: No productName"
-  return
+*/
+
+// delete all products based on name
+Map<String, String> queryParams = new HashMap<>();
+queryParams.put("tags", 'team/XXX'); // CHANGE THE PRODUC FILTER HERE
+def products = productService.search(queryParams).each {
+    println "In product ${it.id}"
+    Map<String, String> queryParamsEng = new HashMap<>();
+    queryParamsEng.put("product", it.id);
+    def endpoints = endpointService.search(queryParamsEng)
+    for (endpoint in endpoints) {
+        println "Deleting endpoint ${endpoint.id}"
+        endpointService.delete(endpoint.id)
+    }
+    def engagements = engagagementService.search(queryParamsEng);
+    for (eng in engagements) {
+
+        def testsToDelete = []
+        testService.search(Map.of("test__engagement", Long.toString(eng.id))).stream().filter((test -> {
+            testsToDelete.push(test.id)
+        })).collect(Collectors.toList());
+
+        for(testId in testsToDelete) {
+            println "Deleting test ${testId}"
+            testService.delete(testId)
+
+        }
+
+        println "Deleting eng ${eng.id}"
+        engagagementService.delete(eng.id)
+    }
+
+    println "deleting ${it.id}"
+    productService.delete(it.id)
 }
-
-String branchName = System.getenv("DD_BRANCH_NAME")
-if(!branchName) {
-  println "Error: No branchName"
-  return
-}
-
-String productDescription = System.getenv("DD_PRODUCT_DESCRIPTION") ?: productName
-
-String dojoUser = System.getenv("DD_USER") ?: "clusterscanner"
-String dojoUrl = System.getenv("DD_URL") ?: "https://localhost:8080/"
-
-String reportPath = System.getenv("DD_REPORT_PATH") ?: "/dependency-check-report-10.xml"
-
-File report = new File(reportPath)
-if(!report.exists()) {
-  println("Report ${reportPath} doesn't exists, exit")
-  String exitCodeOnMissingReportString = System.getenv("EXIT_CODE_ON_MISSING_REPORT")
-  int exitCodeOnMissingReport = 2
-  if(exitCodeOnMissingReportString) exitCodeOnMissingReport = System.getenv("EXIT_CODE_ON_MISSING_REPORT").toInteger()
-  System.exit(exitCodeOnMissingReport)
-}
-String scanType = System.getenv("DD_REPORT_TYPE") ?: "Dependency Check Scan"
-println "using scanType ${scanType}"
-String sourceCodeManagementUri = System.getenv("DD_SOURCE_CODE_MANAGEMENT_URI") ?: "https://github.com/SDA-SE/setme"
-
-String branchesToKeepFromEnv =  System.getenv("DD_BRANCHES_TO_KEEP") ?: "*"
-List<String> branchesToKeep = branchesToKeepFromEnv.replace('"', '').split(' ')
-
-String tagsAsString =  System.getenv("DD_PRODUCT_TAGS")
-List<String> productTags = new ArrayList<String>();
-if(tagsAsString && !tagsAsString.isEmpty()) {
-  productTags = tagsAsString.split(' ')
-}
-
-deduplicationOnEngagement = System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")
-
-String productType = System.getenv("DD_TEAM")
-if(!productType) productType="nobody"
-if(System.getenv("DD_TEAM")) productTags.add("team/" + System.getenv("DD_TEAM"))
-if(System.getenv("ENVIRONMENT")) productTags.add("cluster/" + System.getenv("ENVIRONMENT"))
-if(System.getenv("NAMESPACE")) productTags.add("namespace/" + System.getenv("NAMESPACE"))
-
-String leadUsername = System.getenv("DD_LEAD_USERNAME") ?: dojoUser
-String testDescription = System.getenv("DD_TEST_DESCRIPTION") ?: ""
-String exitCodeOnFinding = System.getenv("EXIT_CODE_ON_FINDING") ?: "10"
-
-importToDefectDojo dojoToken: token,
-  dojoUser: dojoUser,
-  dojoUrl: dojoUrl,
-  productName: productName,
-  productDescription: productDescription,
-  reportPath: reportPath,
-  branchName: branchName,
-  sourceCodeManagementUri: sourceCodeManagementUri,
-  branchesToKeep: branchesToKeep,
-  scanType: scanType,
-  productTags: productTags,
-  deduplicationOnEngagement: deduplicationOnEngagement,
-  productTypeName: productType,
-  leadUsername: leadUsername,
-  testDescription: testDescription,
-  exitCodeOnFinding: exitCodeOnFinding
-
