@@ -5,7 +5,8 @@
 //@Grab(group='org.codehaus.jackson', module='jackson-mapper-asl', version='1.9.13')
 //@Grab(group= 'org.springframework', module='spring-web', version='5.2.12.RELEASE')
 @GrabResolver(name='maven-snapshot', root='https://oss.sonatype.org/content/repositories/snapshots/')
-@Grab("io.securecodebox:defectdojo-client:0.0.14-SNAPSHOT")
+// Click on the dep and hit ALT+Enter to grab
+@Grab("io.securecodebox:defectdojo-client:0.0.19-SNAPSHOT")
 
 import io.securecodebox.persistence.defectdojo.config.DefectDojoConfig
 import io.securecodebox.persistence.defectdojo.models.Engagement
@@ -54,7 +55,7 @@ findingService.search(queryParamsFinding).each {
 
 // delete all products based on name
 Map<String, String> queryParams = new HashMap<>();
-queryParams.put("tags", 'team/XXX'); // CHANGE THE PRODUC FILTER HERE
+queryParams.put("name", 'sdadev | alh | quay.io/sdase/alh-oidc-adapter'); // CHANGE THE PRODUC FILTER HERE
 def products = productService.search(queryParams).each {
     println "In product ${it.id}"
     Map<String, String> queryParamsEng = new HashMap<>();
@@ -66,16 +67,24 @@ def products = productService.search(queryParams).each {
     }
     def engagements = engagagementService.search(queryParamsEng);
     for (eng in engagements) {
-
+        println("found engagement ${eng.id}")
         def testsToDelete = []
-        testService.search(Map.of("test__engagement", Long.toString(eng.id))).stream().filter((test -> {
+        Map<String, String> queryParamsTest = new HashMap<>();
+        queryParamsTest.put("engagement", Long.toString(eng.id))
+        testService.search(queryParamsTest).stream().filter((test -> {
             testsToDelete.push(test.id)
         })).collect(Collectors.toList());
 
         for(testId in testsToDelete) {
+            Map<String, String> queryParamsFinding = new HashMap<>();
+            queryParamsFinding.put("test", "${testId}");
+            println("searching for findings in ${testId}")
+            findingService.search(queryParamsFinding).each {
+                println "Deleting finding ${it.id}"
+                findingService.delete(it.id)
+            }
             println "Deleting test ${testId}"
             testService.delete(testId)
-
         }
 
         println "Deleting eng ${eng.id}"
