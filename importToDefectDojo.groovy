@@ -172,6 +172,27 @@ def call(args) {
         }
     }
     def minimumSeverity = Finding.Severity.High
+    switch (args.minimumSeverity) {
+        case "Critical":
+            minimumSeverity = Finding.Severity.Critical
+            break;
+        case "High":
+            minimumSeverity = Finding.Severity.High
+            break
+        case "Medium":
+            minimumSeverity = Finding.Severity.Medium
+            break
+        case "Low":
+            minimumSeverity = Finding.Severity.Low
+            break
+        case "Informational":
+            minimumSeverity = Finding.Severity.Informational
+            break
+        default:
+            println("Error, minimumSeverity '${args.minimumSeverity}' doesn't exist")
+            break
+    }
+
     def findings = findingService.getUnhandledFindingsForEngagement(engagement.id, minimumSeverity)
 
     println("Got ${findings.size()} unhandled findings")

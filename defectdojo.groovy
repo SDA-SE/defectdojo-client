@@ -57,6 +57,8 @@ if(System.getenv("DD_TEAM")) productTags.add("team/" + System.getenv("DD_TEAM"))
 if(System.getenv("ENVIRONMENT")) productTags.add("cluster/" + System.getenv("ENVIRONMENT"))
 if(System.getenv("NAMESPACE")) productTags.add("namespace/" + System.getenv("NAMESPACE"))
 
+String minimumSeverity = System.getenv("DD_MINIMUM_SEVERITY") ?: "High"
+
 String leadUsername = System.getenv("DD_LEAD_USERNAME") ?: dojoUser
 String testDescription = System.getenv("DD_TEST_DESCRIPTION") ?: ""
 String exitCodeOnFinding = System.getenv("EXIT_CODE_ON_FINDING") ?: "10"
@@ -76,5 +78,6 @@ importToDefectDojo dojoToken: token,
   productTypeName: productType,
   leadUsername: leadUsername,
   testDescription: testDescription,
-  exitCodeOnFinding: exitCodeOnFinding
+  exitCodeOnFinding: exitCodeOnFinding,
+  minimumSeverity: minimumSeverity
 
