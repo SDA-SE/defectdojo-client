@@ -26,6 +26,7 @@ import io.securecodebox.persistence.defectdojo.service.TestService
 import io.securecodebox.persistence.defectdojo.service.TestTypeService
 import io.securecodebox.persistence.defectdojo.service.UserService
 import io.securecodebox.persistence.defectdojo.ScanType
+import groovy.time.*
 
 import java.util.stream.Collectors
 
@@ -43,54 +44,109 @@ def endpointService = new EndpointService(conf)
 def findingService = new FindingService(conf)
 
 // delete all findings based on name
-/*
-Map<String, String> queryParamsFinding = new HashMap<>();
-queryParamsFinding.put("test__engagement__product", it.id);
-queryParamsFinding.put("name", 'ImageAge > 10');
-findingService.search(queryParamsFinding).each {
-    println "Deleting finding ${it.id}"
-    findingService.delete(it.id)
+def deleteAllFindings(conf, queryParamsFinding) {
+    def findingService = new FindingService(conf)
+    findingService.search(queryParamsFinding).each {
+        println "Deleting finding ${it.id}"
+        findingService.delete(it.id)
+    }
 }
-*/
+Map<String, String> queryParamsFinding = new HashMap<>();
+queryParamsFinding.put("name", 'ImageAge > 10');
+//deleteAllFindings(conf, queryParamsFinding)
 
 // delete all products based on name
-Map<String, String> queryParams = new HashMap<>();
-queryParams.put("name", 'sdadev | alh | quay.io/sdase/alh-oidc-adapter'); // CHANGE THE PRODUC FILTER HERE
-def products = productService.search(queryParams).each {
-    println "In product ${it.id}"
-    Map<String, String> queryParamsEng = new HashMap<>();
-    queryParamsEng.put("product", it.id);
-    def endpoints = endpointService.search(queryParamsEng)
-    for (endpoint in endpoints) {
-        println "Deleting endpoint ${endpoint.id}"
-        endpointService.delete(endpoint.id)
-    }
-    def engagements = engagagementService.search(queryParamsEng);
-    for (eng in engagements) {
-        println("found engagement ${eng.id}")
-        def testsToDelete = []
-        Map<String, String> queryParamsTest = new HashMap<>();
-        queryParamsTest.put("engagement", Long.toString(eng.id))
-        testService.search(queryParamsTest).stream().filter((test -> {
-            testsToDelete.push(test.id)
-        })).collect(Collectors.toList());
+def deleteAllProducts(conf, Map<String, String> queryParams) {
+    def productTypeService = new ProductTypeService(conf);
+    def productService = new ProductService(conf);
+    def testService = new TestService(conf);
+    def engagagementService = new EngagementService(conf)
+    def endpointService = new EndpointService(conf)
+    def findingService = new FindingService(conf)
+    def products = productService.search(queryParams).each {
+        println "In product ${it.id}"
+        Map<String, String> queryParamsEng = new HashMap<>();
+        queryParamsEng.put("product", it.id);
+        def endpoints = endpointService.search(queryParamsEng)
+        for (endpoint in endpoints) {
+            println "Deleting endpoint ${endpoint.id}"
+            endpointService.delete(endpoint.id)
+        }
+        def engagements = engagagementService.search(queryParamsEng);
+        for (eng in engagements) {
+            println("found engagement ${eng.id}")
+            def testsToDelete = []
+            Map<String, String> queryParamsTest = new HashMap<>();
+            queryParamsTest.put("engagement", Long.toString(eng.id))
+            testService.search(queryParamsTest).stream().filter((test -> {
+                testsToDelete.push(test.id)
+            })).collect(Collectors.toList());
 
-        for(testId in testsToDelete) {
-            Map<String, String> queryParamsFinding = new HashMap<>();
-            queryParamsFinding.put("test", "${testId}");
-            println("searching for findings in ${testId}")
-            findingService.search(queryParamsFinding).each {
-                println "Deleting finding ${it.id}"
-                findingService.delete(it.id)
+            for(testId in testsToDelete) {
+                Map<String, String> queryParamsFinding = new HashMap<>();
+                queryParamsFinding.put("test", "${testId}");
+                println("searching for findings in ${testId}")
+                findingService.search(queryParamsFinding).each {
+                    println "Deleting finding ${it.id}"
+                    findingService.delete(it.id)
+                }
+                println "Deleting test ${testId}"
+                testService.delete(testId)
             }
-            println "Deleting test ${testId}"
-            testService.delete(testId)
+
+            println "Deleting eng ${eng.id}"
+            engagagementService.delete(eng.id)
         }
 
-        println "Deleting eng ${eng.id}"
-        engagagementService.delete(eng.id)
+        println "deleting ${it.id}"
+        productService.delete(it.id)
     }
-
-    println "deleting ${it.id}"
-    productService.delete(it.id)
 }
+Map<String, String> queryParams = new HashMap<>();
+queryParams.put("name", '');
+deleteAllProducts(conf, queryParams)
+
+def findProductsWithNoCurrentTestAndDelete(conf, int mayAgeOfTestInDays, queryParams, dojoUrl) {
+    def productTypeService = new ProductTypeService(conf);
+    def productService = new ProductService(conf);
+    def testService = new TestService(conf);
+    def engagagementService = new EngagementService(conf)
+    def endpointService = new EndpointService(conf)
+    def findingService = new FindingService(conf)
+
+    productService.search(queryParams).each {
+        def delete = false
+        Map<String, String> queryParamsEng = new HashMap<>();
+        def product = it;
+        queryParamsEng.put("product", it.id);
+        def engagements = engagagementService.search(queryParamsEng);
+        for (eng in engagements) {
+            Map<String, String> queryParamsTest = new HashMap<>();
+            queryParamsTest.put("engagement", Long.toString(eng.id))
+            queryParamsTest.put("o", "title") // ordering
+            def tests = testService.search(queryParamsTest)
+            if(tests.size() == 0) continue;
+            test = tests.last()
+
+            def testDate = Date.parse("yyyy-MM-dd'T'HH:mm:ss'Z'", test.targetStart)
+            def duration = groovy.time.TimeCategory.minus(
+                    new Date(),
+                    testDate
+            );
+            if(duration.days > mayAgeOfTestInDays) {
+                println "Will delete product: ${product.name} (${product.id}), test: ${test.title} (${test.id}, ${test.targetStart}), duration: ${duration.days} ${dojoUrl}/test/${test.id}"
+                delete = true
+                break;
+            }
+        }
+        try {
+        if(delete) productService.delete(product.id)
+        }catch(Exception) {
+            println "COULD NOT DELETE PRODUCT ${product.id}, try that afterwards"
+        }
+    }
+}
+Map<String, String> queryParamsProduct = new HashMap<>();
+queryParams.put("name", '|'); //shows that it comes via ClusterImageScanner or SecureCodeBox
+mayAgeOfTestInDays=30
+//findProductsWithNoCurrentTestAndDelete(conf, mayAgeOfTestInDays, queryParams, dojoUrl)
