@@ -45,7 +45,7 @@ cp defectdojo.groovy "${defectdojo_mnt}/code/defectdojo.groovy"
 cp importToDefectDojo.groovy "${defectdojo_mnt}/code/importToDefectDojo.groovy"
 cp addDependenciesToDescription.groovy "${defectdojo_mnt}/code/addDependenciesToDescription.groovy"
 
-GROOVY_VERSION=3.0.8
+GROOVY_VERSION=3.0.9
 mkdir -p "${defectdojo_mnt}/usr/groovy"
 pushd "${defectdojo_mnt}/usr/groovy"
 curl -L https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-binary-$GROOVY_VERSION.zip  --output apache-groovy-binary.zip
