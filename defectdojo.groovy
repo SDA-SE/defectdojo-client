@@ -52,8 +52,8 @@ def deleteAllFindings(conf, queryParamsFinding) {
     }
 }
 Map<String, String> queryParamsFinding = new HashMap<>();
-queryParamsFinding.put("name", 'ImageAge > 10');
-//deleteAllFindings(conf, queryParamsFinding)
+queryParamsFinding.put("title", 'BaseImage Age > 60 Days');
+deleteAllFindings(conf, queryParamsFinding)
 
 // delete all products based on name
 def deleteAllProducts(conf, Map<String, String> queryParams) {
@@ -104,7 +104,10 @@ def deleteAllProducts(conf, Map<String, String> queryParams) {
 }
 Map<String, String> queryParams = new HashMap<>();
 queryParams.put("name", '');
-deleteAllProducts(conf, queryParams)
+//deleteAllProducts(conf, queryParams)
+
+
+
 
 def findProductsWithNoCurrentTestAndDelete(conf, int mayAgeOfTestInDays, queryParams, dojoUrl) {
     def productTypeService = new ProductTypeService(conf);
