@@ -5,7 +5,7 @@
 //@Grab(group='org.codehaus.jackson', module='jackson-mapper-asl', version='1.9.13')
 //@Grab(group= 'org.springframework', module='spring-web', version='5.2.12.RELEASE')
 @GrabResolver(name='maven-snapshot', root='https://oss.sonatype.org/content/repositories/snapshots/')
-@Grab("io.securecodebox:defectdojo-client:0.0.17-SNAPSHOT")
+@Grab("io.securecodebox:defectdojo-client:0.0.24-SNAPSHOT")
 
 import io.securecodebox.persistence.defectdojo.config.DefectDojoConfig
 import io.securecodebox.persistence.defectdojo.models.Engagement
@@ -27,7 +27,7 @@ import io.securecodebox.persistence.defectdojo.service.UserService
 import io.securecodebox.persistence.defectdojo.ScanType
 
 def call(args) {
-    def conf = new DefectDojoConfig(args.dojoUrl, args.dojoToken, args.dojoUser);
+    def conf = new DefectDojoConfig(args.dojoUrl, args.dojoToken, args.dojoUser, 200, null);
     def productTypeService = new ProductTypeService(conf);
     def productService = new ProductService(conf);
     def engagementService = new EngagementService(conf)

@@ -12,7 +12,7 @@ EXPORT DD_TOKEN=XXX
 
 ## Intellij
 Add jaxb libraries $GROOVY_HOME/lib/extras-jaxb (e.g. in Groovy SDK-configuration or File -> Project Structure -> Global Libraries -> add each jar)
-ALT+Enter on @Grab("io...."") -> "Fetch the artifacts" 
+ALT+Enter on @Grab("io...."") -> "Grab the artifacts" 
 
 # Exit Codes
 * 0: Scan ok, no unhandled vulnerabilties
