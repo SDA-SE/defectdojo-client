@@ -26,7 +26,18 @@ String productDescription = System.getenv("DD_PRODUCT_DESCRIPTION") ?: productNa
 String dojoUser = System.getenv("DD_USER") ?: "clusterscanner"
 String dojoUrl = System.getenv("DD_URL") ?: "https://localhost:8080/"
 
-String reportPath = System.getenv("DD_REPORT_PATH") ?: "/dependency-check-report-10.xml"
+String reportPath = System.getenv("DD_REPORT_PATH") ?: "/tmp/dependency-check-results/dependency-check-report.xml"
+
+
+def list = []
+def dir = new File("/tmp/dependency-check-results")
+dir.eachFileRecurse (FileType.FILES) { file ->
+  list << file
+}
+list.each {
+  println it.path
+}
+
 
 File report = new File(reportPath)
 if(!report.exists()) {
