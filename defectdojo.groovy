@@ -30,7 +30,7 @@ String reportPath = System.getenv("DD_REPORT_PATH") ?: "/tmp/dependency-check-re
 
 
 dh = new File("/tmp/dependency-check-results")
-if(report.exists()) {
+if(dh.exists()) {
   dh.eachFileRecurse {
       println it
   }
