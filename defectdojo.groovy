@@ -29,13 +29,9 @@ String dojoUrl = System.getenv("DD_URL") ?: "https://localhost:8080/"
 String reportPath = System.getenv("DD_REPORT_PATH") ?: "/tmp/dependency-check-results/dependency-check-report.xml"
 
 
-def list = []
-def dir = new File("/tmp/dependency-check-results")
-dir.eachFileRecurse (FileType.FILES) { file ->
-  list << file
-}
-list.each {
-  println it.path
+dh = new File("/tmp/dependency-check-results")
+dh.eachFileRecurse {
+    println it
 }
 
 
