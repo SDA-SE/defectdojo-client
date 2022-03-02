@@ -53,7 +53,7 @@ def deleteAllFindings(conf, queryParamsFinding) {
 }
 Map<String, String> queryParamsFinding = new HashMap<>();
 queryParamsFinding.put("title", 'BaseImage Age > 60 Days');
-deleteAllFindings(conf, queryParamsFinding)
+//deleteAllFindings(conf, queryParamsFinding)
 
 // delete all products based on name
 def deleteAllProducts(conf, Map<String, String> queryParams) {
@@ -64,7 +64,7 @@ def deleteAllProducts(conf, Map<String, String> queryParams) {
     def endpointService = new EndpointService(conf)
     def findingService = new FindingService(conf)
     def products = productService.search(queryParams).each {
-        println "In product ${it.id}"
+        println "In product ${it.id} ${it.name}"
         Map<String, String> queryParamsEng = new HashMap<>();
         queryParamsEng.put("product", it.id);
         def endpoints = endpointService.search(queryParamsEng)
@@ -103,7 +103,7 @@ def deleteAllProducts(conf, Map<String, String> queryParams) {
     }
 }
 Map<String, String> queryParams = new HashMap<>();
-queryParams.put("name", '');
+queryParams.put("name", ':');
 //deleteAllProducts(conf, queryParams)
 
 
