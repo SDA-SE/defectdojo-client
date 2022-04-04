@@ -2,18 +2,18 @@
 set -e
 source env.bash
 
-if [ "$DD_URL" == "" ]; then
-  echo "DD_URL not set"
+if [ "$DEFECTDOJO_URL" == "" ]; then
+  echo "DEFECTDOJO_URL not set"
   exit;
 fi
 
-if [ "$DD_TOKEN" == "" ]; then
-  echo "DD_TOKEN not set"
+if [ "$DEFECTDOJO_APIKEY" == "" ]; then
+  echo "DEFECTDOJO_APIKEY not set"
   exit;
 fi
 
-if [ "${DD_USER}" == "" ]; then
-  export DD_USER="cluster-scan"
+if [ "${DEFECTDOJO_USERNAME}" == "" ]; then
+  export DEFECTDOJO_USERNAME="cluster-scan"
 fi
 groovy defectdojo.groovy
 
