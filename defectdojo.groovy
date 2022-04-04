@@ -30,10 +30,10 @@ import groovy.time.*
 
 import java.util.stream.Collectors
 
-String dojoUrl = System.getenv("DD_URL")
+String dojoUrl = System.getenv("DEFECTDOJO_URL")
 
-String dojoToken = System.getenv("DD_TOKEN")
-String dojoUser = System.getenv("DD_USER")
+String dojoToken = System.getenv("DEFECTDOJO_APIKEY")
+String dojoUser = System.getenv("DEFECTDOJO_USERNAME")
 
 def conf = new DefectDojoConfig(dojoUrl, dojoToken, dojoUser);
 def productTypeService = new ProductTypeService(conf);
@@ -151,5 +151,5 @@ def findProductsWithNoCurrentTestAndDelete(conf, int mayAgeOfTestInDays, queryPa
 }
 Map<String, String> queryParamsProduct = new HashMap<>();
 queryParams.put("name", '|'); //shows that it comes via ClusterImageScanner or SecureCodeBox
-mayAgeOfTestInDays=30
-//findProductsWithNoCurrentTestAndDelete(conf, mayAgeOfTestInDays, queryParams, dojoUrl)
+mayAgeOfTestInDays=15
+findProductsWithNoCurrentTestAndDelete(conf, mayAgeOfTestInDays, queryParams, dojoUrl)
