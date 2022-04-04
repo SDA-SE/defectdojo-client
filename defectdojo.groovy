@@ -117,11 +117,13 @@ def findProductsWithNoCurrentTestAndDelete(conf, int mayAgeOfTestInDays, queryPa
     def engagagementService = new EngagementService(conf)
     def endpointService = new EndpointService(conf)
     def findingService = new FindingService(conf)
+    println "Will fetch products according to query params"
     productService.search(queryParams).each {
         def delete = true
         Map<String, String> queryParamsEng = new HashMap<>();
         def product = it;
         queryParamsEng.put("product", it.id);
+	println "In product ${it.id}"
         def engagements = engagagementService.search(queryParamsEng);
         for (eng in engagements) {
             Map<String, String> queryParamsTest = new HashMap<>();
@@ -155,7 +157,7 @@ def findProductsWithNoCurrentTestAndDelete(conf, int mayAgeOfTestInDays, queryPa
 }
 Map<String, String> queryParamsProduct = new HashMap<>();
 //queryParamsProduct.put("name", ':'); //shows that it comes via ClusterImageScanner or SecureCodeBox
-mayAgeOfTestInDays=6
+mayAgeOfTestInDays=60
 findProductsWithNoCurrentTestAndDelete(conf, mayAgeOfTestInDays, queryParamsProduct, dojoUrl)
 
 def deleteFindings(conf, Map<String, String> queryParams) {
