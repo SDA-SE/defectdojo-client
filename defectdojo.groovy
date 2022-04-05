@@ -123,7 +123,7 @@ def findProductsWithNoCurrentTestAndDelete(conf, int mayAgeOfTestInDays, queryPa
         Map<String, String> queryParamsEng = new HashMap<>();
         def product = it;
         queryParamsEng.put("product", it.id);
-	println "In product ${it.id}"
+	    println "In product ${it.id}"
         def engagements = engagagementService.search(queryParamsEng);
         for (eng in engagements) {
             Map<String, String> queryParamsTest = new HashMap<>();
