@@ -6,7 +6,7 @@
 //@Grab(group= 'org.springframework', module='spring-web', version='5.2.12.RELEASE')
 @GrabResolver(name='maven-snapshot', root='https://oss.sonatype.org/content/repositories/snapshots/')
 // Click on the dep and hit ALT+Enter to grab
-@Grab("io.securecodebox:defectdojo-client:0.0.25-SNAPSHOT")
+@Grab("io.securecodebox:defectdojo-client:0.0.26-SNAPSHOT")
 
 import io.securecodebox.persistence.defectdojo.config.DefectDojoConfig
 import io.securecodebox.persistence.defectdojo.models.Engagement
@@ -132,8 +132,11 @@ def findProductsWithNoCurrentTestAndDelete(conf, int mayAgeOfTestInDays, queryPa
             def tests = testService.search(queryParamsTest)
             if(tests.size() == 0) continue;
             test = tests.last()
-
-            def testDate = Date.parse("yyyy-MM-dd'T'HH:mm:ss'Z'", test.targetStart)
+            def dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+            if (test.targetStart.length() == 27) {
+                dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSS'Z'"
+            }
+            def testDate = Date.parse(dateFormat, test.targetStart)
             def duration = groovy.time.TimeCategory.minus(
                     new Date(),
                     testDate
