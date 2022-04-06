@@ -1,12 +1,12 @@
 #!/usr/bin/env groovy
 @GrabConfig(systemClassLoader=true)
-//#@Grab(group='com.fasterxml.jackson.core', module='jackson-core', version='2.9.9')
-//@Grab(group='com.fasterxml.jackson.core', module='jackson-databind', version='2.9.9.2')
-//@Grab(group='org.codehaus.jackson', module='jackson-mapper-asl', version='1.9.13')
+@Grab(group='com.fasterxml.jackson.core', module='jackson-core', version='2.13.2')
+@Grab(group='com.fasterxml.jackson.core', module='jackson-databind', version='2.13.2')
+//@Grab(group='org.codehaus.jackson', module='jackson-mapper-asl', version='2.13.2')
 //@Grab(group= 'org.springframework', module='spring-web', version='5.2.12.RELEASE')
 @GrabResolver(name='maven-snapshot', root='https://oss.sonatype.org/content/repositories/snapshots/')
 // Click on the dep and hit ALT+Enter to grab
-@Grab("io.securecodebox:defectdojo-client:0.0.19-SNAPSHOT")
+@Grab("io.securecodebox:defectdojo-client:0.0.26-SNAPSHOT")
 
 import io.securecodebox.persistence.defectdojo.config.DefectDojoConfig
 import io.securecodebox.persistence.defectdojo.models.Engagement
@@ -35,7 +35,7 @@ String dojoUrl = System.getenv("DEFECTDOJO_URL")
 String dojoToken = System.getenv("DEFECTDOJO_APIKEY")
 String dojoUser = System.getenv("DEFECTDOJO_USERNAME")
 
-def conf = new DefectDojoConfig(dojoUrl, dojoToken, dojoUser);
+def conf = DefectDojoConfig.fromEnv(); //(dojoUrl, dojoToken, dojoUser);
 def productTypeService = new ProductTypeService(conf);
 def productService = new ProductService(conf);
 def testService = new TestService(conf);
@@ -110,18 +110,20 @@ queryParams.put("name", ':');
 
 
 def findProductsWithNoCurrentTestAndDelete(conf, int mayAgeOfTestInDays, queryParams, dojoUrl) {
+
     def productTypeService = new ProductTypeService(conf);
     def productService = new ProductService(conf);
     def testService = new TestService(conf);
     def engagagementService = new EngagementService(conf)
     def endpointService = new EndpointService(conf)
     def findingService = new FindingService(conf)
-
+    println "Will fetch products according to query params"
     productService.search(queryParams).each {
-        def delete = false
+        def delete = true
         Map<String, String> queryParamsEng = new HashMap<>();
         def product = it;
         queryParamsEng.put("product", it.id);
+	    println "In product ${it.id}"
         def engagements = engagagementService.search(queryParamsEng);
         for (eng in engagements) {
             Map<String, String> queryParamsTest = new HashMap<>();
@@ -130,26 +132,60 @@ def findProductsWithNoCurrentTestAndDelete(conf, int mayAgeOfTestInDays, queryPa
             def tests = testService.search(queryParamsTest)
             if(tests.size() == 0) continue;
             test = tests.last()
-
-            def testDate = Date.parse("yyyy-MM-dd'T'HH:mm:ss'Z'", test.targetStart)
+            def dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+            if (test.targetStart.length() == 27) {
+                dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSS'Z'"
+            }
+            def testDate = Date.parse(dateFormat, test.targetStart)
             def duration = groovy.time.TimeCategory.minus(
                     new Date(),
                     testDate
             );
-            if(duration.days > mayAgeOfTestInDays) {
-                println "Will delete product: ${product.name} (${product.id}), test: ${test.title} (${test.id}, ${test.targetStart}), duration: ${duration.days} ${dojoUrl}/test/${test.id}"
-                delete = true
+            if(duration.days < mayAgeOfTestInDays) {
+                println "Will NOT delete product: ${product.name} (${product.id}), test: ${test.title} (${test.id}, ${test.targetStart}), duration: ${duration.days} ${dojoUrl}/test/${test.id}"
+                delete = false
                 break;
             }
         }
+
         try {
-        if(delete) productService.delete(product.id)
+            if(delete) {
+                println "Deleting product: ${product.name} (${product.id})"
+                productService.delete(product.id)
+            }
         }catch(Exception) {
             println "COULD NOT DELETE PRODUCT ${product.id}, try that afterwards"
         }
     }
 }
 Map<String, String> queryParamsProduct = new HashMap<>();
+//queryParamsProduct.put("name", ':'); //shows that it comes via ClusterImageScanner or SecureCodeBox
+mayAgeOfTestInDays=60
+//findProductsWithNoCurrentTestAndDelete(conf, mayAgeOfTestInDays, queryParamsProduct, dojoUrl)
+
+def deleteFindings(conf, Map<String, String> queryParams) {
+    def productTypeService = new ProductTypeService(conf);
+    def productService = new ProductService(conf);
+    def testService = new TestService(conf);
+    def engagagementService = new EngagementService(conf)
+    def endpointService = new EndpointService(conf)
+    def findingService = new FindingService(conf)
+    def products = productService.search();
+
+    for (product in products)  {
+        println "product ${product.id}"
+        Map<String, String> queryParamsFindings = new HashMap<>();
+        queryParamsFindings.put("tag", 'suppressed');
+        queryParamsFindings.put("test__engagement__product", product.id);
+        findingService.search(queryParamsFindings).each {
+            println "finding ${it.id}"
+            findingService.delete(it.id)
+
+        }
+    }
+
+}
+
 queryParams.put("name", '|'); //shows that it comes via ClusterImageScanner or SecureCodeBox
 mayAgeOfTestInDays=15
-findProductsWithNoCurrentTestAndDelete(conf, mayAgeOfTestInDays, queryParams, dojoUrl)
+//deleteFindings(conf, queryParams);
