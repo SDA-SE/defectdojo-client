@@ -10,7 +10,7 @@ export DD_URL="https://defectdojo-test.tools.sda-se.io/"
 #export DD_URL=http://localhost:8081/
 
 export DD_USER="admin"
-export DD_PRODUCT_NAME="test-2021-11-04"
+export DD_PRODUCT_NAME="test-service"
 export DD_PRODUCT_DESCRIPTION="Test defectdojo by tpagel"
 export DD_BRANCH_NAME="image:2.0.0"
 #export DD_BUILD_ID=1
