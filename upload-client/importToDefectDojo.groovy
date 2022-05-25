@@ -1,5 +1,5 @@
 #!/usr/bin/env groovy
-package client
+package uploadClient
 
 @GrabConfig(systemClassLoader=true)
 //#@Grab(group='com.fasterxml.jackson.core', module='jackson-core', version='2.9.9')
@@ -68,34 +68,21 @@ def call(args) {
         product.setDescription(args.productDescription);
     }
     product.setProductType(productType.id)
-    List<String> combinedTags = product.getTags();
-    List<String> removeTags = new ArrayList<>();
-    for (int i = 0; i < combinedTags.size(); i++) {
-        if(combinedTags.get(i).contains("team")) { // refresh team every time
-            println("removing ${combinedTags.get(i)}, ${i}")
-            removeTags.add(i)
+    List<String> existingProductTags = product.getTags();
+    List<String> tagsToBeSet = new ArrayList<>();
+    for (int i = 0; i < existingProductTags.size(); i++) {
+        if(existingProductTags.get(i).contains("team")) { // refresh team every time
+            println("Not adding tag ${existingProductTags.get(i)}, ${i}")
         }else {
-            println "Tag1: ${combinedTags.get(i)}, ${i}"
+            tagsToBeSet.add(existingProductTags.get(i))
         }
     }
-    combinedTags.removeAll(removeTags);
-    removeTags.clear()
-
-    combinedTags.addAll(args.productTags)
-    combinedTags.unique()
-    for (int i = 0; i <combinedTags.size(); i++) {
-        if(combinedTags.get(i) == '""') {
-            removeTags.remove(i) // TODO: Find why there are some of this
-        }
-    }
-    combinedTags.removeAll(removeTags);
-    for (int i = 0; i <combinedTags.size(); i++) {
-        println "Tag: ${combinedTags.get(i)}"
-    }
-    product.setTags(combinedTags)
+    tagsToBeSet.addAll(args.productTags)
+    tagsToBeSet.unique()
+    product.setTags(tagsToBeSet)
+    println "Set product tags ${tagsToBeSet}"
     product.setEnableSimpleRiskAcceptance(true)
     productService.update(product, product.getId())
-
 
     System.out.println("Created or found Product: " + product.name + ", id :" + product.id);
     def branchParameter

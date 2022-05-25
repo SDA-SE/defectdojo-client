@@ -17,6 +17,8 @@ export DD_BRANCH_NAME="image:2.0.0"
 export DD_SOURCE_CODE_MANAGEMENT_URI="" # https://github.com/XYZ
 export DD_DEDUPLICATION_ON_ENGAGEMENT="true"
 export DD_REPORT_PATH="./test/dependency-check-report-5.xml"
+export DD_PRODUCT_TAGS="sometag"
+export DD_TEAM="test2"
 #groovy defectdojo.groovy
 
 export DD_REPORT_PATH="./test/dependency-check-report-10.xml"
