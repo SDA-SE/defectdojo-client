@@ -1,4 +1,5 @@
 #!/usr/bin/env groovy
+package client
 
 def dependencyCheckReportPath = args[0] // e.g. 'build/reports/dependency-check-report-10.xml'
 def dependencies = new File(args[1]).text // e.g. 'dependencies.txt'

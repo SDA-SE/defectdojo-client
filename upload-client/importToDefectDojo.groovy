@@ -1,4 +1,6 @@
 #!/usr/bin/env groovy
+package client
+
 @GrabConfig(systemClassLoader=true)
 //#@Grab(group='com.fasterxml.jackson.core', module='jackson-core', version='2.9.9')
 //@Grab(group='com.fasterxml.jackson.core', module='jackson-databind', version='2.9.9.2')

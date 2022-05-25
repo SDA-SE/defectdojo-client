@@ -1,4 +1,5 @@
 #!/usr/bin/env groovy
+package client
 
 File sourceFile = new File("importToDefectDojo.groovy");
 Class groovyClass = new GroovyClassLoader(getClass().getClassLoader()).parseClass(sourceFile);
