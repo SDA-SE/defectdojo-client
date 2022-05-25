@@ -163,7 +163,7 @@ Map<String, String> queryParamsProduct = new HashMap<>();
 mayAgeOfTestInDays=60
 //findProductsWithNoCurrentTestAndDelete(conf, mayAgeOfTestInDays, queryParamsProduct, dojoUrl)
 
-def deleteFindings(conf, Map<String, String> queryParams) {
+def deleteFindingsViaProduct(conf, Map<String, String> queryParams) {
     def productTypeService = new ProductTypeService(conf);
     def productService = new ProductService(conf);
     def testService = new TestService(conf);
@@ -185,7 +185,29 @@ def deleteFindings(conf, Map<String, String> queryParams) {
     }
 
 }
-
-queryParams.put("name", '|'); //shows that it comes via ClusterImageScanner or SecureCodeBox
+//queryParams.put("name", '|'); //shows that it comes via ClusterImageScanner or SecureCodeBox
 mayAgeOfTestInDays=15
+//deleteFindingsViaProduct(conf, queryParams);
+
+def deleteFindings(conf, Map<String, String> queryParams) {
+    def productTypeService = new ProductTypeService(conf);
+    def productService = new ProductService(conf);
+    def testService = new TestService(conf);
+    def engagagementService = new EngagementService(conf)
+    def endpointService = new EndpointService(conf)
+    def findingService = new FindingService(conf)
+
+    Map<String, String> queryParamsFindings = new HashMap<>();
+    queryParamsFindings.put("title", 'Age');
+    queryParamsFindings.put("duplicate", 'false');
+    findingService.search(queryParamsFindings).each {
+        println "finding ${it.id}, ${it.title}"
+        if(it.title.contains("Image Age >")) {
+            println("deleting ${it.id}")
+            findingService.delete(it.id)
+        }
+
+    }
+}
+
 //deleteFindings(conf, queryParams);
