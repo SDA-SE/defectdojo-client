@@ -1,12 +1,12 @@
 #!/usr/bin/env groovy
 @GrabConfig(systemClassLoader=true)
-@Grab(group='com.fasterxml.jackson.core', module='jackson-core', version='2.13.2')
-@Grab(group='com.fasterxml.jackson.core', module='jackson-databind', version='2.13.2')
+//@Grab(group='com.fasterxml.jackson.core', module='jackson-core', version='2.13.2')
+//@Grab(group='com.fasterxml.jackson.core', module='jackson-databind', version='2.13.2')
 //@Grab(group='org.codehaus.jackson', module='jackson-mapper-asl', version='2.13.2')
 //@Grab(group= 'org.springframework', module='spring-web', version='5.2.12.RELEASE')
 @GrabResolver(name='maven-snapshot', root='https://oss.sonatype.org/content/repositories/snapshots/')
 // Click on the dep and hit ALT+Enter to grab
-@Grab("io.securecodebox:defectdojo-client:0.0.26-SNAPSHOT")
+@Grab("io.securecodebox:defectdojo-client:0.0.27-SNAPSHOT")
 
 import io.securecodebox.persistence.defectdojo.config.DefectDojoConfig
 import io.securecodebox.persistence.defectdojo.models.Engagement
@@ -211,3 +211,22 @@ def deleteFindings(conf, Map<String, String> queryParams) {
 }
 
 //deleteFindings(conf, queryParams);
+
+
+
+def findProducts(conf, Map<String, String> queryParams) {
+    def productTypeService = new ProductTypeService(conf);
+    def productService = new ProductService(conf);
+    def testService = new TestService(conf);
+    def engagagementService = new EngagementService(conf)
+    def endpointService = new EndpointService(conf)
+    def findingService = new FindingService(conf)
+    def products = productService.search(queryParams);
+
+    for (product in products) {
+        println "product has tag tbd: ${product.id} ${product.name}"
+    }
+}
+Map<String, String> queryParamsFindProduct = new HashMap<>();
+queryParamsFindProduct.put("tag", 'tbd'); //shows that it comes via ClusterImageScanner or SecureCodeBox
+findProducts(conf, queryParamsFindProduct);
