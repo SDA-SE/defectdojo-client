@@ -75,7 +75,7 @@ def generateResponseStatistic(conf, queryParams) {
                 if(finding.getMitigatedAt() != null) {
                     mitigatedDateOrToday = finding.getMitigatedAt().toDate()
                 }else if (finding.getRiskAccepted()) {
-                    println "TODO risk acceptance for finding ${finding.id};"
+                    println "TODO risk acceptance for finding ${finding.id}; skipping this finding"
                     continue
                 } else if (finding.verified) { //suppressed findings
                     continue

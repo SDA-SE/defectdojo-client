@@ -28,8 +28,6 @@ cleanup() {
   test -n "${defectdojo_container}" && buildah rm "${defectdojo_container}" || true
 }
 
-image="defectdojo-statistic-client"
-
 _base_image="quay.io/sdase/defectdojo-client:3"
 defectdojo_container="$(buildah from $_base_image)"
 defectdojo_mnt="$(buildah mount "${defectdojo_container}")"
