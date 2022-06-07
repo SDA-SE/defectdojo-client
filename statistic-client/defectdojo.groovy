@@ -26,6 +26,9 @@ import io.securecodebox.persistence.defectdojo.service.UserService
 import io.securecodebox.persistence.defectdojo.ScanType
 import groovy.time.*
 
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 import java.util.stream.Collectors
 
 String dojoUrl = System.getenv("DEFECTDOJO_URL")
@@ -33,9 +36,24 @@ String dojoUrl = System.getenv("DEFECTDOJO_URL")
 String dojoToken = System.getenv("DEFECTDOJO_APIKEY")
 String dojoUser = System.getenv("DEFECTDOJO_USERNAME")
 
+String dateFormat = "yyyy-MM-dd HH:mm"
+
+String startDateString = System.getenv("START_DATE")
+String endDateString = System.getenv("END_DATE")
+
+if (startDateString == null) {
+    println "START_DATE is empty, assuming the default of calculating the last 90 days"
+    endDateString = LocalDateTime.now().format(dateFormat)
+    startDateString = LocalDateTime.now().minus(90, ChronoUnit.DAYS).format(dateFormat)
+}
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
+LocalDateTime  endDate = LocalDateTime.parse(endDateString, formatter)
+LocalDateTime startDate = LocalDateTime.parse(startDateString, formatter)
+
+println "Time range to look at: ${startDate} - ${endDate}"
 def conf = DefectDojoConfig.fromEnv(); //(dojoUrl, dojoToken, dojoUser);
 
-def generateResponseStatistic(conf, queryParams) {
+def generateResponseStatistic(conf, queryParams, startDate, endDate) {
     def productTypeService = new ProductTypeService(conf);
     def productService = new ProductService(conf);
     def testService = new TestService(conf);
@@ -68,7 +86,16 @@ def generateResponseStatistic(conf, queryParams) {
         for (finding in findings) {
             if(it.tags.contains("jenkins")) continue;
             if(finding.severity.getNumericRepresentation() <= 2) {
+                //println "Skipping ${finding.id}: Severity too low"
                 continue;
+            }
+            if(finding.getCreatedAt() < startDate) {
+                //println "Skipping ${finding.id}: ${finding.getCreatedAt()} < ${startDate}"
+                continue
+            }
+            if(finding.getCreatedAt() > endDate) {
+                //println "Skipping ${finding.id}: ${finding.getCreatedAt()} > ${endDate}"
+                continue
             }
             def mitigatedDateOrToday = today;
             if (!finding.active) {
@@ -97,7 +124,7 @@ def generateResponseStatistic(conf, queryParams) {
     def statisticFile = new File(System.getenv("STATISTIC_FILE_PATH"))
     statisticFile.delete()
     statisticFile.createNewFile()
-    statisticFile.append("team,average in days,maximum,amount of findings\n")
+    statisticFile.append("team-severity,average in days,maximum,amount of findings\n")
     for (teamResponseTimes in teamsResponseTimes) {
         def sumDuration=0
         def amount = 0;
@@ -113,4 +140,5 @@ def generateResponseStatistic(conf, queryParams) {
     }
 }
 Map<String, String> queryParamsProduct = new HashMap<>();
-generateResponseStatistic(conf, queryParamsProduct)
+generateResponseStatistic(conf, queryParamsProduct, startDate, endDate)
+
