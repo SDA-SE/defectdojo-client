@@ -31,14 +31,16 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.stream.Collectors
 
-String dojoUrl = System.getenv("DEFECTDOJO_URL")
-if (dojoUrl == null) {
-    dojoUrl = System.getenv("DD_URL")
+if (System.getenv("DD_URL") != null) {
+    env.DEFECTDOJO_URL = System.getenv("DD_URL")
+}
+if (System.getenv("DD_TOKEN") != null) {
+    env.DEFECTDOJO_APIKEY = System.getenv("DD_TOKEN")
 }
 
-String dojoToken = System.getenv("DEFECTDOJO_APIKEY")
-String dojoUser = System.getenv("DEFECTDOJO_USERNAME")
-
+if (System.getenv("DD_USER") != null) {
+    env.DEFECTDOJO_USERNAME = System.getenv("DD_USER")
+}
 String dateFormat = "yyyy-MM-dd HH:mm"
 
 String startDateString = System.getenv("START_DATE")
