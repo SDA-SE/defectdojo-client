@@ -59,7 +59,7 @@ LocalDateTime  endDate = LocalDateTime.parse(endDateString, formatter)
 LocalDateTime startDate = LocalDateTime.parse(startDateString, formatter)
 
 println "Time range to look at: ${startDate} - ${endDate}"
-def conf = new DefectDojoConfig(dojoUrl, dojoToken, dojoUser, 100)
+def conf = new DefectDojoConfig(dojoUrl, dojoToken, dojoUser, 200)
 
 def generateResponseStatistic(conf, queryParams, startDate, endDate) {
     def productTypeService = new ProductTypeService(conf);
