@@ -30,19 +30,22 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.stream.Collectors
-
+println System.getenv("DD_URL")
+println "xxxx"
 if (System.getenv("DD_URL") != null) {
-    System.setProperty("DEFECTDOJO_URL",System.getenv("DD_URL"))
+    println "Setting DEFECTDOJO_URL"
+    System.properties['DEFECTDOJO_URL'] = System.getenv("DD_URL")
 }
 if (System.getenv("DD_TOKEN") != null) {
-    System.setProperty("DEFECTDOJO_APIKEY", System.getenv("DD_TOKEN"))
+    System.properties["DEFECTDOJO_APIKEY"] =  System.getenv("DD_TOKEN")
 }
 
 if (System.getenv("DD_USER") != null) {
-    System.setProperty("DEFECTDOJO_USERNAME", System.getenv("DD_USER"))
+    System.properties["DEFECTDOJO_USERNAME"] = System.getenv("DD_USER")
 }
+
 String dateFormat = "yyyy-MM-dd HH:mm"
-println System.getenv()
+
 String startDateString = System.getenv("START_DATE")
 String endDateString = System.getenv("END_DATE")
 
