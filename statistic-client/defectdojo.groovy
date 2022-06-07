@@ -30,19 +30,10 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.stream.Collectors
-println System.getenv("DD_URL")
-println "xxxx"
-if (System.getenv("DD_URL") != null) {
-    println "Setting DEFECTDOJO_URL"
-    System.properties['DEFECTDOJO_URL'] = System.getenv("DD_URL")
-}
-if (System.getenv("DD_TOKEN") != null) {
-    System.properties["DEFECTDOJO_APIKEY"] =  System.getenv("DD_TOKEN")
-}
 
-if (System.getenv("DD_USER") != null) {
-    System.properties["DEFECTDOJO_USERNAME"] = System.getenv("DD_USER")
-}
+String dojoUrl = System.getenv("DEFECTDOJO_URL")
+String dojoToken = System.getenv("DEFECTDOJO_APIKEY")
+String dojoUser = System.getenv("DEFECTDOJO_USERNAME")
 
 String dateFormat = "yyyy-MM-dd HH:mm"
 
@@ -59,7 +50,7 @@ LocalDateTime  endDate = LocalDateTime.parse(endDateString, formatter)
 LocalDateTime startDate = LocalDateTime.parse(startDateString, formatter)
 
 println "Time range to look at: ${startDate} - ${endDate}"
-def conf = DefectDojoConfig.fromEnv(); //(dojoUrl, dojoToken, dojoUser);
+def conf = new DefectDojoConfig(dojoUrl, dojoToken, dojoUser, 100);
 
 def generateResponseStatistic(conf, queryParams, startDate, endDate) {
     def productTypeService = new ProductTypeService(conf);
