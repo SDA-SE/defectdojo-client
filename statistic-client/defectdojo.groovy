@@ -32,14 +32,14 @@ import java.time.temporal.ChronoUnit
 import java.util.stream.Collectors
 
 if (System.getenv("DD_URL") != null) {
-    env.DEFECTDOJO_URL = System.getenv("DD_URL")
+    System.setProperty("DEFECTDOJO_URL",System.getenv("DD_URL"))
 }
 if (System.getenv("DD_TOKEN") != null) {
-    env.DEFECTDOJO_APIKEY = System.getenv("DD_TOKEN")
+    System.setProperty("DEFECTDOJO_APIKEY", System.getenv("DD_TOKEN"))
 }
 
 if (System.getenv("DD_USER") != null) {
-    env.DEFECTDOJO_USERNAME = System.getenv("DD_USER")
+    System.setProperty("DEFECTDOJO_USERNAME", System.getenv("DD_USER"))
 }
 String dateFormat = "yyyy-MM-dd HH:mm"
 
