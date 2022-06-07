@@ -42,7 +42,7 @@ if (System.getenv("DD_USER") != null) {
     System.setProperty("DEFECTDOJO_USERNAME", System.getenv("DD_USER"))
 }
 String dateFormat = "yyyy-MM-dd HH:mm"
-System.getenv()
+println System.getenv()
 String startDateString = System.getenv("START_DATE")
 String endDateString = System.getenv("END_DATE")
 
