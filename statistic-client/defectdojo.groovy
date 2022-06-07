@@ -32,6 +32,9 @@ import java.time.temporal.ChronoUnit
 import java.util.stream.Collectors
 
 String dojoUrl = System.getenv("DEFECTDOJO_URL")
+if (dojoUrl == null) {
+    dojoUrl = System.getenv("DD_URL")
+}
 
 String dojoToken = System.getenv("DEFECTDOJO_APIKEY")
 String dojoUser = System.getenv("DEFECTDOJO_USERNAME")
