@@ -5,11 +5,6 @@ File sourceFile = new File("importToDefectDojo.groovy");
 Class groovyClass = new GroovyClassLoader(getClass().getClassLoader()).parseClass(sourceFile);
 GroovyObject importToDefectDojo = (GroovyObject) groovyClass.newInstance();
 
-String token = System.getenv("DD_TOKEN")
-if(!token) {
-  println "Error: No token"
-  return
-}
 String productName = System.getenv("DD_PRODUCT_NAME")
 if(!productName) {
   println "Error: No productName"
@@ -24,9 +19,23 @@ if(!branchName) {
 
 String productDescription = System.getenv("DD_PRODUCT_DESCRIPTION") ?: productName
 
-String dojoUser = System.getenv("DD_USER") ?: "clusterscanner"
-String dojoUrl = System.getenv("DD_URL") ?: "https://localhost:8080/"
+String dojoUrl = System.getenv("DEFECTDOJO_URL")
+if (dojoUrl == null) {
+  dojoUrl = System.getenv("DD_URL")
+}
 
+String token = System.getenv("DEFECTDOJO_APIKEY")
+if(token == null) {
+  token = System.getenv("DD_TOKEN")
+}
+String dojoUser = System.getenv("DEFECTDOJO_USERNAME")
+if(dojoUser == null) {
+  dojoUser = System.getenv("DD_USER")
+}
+if(!token) {
+  println "Error: No token"
+  return
+}
 String reportPath = System.getenv("DD_REPORT_PATH") ?: "/tmp/dependency-check-results/dependency-check-report.xml"
 
 
