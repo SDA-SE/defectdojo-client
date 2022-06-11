@@ -14,5 +14,5 @@ fi
 if [ "${DEFECTDOJO_USERNAME}" == "" ]; then
   export DEFECTDOJO_USERNAME="cluster-scan"
 fi
-export STATISTIC_FILE_PATH=/tmp/team-statistics.csv
+export STATISTIC_FILE_PATH=/tmp/team-response-statistics.csv
 groovy defectdojo.groovy

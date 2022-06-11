@@ -63,7 +63,7 @@ buildah config \
   --label "io.sda-se.image.bill-of-materials-hash=${bill_of_materials_hash}" \
   --env "DD_USER=clusterscanner" \
   --env 'DD_TOKEN=' \
-  --env 'STATISTIC_FILE_PATH=/tmp/team-statistics.csv' \
+  --env 'STATISTIC_FILE_=/tmp/team-response-statistics.csv' \
   --env 'DD_URL="http://localhost:8080"' \
   --env 'HOME="/code"' \
   --env 'WORKING_DIR="/code"' \
