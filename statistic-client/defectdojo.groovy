@@ -26,10 +26,75 @@ import io.securecodebox.persistence.defectdojo.service.UserService
 import io.securecodebox.persistence.defectdojo.ScanType
 import groovy.time.*
 
+import java.lang.reflect.InvocationTargetException
+import java.lang.reflect.Method
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
+import java.util.function.Predicate
 import java.util.stream.Collectors
+
+
+public class StatisticFinding extends Finding {
+    TimeDuration duration;
+    String environment;
+    String team;
+    public StatisticFinding(Finding finding, List<String> tags) {
+        // copy fields
+        for (Method getMethod : finding.getClass().getMethods()) {
+            if (getMethod.getName().startsWith("get")) {
+                try {
+                    Method setMethod = this.getClass().getMethod(getMethod.getName().replace("get", "set"), getMethod.getReturnType());
+                    setMethod.invoke(this, getMethod.invoke(finding, (Object[]) null));
+
+                } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                    //not found set
+                }
+            }
+        }
+        def today = new Date()
+        def mitigatedDateOrToday = today;
+        if (!finding.active) {
+            if(finding.getMitigatedAt() != null) {
+                mitigatedDateOrToday = finding.getMitigatedAt().toDate()
+            }else if (finding.getRiskAccepted()) {
+                println "TODO risk acceptance for finding ${finding.id}; assuming creation date"
+                mitigatedDateOrToday = finding.getCreatedAt().toDate()
+            } else if (finding.verified) { //suppressed findings
+                println "TODO suppressed for finding ${finding.id}; assuming creation date"
+                mitigatedDateOrToday = finding.getCreatedAt().toDate()
+            } else {
+                println "Unknown state for finding ${finding.id} in product ${product.id}"
+            }
+        }
+        this.duration = groovy.time.TimeCategory.minus(
+                mitigatedDateOrToday,
+                finding.getCreatedAt().toDate()
+        );
+        this.team = getTag("team", tags)
+        this.environment = getTag("cluster", tags)
+    }
+
+    public static getTag(String expectedTag, List<String> tags) {
+        for (tag in tags) {
+            if (tag.startsWith("${expectedTag}/")) {
+                return tag
+            }
+        }
+        return null;
+    }
+
+    public static LinkedList<StatisticFinding> findEnvironment(LinkedList<StatisticFinding> baseCollection, String env, String team, String severity) {
+        LinkedList<StatisticFinding> filteredFindings = new LinkedList<StatisticFinding>()
+        for(StatisticFinding statisticFinding in baseCollection) {
+            if(statisticFinding.getEnvironment().matches(env) && statisticFinding.getTeam().matches(team) && statisticFinding.getSeverity().name().matches(severity)) {
+                filteredFindings.push(statisticFinding)
+            }
+        }
+        return filteredFindings
+    }
+}
+
 
 String dojoUrl = System.getenv("DEFECTDOJO_URL")
 if (dojoUrl == null) {
@@ -68,85 +133,137 @@ def generateResponseStatistic(conf, queryParams, startDate, endDate) {
     def engagagementService = new EngagementService(conf)
     def endpointService = new EndpointService(conf)
     def findingService = new FindingService(conf)
-    def today = new Date()
+
     println "Will fetch all products and iterate over findings"
     println "Products with tag jenkins are getting skipped"
-    Map<String, ArrayList<Integer>> teamsResponseTimes = new HashMap<String, ArrayList<Integer>>()
+    List<StatisticFinding> responseFindings = new  LinkedList<StatisticFinding>()
+    List<String> environments = new  LinkedList<String>()
+    List<String> teams = new  LinkedList<String>()
     productService.search(queryParams).each {
         def delete = true
         Map<String, String> queryParamsEng = new HashMap<>();
         def product = it;
         //println "In product ${it.id} with tags ${it.tags}"
-        def team = ""
-        for (tag in it.tags) {
-            if (tag.startsWith("team/")) {
-                if (!team.empty) {
-                    println "There are min. two teams for product ${it.id} ${it.name} defined ${it.tags}"
-                }
-                team = tag
-            }
-        }
 
         Map<String, String> queryParamsFindings = new HashMap<>();
         queryParamsFindings.put("test__engagement__product", it.id);
         queryParamsFindings.put("duplicate", "false");
+
         def findings = findingService.search(queryParamsFindings)
         for (finding in findings) {
             if(it.tags.contains("jenkins")) continue;
+            /*
             if(finding.severity.getNumericRepresentation() <= 2) {
                 //println "Skipping ${finding.id}: Severity too low"
                 continue;
             }
-            if(finding.getCreatedAt() < startDate) {
+             */
+            /*if(finding.getCreatedAt() < startDate) {
                 //println "Skipping ${finding.id}: ${finding.getCreatedAt()} < ${startDate}"
                 continue
             }
+             */
             if(finding.getCreatedAt() > endDate) {
                 //println "Skipping ${finding.id}: ${finding.getCreatedAt()} > ${endDate}"
                 continue
             }
-            def mitigatedDateOrToday = today;
             if (!finding.active) {
                 if(finding.getMitigatedAt() != null) {
-                    mitigatedDateOrToday = finding.getMitigatedAt().toDate()
+                    //
                 }else if (finding.getRiskAccepted()) {
-                    println "TODO risk acceptance for finding ${finding.id}; skipping this finding"
+                    println "TODO risk accpeted for finding ${finding.id}; skipping"
                     continue
                 } else if (finding.verified) { //suppressed findings
+                    println "TODO suppressed for finding ${finding.id}; skipping"
                     continue
                 } else {
                     println "Unknown state for finding ${finding.id} in product ${product.id}"
                 }
             }
-            TimeDuration duration = groovy.time.TimeCategory.minus(
-                    mitigatedDateOrToday,
-                    finding.getCreatedAt().toDate()
-            );
-            def teamAndSeverity = team + "-" + finding.severity
-            ArrayList<Integer> durations = teamsResponseTimes.getOrDefault(teamAndSeverity, new ArrayList<Integer>())
-            durations.push(duration)
-            teamsResponseTimes.put(teamAndSeverity, durations)
+
+            def statisticFinding = new StatisticFinding(finding, it.tags)
+
+            responseFindings.push(statisticFinding)
+            environments.push(statisticFinding.getEnvironment())
+            teams.push(statisticFinding.getTeam())
         }
     }
-    teamsResponseTimes.sort()
+
+
+
+
+
     def statisticFile = new File(System.getenv("STATISTIC_FILE_PATH"))
-    statisticFile.delete()
-    statisticFile.createNewFile()
-    statisticFile.append("team-severity,average in days,maximum,amount of findings\n")
-    for (teamResponseTimes in teamsResponseTimes) {
-        def sumDuration=0
-        def amount = 0;
-        for (TimeDuration duration in teamResponseTimes.value) {
-            amount++
-            sumDuration = sumDuration+duration.days
-            //println "team ${teamResponseTimes.key}: ${duration.days}"
+    if(!statisticFile.exists()) {
+        statisticFile.createNewFile()
+        def fileHeader = "environment,team,severity,average in days (including all open findings),average in days for findings opened within ${startDate}-${endDate},maximum (all opened findings),maximum in days for findings opened within ${startDate}-${endDate},amount of findings (all open),amount of findings in days for findings opened within ${startDate}-${endDate}\n"
+        print fileHeader
+        statisticFile.append(fileHeader)
+    }
+
+    environments = environments.sort().unique()
+    teams = teams.sort().unique()
+    for (environment in environments) {
+        for(team in teams) {
+            for(String severity in Finding.Severity.values()) {
+                List<StatisticFinding> filterFindings = StatisticFinding.findEnvironment(responseFindings, environment, team, severity);
+                def sumDuration=0
+                def amount = 0;
+                def maxDuration
+                for(StatisticFinding statisticFinding in filterFindings) {
+                    if(statisticFinding.getCreatedAt() < startDate && !statisticFinding.getActive()) {
+                        println "skipping inactive old finding ${statisticFinding.getId()}"
+                        continue
+                    }
+
+                    if(statisticFinding.getSeverity().name().matches(severity)) {
+                        if(maxDuration == null || maxDuration < statisticFinding.duration) {
+                            maxDuration = statisticFinding.getDuration()
+                        }
+                        amount++
+                        sumDuration = sumDuration+statisticFinding.getDuration().days
+                    }
+                }
+                def sumDurationWithLimitStart=0
+                def amountWithLimitStart = 0;
+                def maxDurationWithLimitStart
+                for(StatisticFinding statisticFinding in filterFindings) {
+                    if(statisticFinding.getCreatedAt() < startDate) {
+                        continue
+                    }
+                    if(statisticFinding.getSeverity().name().matches(severity)) {
+                        if(maxDurationWithLimitStart == null || maxDurationWithLimitStart < statisticFinding.duration) {
+                            maxDurationWithLimitStart = statisticFinding.getDuration()
+                        }
+
+                        amountWithLimitStart++
+                        sumDurationWithLimitStart = sumDurationWithLimitStart+statisticFinding.getDuration().days
+                    }
+                }
+
+                if(amount == 0 && amountWithLimitStart == 0) continue
+                def avgDuration = 0
+                if(amount != 0) {
+                    avgDuration = java.lang.Math.round(sumDuration/amount)
+                }
+                def avgDurationWithLimitStart = 0
+                if(amountWithLimitStart != 0) {
+                    avgDurationWithLimitStart = java.lang.Math.round(sumDurationWithLimitStart/amountWithLimitStart)
+                }
+                def maxDurationString = 0
+                if(maxDuration) maxDurationString = maxDuration.days
+                def maxDurationWithLimitStartString = 0
+                if(maxDurationWithLimitStart) maxDurationWithLimitStartString = maxDurationWithLimitStart.days
+                def statusText = "\"${environment}\",\"${team}\",\"${severity}\",${avgDuration},${avgDurationWithLimitStart},${maxDurationString},${maxDurationWithLimitStartString},${amount},${amountWithLimitStart}\n"
+                print statusText
+                statisticFile.append(statusText)
+
+            }
+
         }
-        avgDuration = java.lang.Math.round(sumDuration/teamResponseTimes.value.size())
-        def statusText = "\"${teamResponseTimes.key}\",\"${avgDuration}\",\"" + Collections.max(teamResponseTimes.value) + "\",${amount}\n"
-        print statusText
-        statisticFile.append(statusText)
     }
 }
 Map<String, String> queryParamsProduct = new HashMap<>();
 generateResponseStatistic(conf, queryParamsProduct, startDate, endDate)
+
 
