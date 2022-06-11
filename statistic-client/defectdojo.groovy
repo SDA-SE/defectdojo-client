@@ -189,10 +189,6 @@ def generateResponseStatistic(conf, queryParams, startDate, endDate) {
         }
     }
 
-
-
-
-
     def statisticFile = new File(System.getenv("STATISTIC_FILE_PATH"))
     if(!statisticFile.exists()) {
         statisticFile.createNewFile()
