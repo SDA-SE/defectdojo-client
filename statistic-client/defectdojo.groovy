@@ -86,11 +86,12 @@ public class StatisticFinding extends Finding {
 
     public static LinkedList<StatisticFinding> findEnvironment(LinkedList<StatisticFinding> baseCollection, String env, String team, String severity) {
         LinkedList<StatisticFinding> filteredFindings = new LinkedList<StatisticFinding>()
+        println "env ${env}; team ${team}, severity ${severity}"
         for(StatisticFinding statisticFinding in baseCollection) {
             if(statisticFinding != null && statisticFinding.getEnvironment() != null && statisticFinding.getTeam() != null && statisticFinding.getSeverity() != null) {
-            if(statisticFinding.getEnvironment().matches(env) && statisticFinding.getTeam().matches(team) && statisticFinding.getSeverity().name().matches(severity)) {
-                filteredFindings.push(statisticFinding)
-            }
+                    if(statisticFinding.getEnvironment().matches(env) && statisticFinding.getTeam().matches(team) && statisticFinding.getSeverity().name().matches(severity)) {
+                        filteredFindings.push(statisticFinding)
+                    }
             }else {
                 print "Error: statisticFinding ${statisticFinding.getId()} doesn't have all requred fields set"
             }
@@ -156,6 +157,14 @@ def generateResponseStatistic(conf, queryParams, startDate, endDate) {
         def findings = findingService.search(queryParamsFindings)
         for (finding in findings) {
             if(it.tags.contains("jenkins")) continue;
+            if(StatisticFinding.getTag("team", it.tags) == null) {
+                println "product ${it.getId()} doesn't has a team tag, skipping"
+                continue
+            }
+            if(StatisticFinding.getTag("cluster", it.tags) == null) {
+                println "product ${it.getId()} doesn't has a cluster tag, skipping"
+                continue
+            }
             /*
             if(finding.severity.getNumericRepresentation() <= 2) {
                 //println "Skipping ${finding.id}: Severity too low"
@@ -203,6 +212,9 @@ def generateResponseStatistic(conf, queryParams, startDate, endDate) {
 
     environments = environments.sort().unique()
     teams = teams.sort().unique()
+
+    if(environments.contains(null)) environments.remove(null)
+    if(teams.contains(null)) teams.remove(null)
     for (environment in environments) {
         for(team in teams) {
             for(String severity in Finding.Severity.values()) {
@@ -265,5 +277,7 @@ def generateResponseStatistic(conf, queryParams, startDate, endDate) {
 }
 Map<String, String> queryParamsProduct = new HashMap<>();
 generateResponseStatistic(conf, queryParamsProduct, startDate, endDate)
+
+
 
 
