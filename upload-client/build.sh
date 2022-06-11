@@ -101,7 +101,7 @@ buildah config \
   --env 'DD_TOKEN=' \
   --env 'DD_DEDUPLICATION_ON_ENGAGEMENT=true' \
   --env 'DD_PRODUCT_NAME=test' \
-  --env 'DD_PRODUCT_DESCRIPTION=test product' \
+  --env 'DD_PRODUCT_DESCRIPTION=Product created by ClusterImageScanner' \
   --env 'ENVIRONMENT=' \
   --env 'NAMESPACE=' \
   --env 'DD_URL="http://localhost:8080"' \
