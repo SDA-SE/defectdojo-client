@@ -87,8 +87,12 @@ public class StatisticFinding extends Finding {
     public static LinkedList<StatisticFinding> findEnvironment(LinkedList<StatisticFinding> baseCollection, String env, String team, String severity) {
         LinkedList<StatisticFinding> filteredFindings = new LinkedList<StatisticFinding>()
         for(StatisticFinding statisticFinding in baseCollection) {
+            if(statisticFinding != null && statisticFinding.getEnvironment() != null && statisticFinding.getTeam() != null && statisticFinding.getSeverity() != null) {
             if(statisticFinding.getEnvironment().matches(env) && statisticFinding.getTeam().matches(team) && statisticFinding.getSeverity().name().matches(severity)) {
                 filteredFindings.push(statisticFinding)
+            }
+            }else {
+                print "Error: statisticFinding ${statisticFinding.getId()} doesn't have all requred fields set"
             }
         }
         return filteredFindings
