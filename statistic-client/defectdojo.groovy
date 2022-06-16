@@ -4,7 +4,7 @@ package statisticClient
 @GrabConfig(systemClassLoader=true)
 @GrabResolver(name='maven-snapshot', root='https://oss.sonatype.org/content/repositories/snapshots/')
 // Click on the dep and hit ALT+Enter to grab
-@Grab("io.securecodebox:defectdojo-client:0.0.27-SNAPSHOT")
+@Grab("io.securecodebox:defectdojo-client:0.0.31-SNAPSHOT")
 
 import io.securecodebox.persistence.defectdojo.config.DefectDojoConfig
 import io.securecodebox.persistence.defectdojo.models.Engagement
@@ -58,8 +58,13 @@ public class StatisticFinding extends Finding {
             if(finding.getMitigatedAt() != null) {
                 mitigatedDateOrToday = finding.getMitigatedAt().toDate()
             }else if (finding.getRiskAccepted()) {
-                println "TODO risk acceptance for finding ${finding.id}; assuming creation date"
                 mitigatedDateOrToday = finding.getCreatedAt().toDate()
+                if(acceptedRisks.get(0)) {
+                    mitigatedDateOrToday = acceptedRisks.get(0).getCreatedAt().toDate()
+                } else {
+                    println "ERROR: finding ${finding.id} has a risk, but no object for it"
+                }
+
             } else if (finding.verified) { //suppressed findings
                 println "TODO suppressed for finding ${finding.id}; assuming creation date"
                 mitigatedDateOrToday = finding.getCreatedAt().toDate()
@@ -184,8 +189,7 @@ def generateResponseStatistic(conf, queryParams, startDate, endDate) {
                 if(finding.getMitigatedAt() != null) {
                     //
                 }else if (finding.getRiskAccepted()) {
-                    println "TODO risk accpeted for finding ${finding.id}; skipping"
-                    continue
+                    //
                 } else if (finding.verified) { //suppressed findings
                     println "TODO suppressed for finding ${finding.id}; skipping"
                     continue
