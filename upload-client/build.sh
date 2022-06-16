@@ -118,6 +118,7 @@ buildah config \
   --env 'HOME="/code"' \
   --env 'WORKING_DIR="/code"' \
   --env 'EXIT_CODE_ON_FINDING=10' \
+  --env 'IS_CREATE_GROUPS=true' \
   --user 1001 \
   --entrypoint '' \
   --cmd '/usr/bin/groovy /code/defectdojo.groovy' \

@@ -71,6 +71,7 @@ if(tagsAsString && !tagsAsString.isEmpty()) {
 deduplicationOnEngagement = System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")
 
 String productType = System.getenv("DD_TEAM")
+String team = System.getenv("DD_TEAM")
 if(!productType) productType="nobody"
 if(System.getenv("DD_TEAM")) productTags.add("team/" + System.getenv("DD_TEAM"))
 if(System.getenv("ENVIRONMENT")) productTags.add("cluster/" + System.getenv("ENVIRONMENT"))
@@ -81,6 +82,7 @@ String minimumSeverity = System.getenv("DD_MINIMUM_SEVERITY") ?: "High"
 String leadUsername = System.getenv("DD_LEAD_USERNAME") ?: dojoUser
 String testDescription = System.getenv("DD_TEST_DESCRIPTION") ?: ""
 String exitCodeOnFinding = System.getenv("EXIT_CODE_ON_FINDING") ?: "10"
+String isCreateGroups  = System.getenv("IS_CREATE_GROUPS") ?: "true"
 
 importToDefectDojo dojoToken: token,
   dojoUser: dojoUser,
@@ -98,5 +100,7 @@ importToDefectDojo dojoToken: token,
   leadUsername: leadUsername,
   testDescription: testDescription,
   exitCodeOnFinding: exitCodeOnFinding,
-  minimumSeverity: minimumSeverity
+  minimumSeverity: minimumSeverity,
+  team: team,
+  isCreateGroups: Boolean.parseBoolean(isCreateGroups)
 

@@ -7,7 +7,7 @@ package uploadClient
 //@Grab(group='org.codehaus.jackson', module='jackson-mapper-asl', version='1.9.13')
 //@Grab(group= 'org.springframework', module='spring-web', version='5.2.12.RELEASE')
 @GrabResolver(name='maven-snapshot', root='https://oss.sonatype.org/content/repositories/snapshots/')
-@Grab("io.securecodebox:defectdojo-client:0.0.27-SNAPSHOT")
+@Grab("io.securecodebox:defectdojo-client:0.0.30-SNAPSHOT")
 
 import io.securecodebox.persistence.defectdojo.config.DefectDojoConfig
 import io.securecodebox.persistence.defectdojo.models.Engagement
@@ -18,6 +18,9 @@ import io.securecodebox.persistence.defectdojo.models.ScanFile
 import io.securecodebox.persistence.defectdojo.models.Test
 import io.securecodebox.persistence.defectdojo.models.TestType
 import io.securecodebox.persistence.defectdojo.models.User
+import io.securecodebox.persistence.defectdojo.models.DojoGroup
+import io.securecodebox.persistence.defectdojo.models.ProductGroup
+
 import io.securecodebox.persistence.defectdojo.service.EngagementService
 import io.securecodebox.persistence.defectdojo.service.FindingService
 import io.securecodebox.persistence.defectdojo.service.ImportScanService
@@ -26,7 +29,11 @@ import io.securecodebox.persistence.defectdojo.service.ProductTypeService;
 import io.securecodebox.persistence.defectdojo.service.TestService
 import io.securecodebox.persistence.defectdojo.service.TestTypeService
 import io.securecodebox.persistence.defectdojo.service.UserService
+import io.securecodebox.persistence.defectdojo.service.DojoGroupService
+import io.securecodebox.persistence.defectdojo.service.ProductGroupService
 import io.securecodebox.persistence.defectdojo.ScanType
+
+
 
 def call(args) {
     def conf = new DefectDojoConfig(args.dojoUrl, args.dojoToken, args.dojoUser, 200);
@@ -38,6 +45,8 @@ def call(args) {
     def userService = new UserService(conf)
     def findingService = new FindingService(conf)
     def importScanService = new ImportScanService(conf)
+    def dojoGroupService = new DojoGroupService(conf)
+    def productGroupService = new ProductGroupService(conf)
 
     def leadUser = userService.searchUnique(User.builder().username(args.leadUsername).build()).orElseThrow {
         return new RuntimeException("Failed to find user '${args.leadUsername}' in DefectDojo")
@@ -60,6 +69,30 @@ def call(args) {
                         .productType(productType.id)
                         .tags(args.productTags)
                         .enableSimpleRiskAcceptance(true)
+                        .build()
+        );
+    }
+    def dojoGroup = dojoGroupService.searchUnique(DojoGroup.builder().name(args.team).build()).orElseGet {
+        if(args.isCreateGroups) {
+            return dojoGroupService.create(
+                DojoGroup.builder()
+                        .name(args.team)
+                        .description("created via ClusterImageScanner")
+                        .build()
+        );
+        }
+        return null
+    }
+    if(dojoGroup == null) {
+        throw new Exception("Group ${args.team} doesn't exit and IS_CREATE_GROUPS is " + args.isCreateGroups)
+    }
+    println("Using dojoGroup ${dojoGroup.getId()}")
+    def productGroup = productGroupService.searchUnique(ProductGroup.builder().group(dojoGroup.getId()).product(product.getId()).build()).orElseGet {
+        return productGroupService.create(
+                ProductGroup.builder()
+                        .group(dojoGroup.getId())
+                        .product(product.getId())
+                        .role(3) // 3=maintainer
                         .build()
         );
     }
@@ -139,6 +172,8 @@ def call(args) {
 
     Map<String, String> queryParams = new HashMap<>();
     queryParams.put("id", String.valueOf(response.getTestId()));
+    println "test ${ String.valueOf(response.getTestId())}"
+    
     Test test = testService.search(queryParams).first();
     test.setDescription("Date: " + dateNow + " " + timeNow + "\nImage: " + branchParameter[0] + "\nTag: " + branchParameter[1] +"\nTest Scan Type: " + scanType.getTestType() + "\n" + args.testDescription)
     test.setTitle(dateNow + " " + timeNow + " | " + branchParameter[1] +" (" + scanType.getTestType() + ")");
@@ -205,3 +240,4 @@ def call(args) {
         isFindingFile.write "false"
     }
 }
+
