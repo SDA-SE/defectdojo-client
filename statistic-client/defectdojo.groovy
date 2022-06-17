@@ -4,7 +4,7 @@ package statisticClient
 @GrabConfig(systemClassLoader=true)
 @GrabResolver(name='maven-snapshot', root='https://oss.sonatype.org/content/repositories/snapshots/')
 // Click on the dep and hit ALT+Enter to grab
-@Grab("io.securecodebox:defectdojo-client:0.0.32-SNAPSHOT")
+@Grab("io.securecodebox:defectdojo-client:0.0.33-SNAPSHOT")
 
 import io.securecodebox.persistence.defectdojo.config.DefectDojoConfig
 import io.securecodebox.persistence.defectdojo.models.Engagement
