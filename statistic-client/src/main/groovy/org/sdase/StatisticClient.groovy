@@ -22,7 +22,7 @@ class StatisticClient {
         if ( dojoUrl == null ) {
             dojoUrl = System.getenv("DD_URL")
         }
-        if(dojoUrl == null || dojoUrl.empty()) {
+        if(dojoUrl == null || dojoUrl.isEmpty()) {
             println "DEFECTDOJO_URL not set"
             System.exit(1)
         }
