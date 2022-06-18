@@ -26,15 +26,15 @@ jobs:
           MAJOR=$(echo "${VERSION}" | tr  '.' "\n" | sed -n 1p)
           MINOR=$(echo "${VERSION}" | tr  '.' "\n" | sed -n 2p)
 
-          gradle jib \
+          ./gradlew jib \
             -Djib.to.image=quay.io/sdase/defectdojo-client:${MAJOR}.${MINOR} \
             -Djib.to.auth.username="${{ secrets.QUAY_IO_CLUSTERSCANNER_USERNAME }}" \
             -Djib.to.auth.password="${{ secrets.QUAY_IO_CLUSTERSCANNER_TOKEN }}"
-          gradle jib \
+          ./gradlew jib \
             -Djib.to.image=quay.io/sdase/defectdojo-client:${MAJOR} \
             -Djib.to.auth.username="${{ secrets.QUAY_IO_CLUSTERSCANNER_USERNAME }}" \
             -Djib.to.auth.password="${{ secrets.QUAY_IO_CLUSTERSCANNER_TOKEN }}"
-          gradle jib \
+          ./gradlew jib \
             -Djib.to.image=quay.io/sdase/defectdojo-client:${VERSION} \
             -Djib.to.auth.username="${{ secrets.QUAY_IO_CLUSTERSCANNER_USERNAME }}" \
             -Djib.to.auth.password="${{ secrets.QUAY_IO_CLUSTERSCANNER_TOKEN }}"
@@ -52,15 +52,15 @@ jobs:
           MAJOR=$(echo "${VERSION}" | tr  '.' "\n" | sed -n 1p)
           MINOR=$(echo "${VERSION}" | tr  '.' "\n" | sed -n 2p)          
 
-          gradle jib \
+          ./gradlew jib \
             -Djib.to.image=quay.io/sdase/defectdojo-statistic-client:${MAJOR}.${MINOR} \
             -Djib.to.auth.username="${{ secrets.QUAY_IO_CLUSTERSCANNER_USERNAME }}" \
             -Djib.to.auth.password="${{ secrets.QUAY_IO_CLUSTERSCANNER_TOKEN }}"
-          gradle jib \
+          ./gradlew jib \
             -Djib.to.image=quay.io/sdase/defectdojo-statistic-client:${MAJOR} \
             -Djib.to.auth.username="${{ secrets.QUAY_IO_CLUSTERSCANNER_USERNAME }}" \
             -Djib.to.auth.password="${{ secrets.QUAY_IO_CLUSTERSCANNER_TOKEN }}"          
-          gradle jib \
+          ./gradlew jib \
             -Djib.to.image=quay.io/sdase/defectdojo-statistic-client:${VERSION} \
             -Djib.to.auth.username="${{ secrets.QUAY_IO_CLUSTERSCANNER_USERNAME }}" \
             -Djib.to.auth.password="${{ secrets.QUAY_IO_CLUSTERSCANNER_TOKEN }}"          
