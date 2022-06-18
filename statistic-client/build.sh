@@ -28,7 +28,7 @@ cleanup() {
   test -n "${defectdojo_container}" && buildah rm "${defectdojo_container}" || true
 }
 
-_base_image="quay.io/sdase/defectdojo-client:3"
+_base_image="quay.io/sdase/openjdk-runtime"
 defectdojo_container="$(buildah from $_base_image)"
 defectdojo_mnt="$(buildah mount "${defectdojo_container}")"
 

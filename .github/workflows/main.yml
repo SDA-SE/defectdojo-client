@@ -15,22 +15,34 @@ jobs:
       - name: create and push an image upload-client
         run: |
           cd upload-client
-          chmod +x ./build.sh
+          chmod +x ./gradlew
+
           if [ "${GITHUB_REF##*/}" == "master" ]; then
             VERSION="3.1.${GITHUB_RUN_NUMBER}"
           else
             BRANCH_TO_DOCKER=$(echo ${GITHUB_REF##*/} | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9._-]//g')
             VERSION="$BRANCH_TO_DOCKER-${GITHUB_RUN_NUMBER}"
           fi
-          sudo ./build.sh "quay.io" "sdase" "defectdojo-client" "${VERSION}" "${{ secrets.QUAY_IO_CLUSTERSCANNER_USERNAME }}" "${{ secrets.QUAY_IO_CLUSTERSCANNER_TOKEN }}" true
+
+          gradle jib \
+            -Djib.to.image=quay.io/sdase/defectdojo-upload-client:${VERSION} \
+            -Djib.to.auth.username=${{ secrets.QUAY_IO_CLUSTERSCANNER_USERNAME }} \
+            -Djib.to.auth.password=${{ secrets.QUAY_IO_CLUSTERSCANNER_TOKEN }}
       - name: create and push an image statistic-client
         run: |
           cd statistic-client
-          chmod +x ./build.sh
+          chmod +x ./gradlew
+
           if [ "${GITHUB_REF##*/}" == "master" ]; then
             VERSION="3.1.${GITHUB_RUN_NUMBER}"
           else
             BRANCH_TO_DOCKER=$(echo ${GITHUB_REF##*/} | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9._-]//g')
             VERSION="$BRANCH_TO_DOCKER-${GITHUB_RUN_NUMBER}"
           fi
-          sudo ./build.sh "quay.io" "sdase" "defectdojo-statistic-client" "${VERSION}" "${{ secrets.QUAY_IO_CLUSTERSCANNER_USERNAME }}" "${{ secrets.QUAY_IO_CLUSTERSCANNER_TOKEN }}" true
+
+          gradle jib \
+            -Djib.to.image=quay.io/sdase/defectdojo-statistic-client:${VERSION} \
+            -Djib.to.auth.username=${{ secrets.QUAY_IO_CLUSTERSCANNER_USERNAME }} \
+            -Djib.to.auth.password=${{ secrets.QUAY_IO_CLUSTERSCANNER_TOKEN }}
+          
+          

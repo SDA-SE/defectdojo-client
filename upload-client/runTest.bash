@@ -15,28 +15,28 @@ export DD_DEDUPLICATION_ON_ENGAGEMENT="true"
 export DD_REPORT_PATH="./test/dependency-check-report-5.xml"
 export DD_PRODUCT_TAGS="cluster/production"
 export DD_TEAM="fellowship-of-the-ring-t3"
-export IS_CREATE_GROUPS="false"
-#groovy defectdojo.groovy
+export IS_CREATE_GROUPS="true"
+./gradlew run
 
 export DD_REPORT_PATH="./test/dependency-check-report-10.xml"
-#groovy defectdojo.groovy
+./gradlew run
 
 export DD_REPORT_PATH="./test/findings.csv"
 export DD_REPORT_TYPE="Generic Findings Import"
-groovy defectdojo.groovy
-groovy defectdojo.groovy # two times
+./gradlew run
+./gradlew run
 
 export DD_REPORT_TYPE="Dependency Check Scan"
 export DD_BRANCH_NAME="2.0.1"
 export DD_REPORT_PATH="./test/dependency-check-report-10.xml"
-groovy defectdojo.groovy
+./gradlew run
 exit
 
 export DD_REPORT_PATH="./test/dependency-check-report-5.xml"
-groovy defectdojo.groovy
+./gradlew run
 
 export DD_REPORT_PATH="./test/findings.csv"
 export DD_REPORT_TYPE="Generic Findings Import"
-groovy defectdojo.groovy
+./gradlew run
 
 
