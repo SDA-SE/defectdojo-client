@@ -53,6 +53,11 @@ public class Main {
         if(!report.exists()) {
             println("Report ${reportPath} doesn't exists, exit")
             String exitCodeOnMissingReportString = System.getenv("EXIT_CODE_ON_MISSING_REPORT")
+            new File("/tmp/defectDojoTestLink.txt").createNewFile()
+            File isFindingFile = new File("/tmp/isFinding")
+            isFindingFile.write "false"
+            File findingsFiles = new File("/tmp/findings.json")
+            findingsFiles.createNewFile()
             int exitCodeOnMissingReport = 2
             if(exitCodeOnMissingReportString) exitCodeOnMissingReport = System.getenv("EXIT_CODE_ON_MISSING_REPORT").toInteger()
             System.exit(exitCodeOnMissingReport)
