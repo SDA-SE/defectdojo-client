@@ -54,14 +54,9 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'org.sdase.StatisticClient'
+    mainClass = 'org.sdase.Main'
 }
 
 jib.from.image = 'quay.io/sdase/openjdk-runtime:17-hotspot-distroless'
 jib.to.image = 'quay.io/sdase/defectdojo-statistic-client'
 
-
-tasks.named('test') {
-    // Use JUnit Platform for unit tests.
-    useJUnitPlatform()
-}
