@@ -59,16 +59,6 @@ application {
     mainClass = 'org.sdase.Main'
 }
 
-jib {
-    extraDirectories {
-        paths {
-            path {
-                from = file('code')
-                into = '/code'
-            }
-        }
-    }
-}
 jib.from.image = 'quay.io/sdase/openjdk-runtime:11-hotspot-distroless'
 jib.to.image = 'quay.io/sdase/defectdojo-client'
 
