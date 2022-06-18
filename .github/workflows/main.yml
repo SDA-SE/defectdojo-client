@@ -49,6 +49,8 @@ jobs:
             BRANCH_TO_DOCKER=$(echo ${GITHUB_REF##*/} | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9._-]//g')
             VERSION="$BRANCH_TO_DOCKER-${GITHUB_RUN_NUMBER}"
           fi
+          MAJOR=$(echo "${VERSION}" | tr  '.' "\n" | sed -n 1p)
+          MINOR=$(echo "${VERSION}" | tr  '.' "\n" | sed -n 2p)          
 
           gradle jib \
             -Djib.to.image=quay.io/sdase/defectdojo-statistic-client:${MAJOR}.${MINOR} \
