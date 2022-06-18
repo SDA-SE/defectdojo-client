@@ -233,12 +233,12 @@ class UploadClient {
 
         def defectDojoTestLink = args.dojoUrl + "/test/" + response.getTestId();
 
-        File file = new File("/tmp/defectDojoTestLink.txt")
+        File file = new File("/code/defectDojoTestLink.txt")
         file.write defectDojoTestLink
         println "DefectDojo test with scan results can be viewed at $defectDojoTestLink"
 
-        File isFindingFile = new File("/tmp/isFinding")
-        File findingsFiles = new File("/tmp/findings.json")
+        File isFindingFile = new File("/code/isFinding")
+        File findingsFiles = new File("/code/findings.json")
         def serializedFindings = groovy.json.JsonOutput.toJson(findings)
         findingsFiles.write serializedFindings
         if(findings.size() > 0) {
