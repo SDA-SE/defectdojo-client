@@ -31,6 +31,10 @@ class StatisticClient {
         if ( dojoToken == null ) {
             dojoToken = System.getenv("DD_TOKEN")
         }
+        if(dojoToken == null || dojoToken.isEmpty()) {
+            println "DEFECTDOJO_APIKEY not set"
+            System.exit(1)
+        }
         String dojoUser = System.getenv("DEFECTDOJO_USERNAME")
         if ( dojoUser == null ) {
             dojoUser = System.getenv("DD_USER")

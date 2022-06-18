@@ -233,7 +233,7 @@ class UploadClient {
 
         def defectDojoTestLink = args.dojoUrl + "/test/" + response.getTestId();
 
-        File file = new File("/code/defectDojoTestLink.txt")
+        File file = new File("/tmp/defectDojoTestLink.txt")
         file.write defectDojoTestLink
         println "DefectDojo test with scan results can be viewed at $defectDojoTestLink"
 
