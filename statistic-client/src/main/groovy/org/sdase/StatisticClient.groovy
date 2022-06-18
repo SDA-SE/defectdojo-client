@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
 class StatisticClient {
-    static void main(String[] args) {
+    static void call(Object args) {
         String dojoUrl = System.getenv("DEFECTDOJO_URL")
         if ( dojoUrl == null ) {
             dojoUrl = System.getenv("DD_URL")
