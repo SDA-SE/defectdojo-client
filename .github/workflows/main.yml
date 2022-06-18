@@ -25,9 +25,9 @@ jobs:
           fi
 
           gradle jib \
-            -Djib.to.image=quay.io/sdase/defectdojo-upload-client:${VERSION} \
-            -Djib.to.auth.username=${{ secrets.QUAY_IO_CLUSTERSCANNER_USERNAME }} \
-            -Djib.to.auth.password=${{ secrets.QUAY_IO_CLUSTERSCANNER_TOKEN }}
+            -Djib.to.image=quay.io/sdase/defectdojo-client:${VERSION} \
+            -Djib.to.auth.username="${{ secrets.QUAY_IO_CLUSTERSCANNER_USERNAME }}" \
+            -Djib.to.auth.password="${{ secrets.QUAY_IO_CLUSTERSCANNER_TOKEN }}"
       - name: create and push an image statistic-client
         run: |
           cd statistic-client
@@ -42,7 +42,7 @@ jobs:
 
           gradle jib \
             -Djib.to.image=quay.io/sdase/defectdojo-statistic-client:${VERSION} \
-            -Djib.to.auth.username=${{ secrets.QUAY_IO_CLUSTERSCANNER_USERNAME }} \
-            -Djib.to.auth.password=${{ secrets.QUAY_IO_CLUSTERSCANNER_TOKEN }}
+            -Djib.to.auth.username="${{ secrets.QUAY_IO_CLUSTERSCANNER_USERNAME }}" \
+            -Djib.to.auth.password="${{ secrets.QUAY_IO_CLUSTERSCANNER_TOKEN }}"
           
           
