@@ -25,7 +25,7 @@ public class Main {
         if (dojoUrl == null) {
             dojoUrl = System.getenv("DD_URL")
         }
-
+        println "dojoUrl: ${dojoUrl}"
         String token = System.getenv("DEFECTDOJO_APIKEY")
         if(token == null) {
             token = System.getenv("DD_TOKEN")
