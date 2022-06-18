@@ -26,7 +26,7 @@ jobs:
           MAJOR=$(echo "${VERSION}" | tr  '.' "\n" | sed -n 1p)
           MINOR=$(echo "${VERSION}" | tr  '.' "\n" | sed -n 2p)
 
-          gradle jib \
+          gradle jib --stacktrace \
             -Djib.to.image=quay.io/sdase/defectdojo-client:${MAJOR}.${MINOR} \
             -Djib.to.auth.username="${{ secrets.QUAY_IO_CLUSTERSCANNER_USERNAME }}" \
             -Djib.to.auth.password="${{ secrets.QUAY_IO_CLUSTERSCANNER_TOKEN }}"
