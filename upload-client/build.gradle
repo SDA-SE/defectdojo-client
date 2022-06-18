@@ -59,7 +59,7 @@ application {
     mainClass = 'org.sdase.Main'
 }
 
-jib.from.image = 'quay.io/sdase/openjdk-runtime:17-hotspot-distroless'
+jib.from.image = 'quay.io/sdase/openjdk-runtime:11-hotspot-distroless'
 jib.to.image = 'quay.io/sdase/defectdojo-client'
 
 /*
