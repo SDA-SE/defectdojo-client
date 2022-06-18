@@ -55,9 +55,9 @@ public class Main {
             String exitCodeOnMissingReportString = System.getenv("EXIT_CODE_ON_MISSING_REPORT")
             new File("/tmp/defectDojoTestLink.txt").createNewFile()
             File isFindingFile = new File("/tmp/isFinding")
-            isFindingFile.write "false"
+            isFindingFile.write "skipped"
             File findingsFiles = new File("/tmp/findings.json")
-            findingsFiles.createNewFile()
+            findingsFiles.write ""
             int exitCodeOnMissingReport = 2
             if(exitCodeOnMissingReportString) exitCodeOnMissingReport = System.getenv("EXIT_CODE_ON_MISSING_REPORT").toInteger()
             System.exit(exitCodeOnMissingReport)
