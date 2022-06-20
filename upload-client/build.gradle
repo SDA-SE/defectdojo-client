@@ -68,3 +68,10 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 */
+
+// New version create StackOverflow
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
+}
