@@ -30,7 +30,7 @@ public class StatisticFinding extends Finding {
                 mitigatedDateOrToday = finding.getMitigatedAt().toDate()
             }else if (finding.getRiskAccepted()) {
                 mitigatedDateOrToday = finding.getCreatedAt().toDate()
-                if(acceptedRisks.get(0)) {
+                if(acceptedRisks.length > 0 && acceptedRisks.get(0)) {
                     mitigatedDateOrToday = acceptedRisks.get(0).getCreatedAt().toDate()
                 } else {
                     println "ERROR: finding ${finding.id} has a risk, but no object for it"
