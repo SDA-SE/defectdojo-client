@@ -15,8 +15,17 @@ export DD_DEDUPLICATION_ON_ENGAGEMENT="true"
 export DD_REPORT_PATH="./test/dependency-check-report-5.xml"
 export DD_PRODUCT_TAGS="cluster/production"
 export DD_TEAM="fellowship-of-the-ring-t3"
+export DD_MINIMUM_SEVERITY="Medium"
 export IS_CREATE_GROUPS="true"
+
+export DD_REPORT_TYPE="Dependency Track Finding Packaging Format (FPF) Export"
+export DD_REPORT_PATH="./test/juice-shop-dependency-track.json"
+./gradlew run || true
+
+export DD_REPORT_TYPE="Dependency Check Scan"
+export DD_REPORT_PATH="./test/dependency-check-report-logstash.xml"
 ./gradlew run
+
 
 export DD_REPORT_PATH="./test/dependency-check-report-10.xml"
 ./gradlew run
