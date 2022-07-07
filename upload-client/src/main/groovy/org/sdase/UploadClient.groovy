@@ -11,7 +11,6 @@ import io.securecodebox.persistence.defectdojo.service.FindingService
 import io.securecodebox.persistence.defectdojo.service.ProductService;
 import io.securecodebox.persistence.defectdojo.service.ProductTypeService;
 import io.securecodebox.persistence.defectdojo.service.TestService
-
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -42,6 +41,10 @@ import io.securecodebox.persistence.defectdojo.service.ProductGroupService
 import io.securecodebox.persistence.defectdojo.ScanType
 
 class UploadClient {
+    private static String extractPackageManager(String filePath) {
+        return filePath.replace("pkg:", "").replaceAll("/.*", "")
+    }
+
     static void main(Object args) {
         def conf = new DefectDojoConfig(args.dojoUrl, args.dojoToken, args.dojoUser, 200);
         def productTypeService = new ProductTypeService(conf);
@@ -226,11 +229,45 @@ class UploadClient {
                 println("Error, minimumSeverity '${args.minimumSeverity}' doesn't exist")
                 break
         }
-
         def findings = findingService.getUnhandledFindingsForEngagement(engagement.id, minimumSeverity)
+        def isDependencyTrackFinding = false
+        def findingCountsPerSeverity = new HashMap<String, Integer>()
+        if(args.scanType.equals("Dependency Track Finding Packaging Format (FPF) Export")) {
+            println("Got ${findings.size()} unhandled findings, will check for severity filter")
+            for(finding in findings) {
+                def packageManager = extractPackageManager(finding.filePath)
+                def count = findingCountsPerSeverity.getOrDefault("${packageManager}_${finding.severity}", 0)
+                count++
+                findingCountsPerSeverity.put("${packageManager}_${finding.severity}", count)
+            }
 
+            println "findingCountsPerSeverity: ${findingCountsPerSeverity}"
+            for(int i=0; i< findings.size();i++) {
+                def isDelete= false
+                def finding = findings.get(i)
+                def packageManager = extractPackageManager(finding.filePath)
+                //println "packageManager: ${packageManager}"
+                //println "dependencyTrackUnhandledPackagesMinimumToAlert: ${args.dependencyTrackUnhandledPackagesMinimumToAlert}"
+                def severitiesForPackageManager = args.dependencyTrackUnhandledPackagesMinimumToAlert.get(packageManager)
+                //def minimumToWarnForThisSeverity = unhandledLanguageFilter2.value.get(finding.severity.toString())
+                //def findingCountPerSeverity = findingCount.value
+                def minimumToWarnForThisSeverity = 999999999999999999
+                if(severitiesForPackageManager == null) {
+                    println "ERROR: Package manager '${packageManager}' is not defined in DEPENDENCY_TRACK_UNHANDLED_PACKAGES_MINIMUM_TO_ALERT!"
+                }else {
+                    minimumToWarnForThisSeverity = severitiesForPackageManager.get(finding.severity.toString())
+                }
+                def findingCount = findingCountsPerSeverity.get(finding.severity.toString())
+                //println "${findingCountPerSeverity} >= ${minimumToWarnForThisSeverity}"
+                if(findingCount >= minimumToWarnForThisSeverity) {
+                    //println "keeping ${finding.id} with package manager ${packageManager} with severity ${finding.severity} index: ${i}"
+                } else {
+                    //println "removing ${finding.id} with package manager ${packageManager} with severity ${finding.severity} index: ${i}"
+                    findings.remove(i)
+                }
+            }
+        }
         println("Got ${findings.size()} unhandled findings")
-
         def defectDojoTestLink = args.dojoUrl + "/test/" + response.getTestId();
 
         File file = new File("/tmp/defectDojoTestLink.txt")
@@ -246,7 +283,7 @@ class UploadClient {
             println "${findings.size()} vulnerabilities found with severity $minimumSeverity or higher"
 
             isFindingFile.write "true"
-            println "Exiting with exitCodeOnFinding" + args.exitCodeOnFinding.toInteger()
+            println "Exiting with exitCodeOnFinding " + args.exitCodeOnFinding.toInteger()
             System.exit(args.exitCodeOnFinding.toInteger())
         } else {
             isFindingFile.write "false"

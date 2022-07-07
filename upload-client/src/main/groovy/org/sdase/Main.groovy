@@ -84,6 +84,11 @@ public class Main {
         if(System.getenv("ENVIRONMENT")) productTags.add("cluster/" + System.getenv("ENVIRONMENT"))
         if(System.getenv("NAMESPACE")) productTags.add("namespace/" + System.getenv("NAMESPACE"))
 
+
+        def dependencyTrackUnhandledPackagesMinimumToAlertString = System.getenv("DEPENDENCY_TRACK_UNHANDLED_PACKAGES_MINIMUM_TO_ALERT") ?: '{"npm": {"Critical": 1, "High": 3, "Medium": 9}, "maven": {"Critical": 1, "High": 1, "Medium": 1}, "deb": {"Critical": 1, "High": 3, "Medium": 100}, "rpm": {"Critical": 1, "High": 3, "Medium": 100}}'
+        def jsonSlurper = new groovy.json.JsonSlurper()
+        def dependencyTrackUnhandledPackagesMinimumToAlert = jsonSlurper.parseText(dependencyTrackUnhandledPackagesMinimumToAlertString)
+
         String minimumSeverity = System.getenv("DD_MINIMUM_SEVERITY") ?: "High"
 
         String leadUsername = System.getenv("DD_LEAD_USERNAME") ?: dojoUser
@@ -109,8 +114,7 @@ public class Main {
                 exitCodeOnFinding: exitCodeOnFinding,
                 minimumSeverity: minimumSeverity,
                 team: team,
-                isCreateGroups: Boolean.parseBoolean(isCreateGroups)
-
-
+                isCreateGroups: Boolean.parseBoolean(isCreateGroups),
+                dependencyTrackUnhandledPackagesMinimumToAlert: dependencyTrackUnhandledPackagesMinimumToAlert
     }
 }
