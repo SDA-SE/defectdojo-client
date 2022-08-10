@@ -55,9 +55,19 @@ class UploadClient {
         def productGroupService = new ProductGroupService(conf)
 
 
-        println("Will fetch ${args.productName}")
-        def product = productService.searchUnique(Product.builder().name(args.productName).build())
+        File file = new File(filePath)
+        String fileContent = file.text
+        def jsonSlurper = new JsonSlurper(fileContent)
+        def expectedFindings = jsonSlurper.parseText()
+
+        for(expectedFinding in expectedFindings) {
+            println expectedFinding.productName
+        }
         
+        def product = productService.searchUnique(Product.builder().name(args.productName).build()).orElseThrow{
+                    new Exception("Could not find product with name '" + args.productName + "' in DefectDojo API. DefectDojo might be running in an unsupported version.")
+                };
+
         ScanType scanType;
         for(ScanType scanTypeMatch : ScanType.values()) {
             if(scanTypeMatch.getTestType() == args.scanType) {
@@ -69,5 +79,21 @@ class UploadClient {
                 .orElseThrow{
                     new Exception("Could not find test type '" + ScanType.STATIC_CHECK.getTestType() + "' in DefectDojo API. DefectDojo might be running in an unsupported version.")
                 };
+        
+        
+        Map<String, String> queryParamsTest = new HashMap<>();
+        queryParamsTest.put("test_type", testType.getId())
+        def tests = testService.search(queryParamsTest)
+
+        for(Test test in tests)
+        Map<String, String> queryParamsFinding = new HashMap<>();
+        queryParamsFinding.put("test", test.getId());
+        println("searching for findings in ${test.getId()}")
+        findingService.search(queryParamsFinding).each {
+            println "found finding ${it.id}"
+        }
+
+
+
     }
 }
