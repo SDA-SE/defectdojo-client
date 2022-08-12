@@ -2,14 +2,6 @@ package org.sdase.uploadValidation
 
 public class Main {
     static void main(String[] args) {
-        String productName = System.getenv("DD_PRODUCT_NAME")
-        if(!productName) {
-            println "Error: No productName"
-            return
-        }
-
-        String productDescription = System.getenv("DD_PRODUCT_DESCRIPTION") ?: productName
-
         String dojoUrl = System.getenv("DEFECTDOJO_URL")
         if (dojoUrl == null) {
             dojoUrl = System.getenv("DD_URL")
@@ -31,7 +23,6 @@ public class Main {
         println "using scanType ${scanType}"
         org.sdase.uploadValidation.UploadValidator.main dojoToken: token,
                 dojoUser: dojoUser,
-                dojoUrl: dojoUrl,
-                productName: productName
+                dojoUrl: dojoUrl
     }
 }
