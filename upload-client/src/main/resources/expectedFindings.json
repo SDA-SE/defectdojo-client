@@ -1,4 +1,8 @@
 [
-    {"productName": "ring-expert", "findingName": "xyz", "quantity": 1}
-
+    {"productName": "lord-of-the-rings | shire | elastic/logstash", "findingTitle": "org.apache.logging.log4j:log4j-api:2.11.1 | CVE-2021-44228", "quantity": 1},
+    {"productName": "lord-of-the-rings | shire | elastic/logstash", "findingTitle": "Image Has a New Version", "quantity": 1},
+    {"productName": "lord-of-the-rings | shire | elastic/logstash", "findingTitle": "Image Age > 14 Days", "quantity": 1},
+    {"productName": "lord-of-the-rings | shire | jvalance/eicar-test", "findingTitle": "Image Potentially Running as Root", "quantity": 1},
+    {"productName": "lord-of-the-rings | shire | jvalance/eicar-test", "findingTitle": "No Distroless Used", "quantity": 1},
+    {"productName": "lord-of-the-rings | shire | jvalance/eicar-test", "findingTitle": "Malware Found", "quantity": 1}
 ]

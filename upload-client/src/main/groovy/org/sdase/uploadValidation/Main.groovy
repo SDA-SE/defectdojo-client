@@ -35,13 +35,11 @@ public class Main {
         }
         String scanType = System.getenv("DD_REPORT_TYPE") ?: "Dependency Check Scan"
         println "using scanType ${scanType}"
-        org.sdase.ValidationClient.main dojoToken: token,
+        org.sdase.uploadValidation.UploadValidator.main dojoToken: token,
                 dojoUser: dojoUser,
                 dojoUrl: dojoUrl,
                 productName: productName,
                 branchName: branchName,
-                sourceCodeManagementUri: sourceCodeManagementUri,
-                branchesToKeep: branchesToKeep,
                 scanType: scanType
     }
 }
