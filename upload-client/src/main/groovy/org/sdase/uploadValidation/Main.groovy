@@ -8,12 +8,6 @@ public class Main {
             return
         }
 
-        String branchName = System.getenv("DD_BRANCH_NAME")
-        if(!branchName) {
-            println "Error: No branchName"
-            return
-        }
-
         String productDescription = System.getenv("DD_PRODUCT_DESCRIPTION") ?: productName
 
         String dojoUrl = System.getenv("DEFECTDOJO_URL")
@@ -38,8 +32,6 @@ public class Main {
         org.sdase.uploadValidation.UploadValidator.main dojoToken: token,
                 dojoUser: dojoUser,
                 dojoUrl: dojoUrl,
-                productName: productName,
-                branchName: branchName,
-                scanType: scanType
+                productName: productName
     }
 }
