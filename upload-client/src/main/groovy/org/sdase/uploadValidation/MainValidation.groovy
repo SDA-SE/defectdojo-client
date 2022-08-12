@@ -1,6 +1,6 @@
 package org.sdase.uploadValidation
 
-public class Main {
+public class MainValidation {
     static void main(String[] args) {
         String dojoUrl = System.getenv("DEFECTDOJO_URL")
         if (dojoUrl == null) {

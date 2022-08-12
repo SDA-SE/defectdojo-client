@@ -7,5 +7,5 @@ The default entrypoint for the upload-client image is
 ```
 To use the upload validation, use
 ```
-"java", "-cp", "@/app/jib-classpath-file", "org.sdase.uploadValidation.Main".
+"java", "-cp", "@/app/jib-classpath-file", "org.sdase.uploadValidation.MainValidation".
 ```
