@@ -64,40 +64,13 @@ class UploadValidator {
 
         for(expectedFinding in expectedFindings) {
             def foundToSearchFinding= 0
-            println "productName: ${expectedFinding.productName} with findingTitle ${expectedFinding.findingTitle}"
-
-
-            def product = productService.searchUnique(Product.builder().name(expectedFinding.productName).build()).orElseThrow{
-                        new Exception("Could not find product with name '" + expectedFinding.productName + "' in DefectDojo API. DefectDojo might be running in an unsupported version.")
-                    };
-
-            Map<String, String> queryParamsEng = new HashMap<>();
-            queryParamsEng.put("product", product.id);
-            def engagements = engagementService.search(queryParamsEng);
-            for (eng in engagements) {
-                println("found engagement ${eng.id}")
-                Map<String, String> queryParamsTest = new HashMap<>();
-                queryParamsTest.put("engagement", Long.toString(eng.id))
-                def tests = testService.search(queryParamsTest);
-
-                for(Test test in tests) {
-                    Map<String, String> queryParamsFinding = new HashMap<>();
-                    queryParamsFinding.put("test", test.getId());
-                    queryParamsFinding.put("duplicate", "false");
-                    queryParamsFinding.put("active", "true");
-                    queryParamsFinding.put("title", expectedFinding.findingTitle);
-                    println("searching for findings in test ${test.getId()}")
-                    findingService.search(queryParamsFinding).each {
-                        if(it.title.startsWith(expectedFinding.findingTitle)) {
-                        println "found finding ${it.id}, ${it.title} in ${test.getId()}"
-                        foundToSearchFinding++
-                        }
-                    }
-                }
-            }
-            if(foundToSearchFinding != expectedFinding.quantity) {
-                print "Error, foundToSearchFinding != expectedFinding.quantity: ${foundToSearchFinding} != ${expectedFinding.quantity}"
-                System.exit(1)
+            //println "Searching for productName: ${expectedFinding.productName}"
+            def product = productService.searchUnique(Product.builder().name(expectedFinding.productName).build())
+            if(product != null) {
+                println "Deleting product ${product.name} with id ${product.id}"
+                product.delete()
+            } else {
+                println "Product ${expedectedFinding.productName} not found"
             }
         }
     }

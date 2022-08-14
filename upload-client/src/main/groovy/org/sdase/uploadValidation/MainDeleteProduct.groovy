@@ -19,9 +19,7 @@ public class MainValidation {
             println "Error: No token"
             return
         }
-        String scanType = System.getenv("DD_REPORT_TYPE") ?: "Dependency Check Scan"
-        println "using scanType ${scanType}"
-        org.sdase.uploadValidation.UploadValidator.main dojoToken: token,
+        org.sdase.deleteTestProduct.TestProductDeletor.main dojoToken: token,
                 dojoUser: dojoUser,
                 dojoUrl: dojoUrl
     }
