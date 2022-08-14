@@ -25,4 +25,3 @@ public class MainDeleteProduct {
                 dojoUrl: dojoUrl
     }
 }
-
