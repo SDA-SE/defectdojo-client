@@ -9,3 +9,9 @@ To use the upload validation, use
 ```
 "java", "-cp", "@/app/jib-classpath-file", "org.sdase.uploadValidation.MainValidation".
 ```
+To delete test products, use
+```
+"java", "-cp", "@/app/jib-classpath-file", "org.sdase.deleteTestProduct.TestProductDeletor.main".
+```
+
+
