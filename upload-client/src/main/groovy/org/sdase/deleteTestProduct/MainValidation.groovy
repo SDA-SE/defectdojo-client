@@ -1,4 +1,4 @@
-package org.sdase.uploadValidation
+package org.sdase.deleteTestProduct
 
 public class MainValidation {
     static void main(String[] args) {
