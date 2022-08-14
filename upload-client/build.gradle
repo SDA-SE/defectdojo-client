@@ -58,7 +58,7 @@ dependencies {
 application {
     // Define the main class for the application.
     mainClass = 'org.sdase.Main'
-    //mainClass = 'org.sdase.deleteTestProduct.MainDeleteProduct'
+    mainClass = 'org.sdase.deleteTestProduct.MainDeleteProduct'
     //mainClass = 'org.sdase.uploadValidation.MainValidation'
 }
 

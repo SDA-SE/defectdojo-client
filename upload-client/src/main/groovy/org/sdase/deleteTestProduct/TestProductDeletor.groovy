@@ -36,6 +36,7 @@ import io.securecodebox.persistence.defectdojo.service.UserService
 import io.securecodebox.persistence.defectdojo.service.DojoGroupService
 import io.securecodebox.persistence.defectdojo.service.ProductGroupService
 import io.securecodebox.persistence.defectdojo.ScanType
+import java.util.stream.Collectors
 
 class TestProductDeletor {
     static void main(Object args) {
@@ -50,6 +51,7 @@ class TestProductDeletor {
         def importScanService = new ImportScanService(conf)
         def dojoGroupService = new DojoGroupService(conf)
         def productGroupService = new ProductGroupService(conf)
+        def endpointService = new EndpointService(conf)
 
 
         URL resource = TestProductDeletor.getClassLoader().getResource("expectedFindings.json");
@@ -60,14 +62,15 @@ class TestProductDeletor {
         def expectedFindings = jsonSlurper.parseText(fileContent)
 
         for(expectedFinding in expectedFindings) {
-            def foundToSearchFinding= 0
-            //println "Searching for productName: ${expectedFinding.productName}"
-            def product = productService.searchUnique(Product.builder().name(expectedFinding.productName).build())
-            if(product != null) {
-                println "Deleting product ${product.name} with id ${product.id}"
-                product.delete()
-            } else {
+            try {
+                def product = productService.searchUnique(Product.builder().name(expectedFinding.productName).build()).orElseThrow{
+                    new Exception("Could not find product with name '" + expectedFinding.productName + "' in DefectDojo API. DefectDojo might be running in an unsupported version.")
+                };
+                println "deleting product ${product.id}"
+                productService.delete(product.id)
+            } catch(Exception e) {
                 println "Product ${expectedFinding.productName} not found"
+                println e
             }
         }
     }
