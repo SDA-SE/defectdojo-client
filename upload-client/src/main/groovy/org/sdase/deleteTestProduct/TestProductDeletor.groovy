@@ -55,7 +55,7 @@ class TestProductDeletor {
         def productGroupService = new ProductGroupService(conf)
 
 
-        URL resource = UploadValidator.getClassLoader().getResource("expectedFindings.json");
+        URL resource = TestProductDeletor.getClassLoader().getResource("expectedFindings.json");
 
         File file = new File(resource.getPath())
         String fileContent = file.text
