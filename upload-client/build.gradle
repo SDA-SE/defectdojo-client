@@ -54,6 +54,13 @@ dependencies {
      */
 }
 
+// for gradle run
+application {
+    // Define the main class for the application.
+    mainClass = 'org.sdase.Main'
+    //mainClass = 'org.sdase.deleteTestProduct.MainDeleteProduct'
+    //mainClass = 'org.sdase.uploadValidation.MainValidation'
+}
 
 jib.from.image = 'quay.io/sdase/openjdk-runtime:11-hotspot-distroless'
 jib.to.image = 'quay.io/sdase/defectdojo-client'
