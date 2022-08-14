@@ -1,6 +1,6 @@
-package org.sdase.uploadValidation
+package org.sdase.deleteTestProduct
 
-public class MainValidation {
+public class MainDeleteProduct {
     static void main(String[] args) {
         String dojoUrl = System.getenv("DEFECTDOJO_URL")
         if (dojoUrl == null) {
@@ -19,8 +19,10 @@ public class MainValidation {
             println "Error: No token"
             return
         }
+
         org.sdase.deleteTestProduct.TestProductDeletor.main dojoToken: token,
                 dojoUser: dojoUser,
                 dojoUrl: dojoUrl
     }
 }
+
