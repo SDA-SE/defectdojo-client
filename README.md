@@ -11,7 +11,7 @@ To use the upload validation, use
 ```
 To delete test products, use
 ```
-"java", "-cp", "@/app/jib-classpath-file", "org.sdase.deleteTestProduct.MainDeleteProduct.main".
+"java", "-cp", "@/app/jib-classpath-file", "org.sdase.deleteTestProduct.MainDeleteProduct".
 ```
 
 
