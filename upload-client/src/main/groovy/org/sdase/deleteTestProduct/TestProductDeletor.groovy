@@ -70,7 +70,7 @@ class TestProductDeletor {
                 println "Deleting product ${product.name} with id ${product.id}"
                 product.delete()
             } else {
-                println "Product ${expedectedFinding.productName} not found"
+                println "Product ${expectedFinding.productName} not found"
             }
         }
     }
