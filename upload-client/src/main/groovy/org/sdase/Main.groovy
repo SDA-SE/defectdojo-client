@@ -76,6 +76,7 @@ public class Main {
         }
 
         def deduplicationOnEngagement = System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")
+        if(deduplicationOnEngagement == null) deduplicationOnEngagement="true"
 
         String productType = System.getenv("DD_TEAM")
         String team = System.getenv("DD_TEAM")
