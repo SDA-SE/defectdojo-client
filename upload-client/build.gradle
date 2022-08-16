@@ -68,7 +68,7 @@ jib.container.mainClass = 'org.sdase.Main'
 jib.container.labels = [
         'DD_DEDUPLICATION_ON_ENGAGEMENT': "true",
         'EXIT_CODE_ON_MISSING_REPORT': "10",
-
+        "DD_PRODUCT_TYPE": "Research and Development"
 ]
 
 /*

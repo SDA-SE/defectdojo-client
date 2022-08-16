@@ -91,9 +91,12 @@ public class Main {
         def deduplicationOnEngagement = System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")
         if(deduplicationOnEngagement == null) deduplicationOnEngagement="true"
 
-        String productType = System.getenv("DD_TEAM")
+        String productType = System.getenv("DD_PRODUCT_TYPE")
+        if (productType == null) {
+            productType="Research and Development"
+        }
         String team = System.getenv("DD_TEAM")
-        if(!productType) productType="nobody"
+
         if(System.getenv("DD_TEAM")) productTags.add("team/" + System.getenv("DD_TEAM"))
         if(System.getenv("ENVIRONMENT")) productTags.add("cluster/" + System.getenv("ENVIRONMENT"))
         if(System.getenv("NAMESPACE")) productTags.add("namespace/" + System.getenv("NAMESPACE"))
