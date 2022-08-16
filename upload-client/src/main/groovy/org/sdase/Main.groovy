@@ -17,7 +17,7 @@ public class Main {
                     .replace("###APP_NAME###", System.getenv("APP_NAME"))
             if(productName.contains("###")) {
                 println "Error: productName ${productName} still contains template variables"
-                exit 3
+                System.exit(3)
             }
         }
 
