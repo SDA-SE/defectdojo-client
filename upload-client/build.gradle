@@ -65,6 +65,11 @@ application {
 jib.from.image = 'quay.io/sdase/openjdk-runtime:11-hotspot-distroless'
 jib.to.image = 'quay.io/sdase/defectdojo-client'
 jib.container.mainClass = 'org.sdase.Main'
+jib.container.labels = [
+        'DD_DEDUPLICATION_ON_ENGAGEMENT': "true",
+        'EXIT_CODE_ON_MISSING_REPORT': "10",
+
+]
 
 /*
 tasks.named('test') {

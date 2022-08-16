@@ -8,6 +8,18 @@ public class Main {
         GroovyObject importToDefectDojo = (GroovyObject) groovyClass.newInstance();
 */
         String productName = System.getenv("DD_PRODUCT_NAME")
+        String productTemplate = System.getenv("DD_PRODUCT_NAME")
+        if(productName == null && productTemplate != null) {
+            productName=productTemplate
+                    .replace("###NAMESPACE###", System.getenv("ENVIRONMENT"))
+                    .replace("###NAMESPACE###", System.getenv("NAMESPACE"))
+                    .replace("###APP_NAME###", System.getenv("APP_NAME"))
+            if(productName.contains("###")) {
+                println "Error: productName ${productName} still contains template variables"
+                exit 3
+            }
+        }
+
         if(!productName) {
             println "Error: No productName"
             return
