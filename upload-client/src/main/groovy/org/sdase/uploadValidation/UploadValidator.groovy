@@ -61,7 +61,7 @@ class UploadValidator {
 
         for(expectedFinding in expectedFindings) {
             def foundToSearchFinding= 0
-            println "productName: ${expectedFinding.productName} with findingTitle ${expectedFinding.findingTitle}"
+            println "Searching for productName: ${expectedFinding.productName} with findingTitle ${expectedFinding.findingTitle}"
 
 
             def product = productService.searchUnique(Product.builder().name(expectedFinding.productName).build()).orElseThrow{
