@@ -12,7 +12,7 @@ public class Main {
         if(productName == null && productNameTemplate != null) {
             println "Using ProductName Template"
             productName=productNameTemplate
-                    .replace("###NAMESPACE###", System.getenv("ENVIRONMENT"))
+                    .replace("###ENVIRONMENT###", System.getenv("ENVIRONMENT"))
                     .replace("###NAMESPACE###", System.getenv("NAMESPACE"))
                     .replace("###APP_NAME###", System.getenv("APP_NAME"))
             if(productName.contains("###")) {
