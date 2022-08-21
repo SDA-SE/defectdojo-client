@@ -1,6 +1,5 @@
 [
     {"productName": "lord-of-the-rings | shire | quay.io/sdase/cluster-image-scanner-test-image", "findingTitle": "org.apache.logging.log4j:log4j-core:2.14.0 | CVE-2021-44228", "quantity": 1},
-    {"productName": "lord-of-the-rings | shire | quay.io/sdase/cluster-image-scanner-test-image", "findingTitle": "Image Has a New Version", "quantity": 1},
     {"productName": "lord-of-the-rings | shire | quay.io/sdase/cluster-image-scanner-test-image", "findingTitle": "Image Age > 14 Days", "quantity": 1},
     {"productName": "lord-of-the-rings | shire | quay.io/sdase/cluster-image-scanner-test-image", "findingTitle": "No Distroless Used", "quantity": 1},
     {"productName": "lord-of-the-rings | shire | quay.io/sdase/cluster-image-scanner-test-image", "findingTitle": "Image Potentially Running as Root", "quantity": 1}
