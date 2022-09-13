@@ -1,6 +1,6 @@
 Training setup tools, run:
 ```
-export DEFECTDOJO_URL=https://defectdojo-test.XXX ; export DD_TOKEN=XXX ; export DEFECTDOJO_USERNAME=clusterscanner;
+export DEFECTDOJO_URL=https://defectdojo-test.XXX ; export DEFECTDOJO_APIKEY=XXX ; export DEFECTDOJO_USERNAME=clusterscanner;
 ```
 
 First initalize with 
