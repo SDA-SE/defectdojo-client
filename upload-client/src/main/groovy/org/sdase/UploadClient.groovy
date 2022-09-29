@@ -88,13 +88,14 @@ class UploadClient {
                         DojoGroup.builder()
                                 .name(args.team)
                                 .description("created via ClusterImageScanner")
+                                .socialProvider("AzureAD")
                                 .build()
                 );
             }
             return null
         }
         if(dojoGroup == null) {
-            throw new Exception("Group ${args.team} doesn't exit and IS_CREATE_GROUPS is " + args.isCreateGroups)
+            throw new Exception("Couldn't get or create DojoGroup. DojoGroup ${args.team} doesn't exit and IS_CREATE_GROUPS is " + args.isCreateGroups)
         }
         println("Using dojoGroup ${dojoGroup.getId()}")
         def productGroup = productGroupService.searchUnique(ProductGroup.builder().group(dojoGroup.getId()).product(product.getId()).build()).orElseGet {
