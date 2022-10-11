@@ -40,7 +40,8 @@ public class StatisticFinding extends Finding {
                 println "TODO suppressed for finding ${finding.id}; assuming creation date"
                 mitigatedDateOrToday = finding.getCreatedAt().toDate()
             } else {
-                println "Unknown state for finding ${finding.id} in product ${product.id}"
+                println "Inactive finding ${finding.id} (not mitigated)"
+                mitigatedDateOrToday = finding.getCreatedAt().toDate()
             }
         }
         this.duration = groovy.time.TimeCategory.minus(
