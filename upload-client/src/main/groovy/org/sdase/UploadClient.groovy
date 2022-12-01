@@ -39,6 +39,7 @@ import io.securecodebox.persistence.defectdojo.service.UserService
 import io.securecodebox.persistence.defectdojo.service.DojoGroupService
 import io.securecodebox.persistence.defectdojo.service.ProductGroupService
 import io.securecodebox.persistence.defectdojo.ScanType
+import java.util.Calendar;
 
 class UploadClient {
     private static String extractPackageManager(String filePath) {
@@ -140,8 +141,11 @@ class UploadClient {
         final String dateNow = formatDay.format(date);
         final DateFormat formatTime = new SimpleDateFormat("HH:mm:ss");
         final String timeNow = formatTime.format(date);
-        final engagementEndDate = date+7
-        final String engagementEndDateAsString = formatDay.format(engagementEndDate);
+        Calendar engagementEndDate = Calendar.getInstance();
+        engagementEndDate.setTime(date);
+        engagementEndDate.add(Calendar.DATE, 7);
+
+        final String engagementEndDateAsString = formatDay.format(engagementEndDate.getTime());
 
         def engagementObj = Engagement.builder()
                 .name(args.scanType + " | " + branchParameter[0])
