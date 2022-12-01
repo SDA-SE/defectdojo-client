@@ -135,6 +135,14 @@ class UploadClient {
         } else {
             branchParameter = [args.branchName, args.branchName] // name, test title
         }
+        def date = new Date()
+        final DateFormat formatDay = new SimpleDateFormat("yyyy-MM-dd");
+        final String dateNow = formatDay.format(date);
+        final DateFormat formatTime = new SimpleDateFormat("HH:mm:ss");
+        final String timeNow = formatTime.format(date);
+        final engagementEndDate = date.plus(7)
+        final String engagementEndDateAsString = formatDay.format(engagementEndDate);
+
         def engagementObj = Engagement.builder()
                 .name(args.scanType + " | " + branchParameter[0])
                 .branch(branchParameter[0])
@@ -145,19 +153,14 @@ class UploadClient {
                 .lead(leadUser.id)
                 .build()
 
-        def date = new Date()
-        final DateFormat formatDay = new SimpleDateFormat("yyyy-MM-dd");
-        final String dateNow = formatDay.format(date);
-        final DateFormat formatTime = new SimpleDateFormat("HH:mm:ss");
-        final String timeNow = formatTime.format(date);
-
-
         def engagement = engagementService.searchUnique(engagementObj).orElseGet {
             engagementObj.setTargetStart(dateNow)
-            engagementObj.setTargetEnd(dateNow)
+            engagementObj.setTargetEnd(engagementEndDateAsString)
 
             return engagementService.create(engagementObj);
         }
+        engagement.setTargetEnd(engagementEndDateAsString)
+        engagementService.update(engagement, engagement.id);
 
 
         ScanFile reportContents = new ScanFile(new File(args.reportPath).text);
@@ -234,7 +237,7 @@ class UploadClient {
         def isDependencyTrackFinding = false
         def findingCountsPerSeverity = new HashMap<String, Integer>()
         if(args.scanType.equals("Dependency Track Finding Packaging Format (FPF) Export")) {
-            println("Got ${findings.size()} unhandled findings, will check for severity filter")
+            println("Got ${findings.size()} unhandled Dep. Track findings, will check for severity filter")
             for(finding in findings) {
                 def packageManager = extractPackageManager(finding.filePath)
                 def count = findingCountsPerSeverity.getOrDefault("${packageManager}_${finding.severity}", 0)
