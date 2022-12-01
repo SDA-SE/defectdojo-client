@@ -140,7 +140,7 @@ class UploadClient {
         final String dateNow = formatDay.format(date);
         final DateFormat formatTime = new SimpleDateFormat("HH:mm:ss");
         final String timeNow = formatTime.format(date);
-        final engagementEndDate = date.plus(7)
+        final engagementEndDate = 7.days.from.now
         final String engagementEndDateAsString = formatDay.format(engagementEndDate);
 
         def engagementObj = Engagement.builder()
