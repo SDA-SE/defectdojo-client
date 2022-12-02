@@ -246,7 +246,7 @@ class UploadClient {
                 def packageManager = extractPackageManager(finding.filePath)
                 def count = findingCountsPerSeverity.getOrDefault("${packageManager}_${finding.severity}", 0)
                 count++
-                findingCountsPerSeverity.put("${packageManager}_${finding.severity}", count)
+                findingCountsPerSeverity.put("${packageManager}_${finding.severity.toLowerCase()}", count)
             }
 
             println "findingCountsPerSeverity: ${findingCountsPerSeverity}, findings.size(): ${findings.size()}"
@@ -263,9 +263,9 @@ class UploadClient {
                 if(severitiesForPackageManager == null) {
                     println "ERROR: Package manager '${packageManager}' is not defined in DEPENDENCY_TRACK_UNHANDLED_PACKAGES_MINIMUM_TO_ALERT!"
                 }else {
-                    minimumToWarnForThisSeverity = severitiesForPackageManager.get(finding.severity.toString())
+                    minimumToWarnForThisSeverity = severitiesForPackageManager.get(finding.severity.toString().toLowerCase())
                 }
-                def findingCount = findingCountsPerSeverity.get("${packageManager}_" + finding.severity.toString())
+                def findingCount = findingCountsPerSeverity.get("${packageManager}_" + finding.severity.toString().toLowerCase())
                 println "${findingCount} >= ${minimumToWarnForThisSeverity}"
                 if(findingCount >= minimumToWarnForThisSeverity) {
                     println "keeping ${finding.id} with package manager ${packageManager} with severity ${finding.severity} index: ${i}"
