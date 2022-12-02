@@ -250,7 +250,7 @@ class UploadClient {
             }
 
             println "findingCountsPerSeverity: ${findingCountsPerSeverity}, findings.size(): ${findings.size()}"
-            for(int i=findings.size()-1; i>=0 ;i--) {
+            for(int i=findings.size()-1; i>=0 ; i--) {
                 def isDelete= false
                 def finding = findings.get(i)
                 def packageManager = extractPackageManager(finding.filePath)
@@ -266,7 +266,7 @@ class UploadClient {
                     minimumToWarnForThisSeverity = severitiesForPackageManager.get(finding.severity.toString())
                 }
                 def findingCount = findingCountsPerSeverity.get("${packageManager}_" + finding.severity.toString())
-                println "${findingCountPerSeverity} >= ${minimumToWarnForThisSeverity}"
+                println "${findingCount} >= ${minimumToWarnForThisSeverity}"
                 if(findingCount >= minimumToWarnForThisSeverity) {
                     println "keeping ${finding.id} with package manager ${packageManager} with severity ${finding.severity} index: ${i}"
                 } else {
