@@ -249,10 +249,10 @@ class UploadClient {
                 findingCountsPerSeverity.put("${packageManager}_${finding.severity}", count)
             }
 
-            println "findingCountsPerSeverity: ${findingCountsPerSeverity}"
-            for(int i=0; i< findings.size();i++) {
+            println "findingCountsPerSeverity: ${findingCountsPerSeverity}, findings.size(): ${findings.size()}"
+            for(int i=findings.size(); i>0 ;i--) {
                 def isDelete= false
-                def finding = findings.get(i)
+                def finding = findings.get(i-1)
                 def packageManager = extractPackageManager(finding.filePath)
                 //println "packageManager: ${packageManager}"
                 //println "dependencyTrackUnhandledPackagesMinimumToAlert: ${args.dependencyTrackUnhandledPackagesMinimumToAlert}"
@@ -265,7 +265,7 @@ class UploadClient {
                 }else {
                     minimumToWarnForThisSeverity = severitiesForPackageManager.get(finding.severity.toString())
                 }
-                def findingCount = findingCountsPerSeverity.get(finding.severity.toString())
+                def findingCount = findingCountsPerSeverity.get("${packageManager}_" + finding.severity.toString())
                 //println "${findingCountPerSeverity} >= ${minimumToWarnForThisSeverity}"
                 if(findingCount >= minimumToWarnForThisSeverity) {
                     //println "keeping ${finding.id} with package manager ${packageManager} with severity ${finding.severity} index: ${i}"
