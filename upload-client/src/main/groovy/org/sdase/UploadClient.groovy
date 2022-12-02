@@ -266,11 +266,11 @@ class UploadClient {
                     minimumToWarnForThisSeverity = severitiesForPackageManager.get(finding.severity.toString().toLowerCase())
                 }
                 def findingCount = findingCountsPerSeverity.get("${packageManager}_" + finding.severity.toString().toLowerCase())
-                println "${findingCount} >= ${minimumToWarnForThisSeverity}"
+//                println "${findingCount} >= ${minimumToWarnForThisSeverity}"
                 if(findingCount >= minimumToWarnForThisSeverity) {
-                    println "keeping ${finding.id} with package manager ${packageManager} with severity ${finding.severity} index: ${i}"
+//                    println "keeping ${finding.id} with package manager ${packageManager} with severity ${finding.severity} index: ${i}"
                 } else {
-                    println "removing ${finding.id} with package manager ${packageManager} with severity ${finding.severity} index: ${i}"
+//                    println "removing ${finding.id} with package manager ${packageManager} with severity ${finding.severity} index: ${i}"
                     findings.remove(i)
                 }
             }
