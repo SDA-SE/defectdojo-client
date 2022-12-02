@@ -255,7 +255,7 @@ class UploadClient {
                 def finding = findings.get(i)
                 def packageManager = extractPackageManager(finding.filePath)
                 //println "packageManager: ${packageManager}"
-                //println "dependencyTrackUnhandledPackagesMinimumToAlert: ${args.dependencyTrackUnhandledPackagesMinimumToAlert}"
+                println "dependencyTrackUnhandledPackagesMinimumToAlert: ${args.dependencyTrackUnhandledPackagesMinimumToAlert}"
                 def severitiesForPackageManager = args.dependencyTrackUnhandledPackagesMinimumToAlert.get(packageManager)
                 //def minimumToWarnForThisSeverity = unhandledLanguageFilter2.value.get(finding.severity.toString())
                 //def findingCountPerSeverity = findingCount.value
@@ -266,11 +266,11 @@ class UploadClient {
                     minimumToWarnForThisSeverity = severitiesForPackageManager.get(finding.severity.toString())
                 }
                 def findingCount = findingCountsPerSeverity.get("${packageManager}_" + finding.severity.toString())
-                //println "${findingCountPerSeverity} >= ${minimumToWarnForThisSeverity}"
+                println "${findingCountPerSeverity} >= ${minimumToWarnForThisSeverity}"
                 if(findingCount >= minimumToWarnForThisSeverity) {
-                    //println "keeping ${finding.id} with package manager ${packageManager} with severity ${finding.severity} index: ${i}"
+                    println "keeping ${finding.id} with package manager ${packageManager} with severity ${finding.severity} index: ${i}"
                 } else {
-                    //println "removing ${finding.id} with package manager ${packageManager} with severity ${finding.severity} index: ${i}"
+                    println "removing ${finding.id} with package manager ${packageManager} with severity ${finding.severity} index: ${i}"
                     findings.remove(i)
                 }
             }
