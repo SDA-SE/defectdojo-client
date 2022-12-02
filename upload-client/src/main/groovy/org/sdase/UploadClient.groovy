@@ -255,7 +255,7 @@ class UploadClient {
                 def finding = findings.get(i)
                 def packageManager = extractPackageManager(finding.filePath)
                 //println "packageManager: ${packageManager}"
-                println "dependencyTrackUnhandledPackagesMinimumToAlert: ${args.dependencyTrackUnhandledPackagesMinimumToAlert}"
+//                println "dependencyTrackUnhandledPackagesMinimumToAlert: ${args.dependencyTrackUnhandledPackagesMinimumToAlert}"
                 def severitiesForPackageManager = args.dependencyTrackUnhandledPackagesMinimumToAlert.get(packageManager)
                 //def minimumToWarnForThisSeverity = unhandledLanguageFilter2.value.get(finding.severity.toString())
                 //def findingCountPerSeverity = findingCount.value
