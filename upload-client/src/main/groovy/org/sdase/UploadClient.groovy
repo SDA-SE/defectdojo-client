@@ -246,7 +246,7 @@ class UploadClient {
                 def packageManager = extractPackageManager(finding.filePath)
                 def count = findingCountsPerSeverity.getOrDefault("${packageManager}_${finding.severity}", 0)
                 count++
-                findingCountsPerSeverity.put("${packageManager}_${finding.severity.toLowerCase()}", count)
+                findingCountsPerSeverity.put("${packageManager}_${finding.severity.toString().toLowerCase()}", count)
             }
 
             println "findingCountsPerSeverity: ${findingCountsPerSeverity}, findings.size(): ${findings.size()}"
