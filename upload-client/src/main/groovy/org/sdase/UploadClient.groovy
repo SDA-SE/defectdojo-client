@@ -250,9 +250,9 @@ class UploadClient {
             }
 
             println "findingCountsPerSeverity: ${findingCountsPerSeverity}, findings.size(): ${findings.size()}"
-            for(int i=findings.size(); i>0 ;i--) {
+            for(int i=findings.size()-1; i>=0 ;i--) {
                 def isDelete= false
-                def finding = findings.get(i-1)
+                def finding = findings.get(i)
                 def packageManager = extractPackageManager(finding.filePath)
                 //println "packageManager: ${packageManager}"
                 //println "dependencyTrackUnhandledPackagesMinimumToAlert: ${args.dependencyTrackUnhandledPackagesMinimumToAlert}"
