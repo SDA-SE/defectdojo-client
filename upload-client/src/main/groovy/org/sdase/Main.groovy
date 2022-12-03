@@ -87,6 +87,11 @@ public class Main {
         if(tagsAsString && !tagsAsString.isEmpty()) {
             productTags = tagsAsString.split(' ')
         }
+        String engagementTagsAsString =  System.getenv("DD_ENGAGEMENT_TAGS")
+        List<String> engagementTags = new ArrayList<String>();
+        if(engagementTagsAsString && !engagementTagsAsString.isEmpty()) {
+            engagementTags = engagementTagsAsString.split(' ')
+        }
 
         def deduplicationOnEngagement = System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")
         if(deduplicationOnEngagement == null) deduplicationOnEngagement="true"
@@ -132,6 +137,7 @@ public class Main {
                 minimumSeverity: minimumSeverity,
                 team: team,
                 isCreateGroups: Boolean.parseBoolean(isCreateGroups),
-                dependencyTrackUnhandledPackagesMinimumToAlert: dependencyTrackUnhandledPackagesMinimumToAlert
+                dependencyTrackUnhandledPackagesMinimumToAlert: dependencyTrackUnhandledPackagesMinimumToAlert,
+                engagementTags: engagementTags
     }
 }

@@ -164,6 +164,7 @@ class UploadClient {
             return engagementService.create(engagementObj);
         }
         engagement.setTargetEnd(engagementEndDateAsString)
+        engagement.tags = args.engagementTags
         engagementService.update(engagement, engagement.id);
 
 
