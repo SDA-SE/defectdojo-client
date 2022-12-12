@@ -55,6 +55,18 @@ Map<String, String> queryParamsFinding = new HashMap<>();
 queryParamsFinding.put("title", 'BaseImage Age > 60 Days');
 //deleteAllFindings(conf, queryParamsFinding)
 
+def deleteAllProductsSimple(conf, queryParamsSimpleDelete) {
+    def productService = new ProductService(conf);
+
+    def products = productService.search(queryParamsSimpleDelete).each {
+        println "deleting product ${it.id}"
+        productService.delete(it.id)
+    }
+}
+Map<String, String> queryParamsSimpleDelete = new HashMap<>();
+queryParamsFinding.put("title", '|');
+//deleteAllProductsSimple(conf, queryParamsSimpleDelete)
+
 // delete all products based on name
 def deleteAllProducts(conf, Map<String, String> queryParams) {
     def productTypeService = new ProductTypeService(conf);
@@ -103,10 +115,8 @@ def deleteAllProducts(conf, Map<String, String> queryParams) {
     }
 }
 Map<String, String> queryParams = new HashMap<>();
-queryParams.put("name", ':');
+queryParams.put("name", '|');
 //deleteAllProducts(conf, queryParams)
-
-
 
 
 def findProductsWithNoCurrentTestAndDelete(conf, int mayAgeOfTestInDays, queryParams, dojoUrl) {
@@ -224,9 +234,47 @@ def findProducts(conf, Map<String, String> queryParams) {
     def products = productService.search(queryParams);
 
     for (product in products) {
-        println "product has tag tbd: ${product.id} ${product.name}"
+        println "product: ${product.id} ${product.name}"
+	productService.delete(product.id)
     }
 }
 Map<String, String> queryParamsFindProduct = new HashMap<>();
-queryParamsFindProduct.put("tag", 'tbd'); //shows that it comes via ClusterImageScanner or SecureCodeBox
-findProducts(conf, queryParamsFindProduct);
+queryParamsFindProduct.put("name", '|'); //shows that it comes via ClusterImageScanner or SecureCodeBox
+//findProducts(conf, queryParamsFindProduct);
+
+
+
+def findImagesWithAge(conf, Map<String, String> queryParams) {
+    def productTypeService = new ProductTypeService(conf);
+    def productService = new ProductService(conf);
+    def testService = new TestService(conf);
+    def engagagementService = new EngagementService(conf)
+    def endpointService = new EndpointService(conf)
+    def findingService = new FindingService(conf)
+
+    def products = productService.search(queryParams);
+
+    f = new File('myfile.txt')
+
+    for (product in products) {
+        Map<String, String> queryParamsFindings = new HashMap<>();
+        queryParamsFindings.put("title", 'Age');
+        queryParamsFindings.put("duplicate", 'false');
+        queryParamsFindings.put("test__engagement__product", product.id);
+        findingService.search(queryParamsFindings).each {
+            //println "finding ${it.id}, ${it.title}"
+            if(it.title.startsWith("Image Age >")) {
+                def descriptionArray = it.description.split("\r?\n|\r");
+                //println "descriptionArray ${descriptionArray[1]}"
+                def age = descriptionArray[1].replace("Image is ", "").replaceAll("days old.*", "")
+                def image = descriptionArray[2].replace("Image ", "")
+                f.append("${age} ${image}\n")
+            }
+
+        }
+
+    }
+}
+Map<String, String> findImagesWithAgeQuery = new HashMap<>();
+findImagesWithAgeQuery.put("name", '|');
+//findImagesWithAge(conf, findImagesWithAgeQuery);

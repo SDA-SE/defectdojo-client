@@ -93,6 +93,8 @@ public class Main {
             engagementTags = engagementTagsAsString.split(' ')
         }
 
+        String lifecycle = System.getenv("DD_LIFECYCLE") ?: "production"
+
         def deduplicationOnEngagement = System.getenv("DD_DEDUPLICATION_ON_ENGAGEMENT")
         if(deduplicationOnEngagement == null) deduplicationOnEngagement="true"
 
@@ -138,6 +140,7 @@ public class Main {
                 team: team,
                 isCreateGroups: Boolean.parseBoolean(isCreateGroups),
                 dependencyTrackUnhandledPackagesMinimumToAlert: dependencyTrackUnhandledPackagesMinimumToAlert,
-                engagementTags: engagementTags
+                engagementTags: engagementTags,
+                lifecycle: lifecycle
     }
 }

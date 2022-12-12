@@ -21,7 +21,7 @@ export IS_CREATE_GROUPS="true"
 export DD_REPORT_TYPE="Dependency Track Finding Packaging Format (FPF) Export"
 export DD_REPORT_PATH="./test/juice-shop-dependency-track.json"
 ./gradlew run || true
-
+exit 0
 export DD_BRANCH_NAME="quay.io/sdase/mytest:1.0.0"
 export DD_REPORT_TYPE="Dependency Check Scan"
 export DD_REPORT_PATH="./test/dependency-check-report-logstash.xml"

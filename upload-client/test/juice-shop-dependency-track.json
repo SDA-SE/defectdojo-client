@@ -1,1 +1,1161 @@
-{"meta":{"application":"Dependency-Track","version":"4.3.6","timestamp":"2022-07-07T06:37:55Z"},"findings":[{"component":{"name":"busboy","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/busboy@0.2.14","uuid":"97889d3d-28b5-4be9-8294-30324426a792","version":"0.2.14"},"attribution":{"alternateIdentifier":"CVE-2022-24434","analyzerIdentity":"OSSINDEX_ANALYZER","attributedOn":"2022-07-07 06:32:55.5","referenceUrl":"https://ossindex.sonatype.org/vulnerability/CVE-2022-24434?component-type=npm&component-name=busboy&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"},"vulnerability":{"severity":"HIGH","severityRank":1,"description":"This affects all versions of package dicer. A malicious attacker can send a modified form to server, and crash the nodejs service. An attacker could sent the payload again and again so that the service continuously crashes.","source":"NVD","vulnId":"CVE-2022-24434","uuid":"55c0974b-b58e-4001-8b28-786b419fb0e8"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:97889d3d-28b5-4be9-8294-30324426a792:55c0974b-b58e-4001-8b28-786b419fb0e8"},{"component":{"name":"dicer","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/dicer@0.2.5","uuid":"bcf018e2-9e3e-48e5-9d76-16ba5557785a","version":"0.2.5"},"attribution":{"alternateIdentifier":"CVE-2022-24434","analyzerIdentity":"OSSINDEX_ANALYZER","attributedOn":"2022-07-07 06:32:57.136","referenceUrl":"https://ossindex.sonatype.org/vulnerability/CVE-2022-24434?component-type=npm&component-name=dicer&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"},"vulnerability":{"severity":"HIGH","severityRank":1,"description":"This affects all versions of package dicer. A malicious attacker can send a modified form to server, and crash the nodejs service. An attacker could sent the payload again and again so that the service continuously crashes.","source":"NVD","vulnId":"CVE-2022-24434","uuid":"55c0974b-b58e-4001-8b28-786b419fb0e8"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:bcf018e2-9e3e-48e5-9d76-16ba5557785a:55c0974b-b58e-4001-8b28-786b419fb0e8"},{"component":{"name":"ecstatic","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/ecstatic@3.3.2","uuid":"a9177b43-2f46-495c-8cbe-f5c935e33064","version":"3.3.2"},"attribution":{"alternateIdentifier":"CVE-2019-10775","analyzerIdentity":"OSSINDEX_ANALYZER","attributedOn":"2022-07-07 06:32:58.081","referenceUrl":"https://ossindex.sonatype.org/vulnerability/CVE-2019-10775?component-type=npm&component-name=ecstatic&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"},"vulnerability":{"severity":"HIGH","severityRank":1,"cweName":"Uncontrolled Resource Consumption","vulnId":"CVE-2019-10775","cweId":400,"description":"ecstatic have a denial of service vulnerability. Successful exploitation could lead to crash of an application.","source":"NVD","uuid":"cb152e16-557a-4981-8527-3be140bbd41f"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:a9177b43-2f46-495c-8cbe-f5c935e33064:cb152e16-557a-4981-8527-3be140bbd41f"},{"component":{"name":"express-jwt","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/express-jwt@0.1.3","uuid":"a9e84353-ac87-4200-b857-a4be03a63479","version":"0.1.3"},"attribution":{"alternateIdentifier":"CVE-2020-15084","analyzerIdentity":"OSSINDEX_ANALYZER","attributedOn":"2022-07-07 06:32:58.109","referenceUrl":"https://ossindex.sonatype.org/vulnerability/CVE-2020-15084?component-type=npm&component-name=express-jwt&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"},"vulnerability":{"severity":"CRITICAL","severityRank":0,"cweName":"Improper Authorization","vulnId":"CVE-2020-15084","cweId":285,"description":"In express-jwt (NPM package) up and including version 5.3.3, the algorithms entry to be specified in the configuration is not being enforced. When algorithms is not specified in the configuration, with the combination of jwks-rsa, it may lead to authorization bypass. You are affected by this vulnerability if all of the following conditions apply: - You are using express-jwt - You do not have **algorithms** configured in your express-jwt configuration. - You are using libraries such as jwks-rsa as the **secret**. You can fix this by specifying **algorithms** in the express-jwt configuration. See linked GHSA for example. This is also fixed in version 6.0.0.","source":"NVD","uuid":"744442c1-8f9b-4164-a559-76175a78689d"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:a9e84353-ac87-4200-b857-a4be03a63479:744442c1-8f9b-4164-a559-76175a78689d"},{"component":{"name":"fb-watchman","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/fb-watchman@2.0.1","uuid":"6ddd16ad-a8fc-473e-a598-455b97f280ee","version":"2.0.1"},"attribution":{"alternateIdentifier":"CVE-2022-21944","analyzerIdentity":"OSSINDEX_ANALYZER","attributedOn":"2022-07-07 06:32:58.765","referenceUrl":"https://ossindex.sonatype.org/vulnerability/CVE-2022-21944?component-type=npm&component-name=fb-watchman&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"},"vulnerability":{"severity":"HIGH","severityRank":1,"cweName":"Improper Link Resolution Before File Access ('Link Following')","vulnId":"CVE-2022-21944","cweId":59,"description":"A UNIX Symbolic Link (Symlink) Following vulnerability in the systemd service file for watchman of openSUSE Backports SLE-15-SP3, Factory allows local attackers to escalate to root. This issue affects: openSUSE Backports SLE-15-SP3 watchman versions prior to 4.9.0. openSUSE Factory watchman versions prior to 4.9.0-9.1.","source":"NVD","uuid":"360d3d4a-42b4-466f-8cc4-b0192cbc9251"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:6ddd16ad-a8fc-473e-a598-455b97f280ee:360d3d4a-42b4-466f-8cc4-b0192cbc9251"},{"component":{"name":"got","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/got@8.3.2","uuid":"a7f184a9-2dc6-4715-a914-ba83673203e1","version":"8.3.2"},"attribution":{"alternateIdentifier":"CVE-2022-33987","analyzerIdentity":"OSSINDEX_ANALYZER","attributedOn":"2022-07-07 06:32:59.998","referenceUrl":"https://ossindex.sonatype.org/vulnerability/CVE-2022-33987?component-type=npm&component-name=got&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"},"vulnerability":{"severity":"MEDIUM","severityRank":2,"description":"The got package before 12.1.0 (also fixed in 11.8.5) for Node.js allows a redirect to a UNIX socket.","source":"NVD","vulnId":"CVE-2022-33987","uuid":"dd9d10d9-abc5-4552-9b82-7f6b35ccdaff"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:a7f184a9-2dc6-4715-a914-ba83673203e1:dd9d10d9-abc5-4552-9b82-7f6b35ccdaff"},{"component":{"name":"hbs","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/hbs@4.2.0","uuid":"c10e65d8-670b-42bc-9cec-666dd54fcf1e","version":"4.2.0"},"attribution":{"alternateIdentifier":"CVE-2021-32822","analyzerIdentity":"OSSINDEX_ANALYZER","attributedOn":"2022-07-07 06:33:00.751","referenceUrl":"https://ossindex.sonatype.org/vulnerability/CVE-2021-32822?component-type=npm&component-name=hbs&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"},"vulnerability":{"severity":"MEDIUM","severityRank":2,"cweName":"Improper Control of Generation of Code ('Code Injection')","vulnId":"CVE-2021-32822","cweId":94,"description":"The npm hbs package is an Express view engine wrapper for Handlebars. Depending on usage, users of hbs may be vulnerable to a file disclosure vulnerability. There is currently no patch for this vulnerability. hbs mixes pure template data with engine configuration options through the Express render API. By overwriting internal configuration options a file disclosure vulnerability may be triggered in downstream applications. For an example PoC see the referenced GHSL-2021-020.","source":"NVD","uuid":"33bb33e0-5de2-4c4c-bb01-fafdde1d3025"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c10e65d8-670b-42bc-9cec-666dd54fcf1e:33bb33e0-5de2-4c4c-bb01-fafdde1d3025"},{"component":{"name":"jsonwebtoken","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/jsonwebtoken@0.1.0","uuid":"260944bf-21d8-4c70-bcd9-dde19f4210c1","version":"0.1.0"},"attribution":{"alternateIdentifier":"sonatype-2015-0022","analyzerIdentity":"OSSINDEX_ANALYZER","attributedOn":"2022-07-07 06:33:03.343","referenceUrl":"https://ossindex.sonatype.org/vulnerability/sonatype-2015-0022?component-type=npm&component-name=jsonwebtoken&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"},"vulnerability":{"severity":"CRITICAL","severityRank":0,"cweName":"Use of a Broken or Risky Cryptographic Algorithm","vulnId":"CVE-2015-9235","cweId":327,"description":"In jsonwebtoken node module before 4.2.2 it is possible for an attacker to bypass verification when a token digitally signed with an asymmetric key (RS/ES family) of algorithms but instead the attacker send a token digitally signed with a symmetric algorithm (HS* family).","source":"NVD","uuid":"1815d8ff-e2e4-4b66-888c-96d7323aad36"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:260944bf-21d8-4c70-bcd9-dde19f4210c1:1815d8ff-e2e4-4b66-888c-96d7323aad36"},{"component":{"name":"jsonwebtoken","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/jsonwebtoken@0.4.0","uuid":"43d3b33b-c72f-488b-8c1b-914d0146df6d","version":"0.4.0"},"attribution":{"alternateIdentifier":"sonatype-2015-0022","analyzerIdentity":"OSSINDEX_ANALYZER","attributedOn":"2022-07-07 06:33:03.347","referenceUrl":"https://ossindex.sonatype.org/vulnerability/sonatype-2015-0022?component-type=npm&component-name=jsonwebtoken&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"},"vulnerability":{"severity":"CRITICAL","severityRank":0,"cweName":"Use of a Broken or Risky Cryptographic Algorithm","vulnId":"CVE-2015-9235","cweId":327,"description":"In jsonwebtoken node module before 4.2.2 it is possible for an attacker to bypass verification when a token digitally signed with an asymmetric key (RS/ES family) of algorithms but instead the attacker send a token digitally signed with a symmetric algorithm (HS* family).","source":"NVD","uuid":"1815d8ff-e2e4-4b66-888c-96d7323aad36"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:43d3b33b-c72f-488b-8c1b-914d0146df6d:1815d8ff-e2e4-4b66-888c-96d7323aad36"},{"component":{"name":"lodash","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/lodash@2.4.2","uuid":"49aee854-f823-42ae-aca1-244fcc1b9dc7","version":"2.4.2"},"attribution":{"analyzerIdentity":"INTERNAL_ANALYZER","attributedOn":"2022-07-07 06:32:48.178"},"vulnerability":{"severity":"MEDIUM","severityRank":2,"description":"A prototype pollution vulnerability was found in lodash <4.17.11 where the functions merge, mergeWith, and defaultsDeep can be tricked into adding or modifying properties of Object.prototype.","source":"NVD","vulnId":"CVE-2018-16487","uuid":"4ddcef12-a92a-487c-97a7-3c377021a543"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:49aee854-f823-42ae-aca1-244fcc1b9dc7:4ddcef12-a92a-487c-97a7-3c377021a543"},{"component":{"name":"lodash","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/lodash@2.4.2","uuid":"49aee854-f823-42ae-aca1-244fcc1b9dc7","version":"2.4.2"},"attribution":{"analyzerIdentity":"INTERNAL_ANALYZER","attributedOn":"2022-07-07 06:32:48.183"},"vulnerability":{"severity":"MEDIUM","severityRank":2,"cweName":"Allocation of Resources Without Limits or Throttling","vulnId":"CVE-2019-1010266","cweId":770,"description":"lodash prior to 4.17.11 is affected by: CWE-400: Uncontrolled Resource Consumption. The impact is: Denial of service. The component is: Date handler. The attack vector is: Attacker provides very long strings, which the library attempts to match using a regular expression. The fixed version is: 4.17.11.","source":"NVD","uuid":"f5a88a61-3535-4888-a297-4c7415c4403c"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:49aee854-f823-42ae-aca1-244fcc1b9dc7:f5a88a61-3535-4888-a297-4c7415c4403c"},{"component":{"name":"lodash","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/lodash@2.4.2","uuid":"49aee854-f823-42ae-aca1-244fcc1b9dc7","version":"2.4.2"},"attribution":{"analyzerIdentity":"INTERNAL_ANALYZER","attributedOn":"2022-07-07 06:32:48.191"},"vulnerability":{"severity":"MEDIUM","severityRank":2,"description":"lodash node module before 4.17.5 suffers from a Modification of Assumed-Immutable Data (MAID) vulnerability via defaultsDeep, merge, and mergeWith functions, which allows a malicious user to modify the prototype of \"Object\" via __proto__, causing the addition or modification of an existing property that will exist on all objects.","source":"NVD","vulnId":"CVE-2018-3721","uuid":"5c83a939-39d5-406b-bd05-f3da988cb0f8"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:49aee854-f823-42ae-aca1-244fcc1b9dc7:5c83a939-39d5-406b-bd05-f3da988cb0f8"},{"component":{"name":"lodash","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/lodash@2.4.2","uuid":"49aee854-f823-42ae-aca1-244fcc1b9dc7","version":"2.4.2"},"attribution":{"analyzerIdentity":"INTERNAL_ANALYZER","attributedOn":"2022-07-07 06:32:48.2"},"vulnerability":{"severity":"CRITICAL","severityRank":0,"description":"Versions of lodash lower than 4.17.12 are vulnerable to Prototype Pollution. The function defaultsDeep could be tricked into adding or modifying properties of Object.prototype using a constructor payload.","source":"NVD","vulnId":"CVE-2019-10744","uuid":"4d1356a3-3bc1-48c0-a79f-ce85687445d1"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:49aee854-f823-42ae-aca1-244fcc1b9dc7:4d1356a3-3bc1-48c0-a79f-ce85687445d1"},{"component":{"name":"lodash","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/lodash@2.4.2","uuid":"49aee854-f823-42ae-aca1-244fcc1b9dc7","version":"2.4.2"},"attribution":{"analyzerIdentity":"INTERNAL_ANALYZER","attributedOn":"2022-07-07 06:32:48.206"},"vulnerability":{"severity":"HIGH","severityRank":1,"cweName":"Improperly Controlled Modification of Object Prototype Attributes ('Prototype Pollution')","vulnId":"CVE-2020-8203","cweId":1321,"description":"Prototype pollution attack when using _.zipObjectDeep in lodash before 4.17.20.","source":"NVD","uuid":"218a6a2c-57a3-45c6-98fe-0a0c0bb2a456"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:49aee854-f823-42ae-aca1-244fcc1b9dc7:218a6a2c-57a3-45c6-98fe-0a0c0bb2a456"},{"component":{"name":"lodash","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/lodash@2.4.2","uuid":"49aee854-f823-42ae-aca1-244fcc1b9dc7","version":"2.4.2"},"attribution":{"analyzerIdentity":"INTERNAL_ANALYZER","attributedOn":"2022-07-07 06:32:48.22"},"vulnerability":{"severity":"MEDIUM","severityRank":2,"description":"Lodash versions prior to 4.17.21 are vulnerable to Regular Expression Denial of Service (ReDoS) via the toNumber, trim and trimEnd functions.","source":"NVD","vulnId":"CVE-2020-28500","uuid":"a8d04d3a-e89c-4882-b97c-85de476dfa75"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:49aee854-f823-42ae-aca1-244fcc1b9dc7:a8d04d3a-e89c-4882-b97c-85de476dfa75"},{"component":{"name":"lodash","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/lodash@2.4.2","uuid":"49aee854-f823-42ae-aca1-244fcc1b9dc7","version":"2.4.2"},"attribution":{"analyzerIdentity":"INTERNAL_ANALYZER","attributedOn":"2022-07-07 06:32:48.221"},"vulnerability":{"severity":"HIGH","severityRank":1,"cweName":"Improper Neutralization of Special Elements used in a Command ('Command Injection')","vulnId":"CVE-2021-23337","cweId":77,"description":"Lodash versions prior to 4.17.21 are vulnerable to Command Injection via the template function.","source":"NVD","uuid":"aae21760-94c7-453e-b781-5d18a6239a16"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:49aee854-f823-42ae-aca1-244fcc1b9dc7:aae21760-94c7-453e-b781-5d18a6239a16"},{"component":{"name":"moment","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/moment@2.0.0","uuid":"acc04663-bee1-4486-baf6-02a6b53c6e7d","version":"2.0.0"},"attribution":{"alternateIdentifier":"sonatype-2017-0422","analyzerIdentity":"OSSINDEX_ANALYZER","attributedOn":"2022-07-07 06:33:05.132","referenceUrl":"https://ossindex.sonatype.org/vulnerability/sonatype-2017-0422?component-type=npm&component-name=moment&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"},"vulnerability":{"severity":"HIGH","severityRank":1,"cweName":"Uncontrolled Resource Consumption","vulnId":"CVE-2017-18214","cweId":400,"description":"The moment module before 2.19.3 for Node.js is prone to a regular expression denial of service via a crafted date string, a different vulnerability than CVE-2016-4055.","source":"NVD","uuid":"7c10fe05-fd1e-4131-ad02-ac5823200519"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:acc04663-bee1-4486-baf6-02a6b53c6e7d:7c10fe05-fd1e-4131-ad02-ac5823200519"},{"component":{"name":"mout","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/mout@1.2.3","uuid":"35a7fa56-5661-447b-bbb0-50347f30bda7","version":"1.2.3"},"attribution":{"alternateIdentifier":"CVE-2020-7792","analyzerIdentity":"OSSINDEX_ANALYZER","attributedOn":"2022-07-07 06:33:05.137","referenceUrl":"https://ossindex.sonatype.org/vulnerability/CVE-2020-7792?component-type=npm&component-name=mout&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"},"vulnerability":{"severity":"HIGH","severityRank":1,"description":"This affects all versions of package mout. The deepFillIn function can be used to 'fill missing properties recursively', while the deepMixIn 'mixes objects into the target object, recursively mixing existing child objects as well'. In both cases, the key used to access the target object recursively is not checked, leading to a Prototype Pollution.","source":"NVD","vulnId":"CVE-2020-7792","uuid":"486e8c87-d6eb-4990-98d8-a70581bf4cdc"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:35a7fa56-5661-447b-bbb0-50347f30bda7:486e8c87-d6eb-4990-98d8-a70581bf4cdc"},{"component":{"name":"mout","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/mout@1.2.3","uuid":"35a7fa56-5661-447b-bbb0-50347f30bda7","version":"1.2.3"},"attribution":{"alternateIdentifier":"CVE-2022-21213","analyzerIdentity":"OSSINDEX_ANALYZER","attributedOn":"2022-07-07 06:33:05.139","referenceUrl":"https://ossindex.sonatype.org/vulnerability/CVE-2022-21213?component-type=npm&component-name=mout&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"},"vulnerability":{"severity":"HIGH","severityRank":1,"cweName":"Improperly Controlled Modification of Object Prototype Attributes ('Prototype Pollution')","vulnId":"CVE-2022-21213","cweId":1321,"description":"This affects all versions of package mout. The deepFillIn function can be used to 'fill missing properties recursively', while the deepMixIn mixes objects into the target object, recursively mixing existing child objects as well. In both cases, the key used to access the target object recursively is not checked, leading to exploiting this vulnerability. **Note:** This vulnerability derives from an incomplete fix of [CVE-2020-7792](https://security.snyk.io/vuln/SNYK-JS-MOUT-1014544).","source":"NVD","uuid":"0749df5d-d22e-4d5a-a39f-0bf3227274ee"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:35a7fa56-5661-447b-bbb0-50347f30bda7:0749df5d-d22e-4d5a-a39f-0bf3227274ee"},{"component":{"name":"notevil","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/notevil@1.3.3","uuid":"e871ce3b-4b9e-4745-9350-84353f91fa4c","version":"1.3.3"},"attribution":{"alternateIdentifier":"CVE-2021-23771","analyzerIdentity":"OSSINDEX_ANALYZER","attributedOn":"2022-07-07 06:33:05.171","referenceUrl":"https://ossindex.sonatype.org/vulnerability/CVE-2021-23771?component-type=npm&component-name=notevil&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"},"vulnerability":{"severity":"MEDIUM","severityRank":2,"cweName":"Improperly Controlled Modification of Object Prototype Attributes ('Prototype Pollution')","vulnId":"CVE-2021-23771","cweId":1321,"description":"This affects all versions of package notevil; all versions of package argencoders-notevil. It is vulnerable to Sandbox Escape leading to Prototype pollution. The package fails to restrict access to the main context, allowing an attacker to add or modify an object's prototype. **Note:** This vulnerability derives from an incomplete fix in [SNYK-JS-NOTEVIL-608878](https://security.snyk.io/vuln/SNYK-JS-NOTEVIL-608878).","source":"NVD","uuid":"453a05da-66e4-4603-983b-93f6935c9e05"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:e871ce3b-4b9e-4745-9350-84353f91fa4c:453a05da-66e4-4603-983b-93f6935c9e05"},{"component":{"name":"openssl","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11","uuid":"c8d1ef10-5f0c-4b44-af31-369c56e05fc2","version":"1.1.1n-0+deb11u3"},"attribution":{"analyzerIdentity":"INTERNAL_ANALYZER","attributedOn":"2022-07-07 06:32:48.291"},"vulnerability":{"severity":"MEDIUM","severityRank":2,"description":"Normally in OpenSSL EC groups always have a co-factor present and this is used in side channel resistant code paths. However, in some cases, it is possible to construct a group using explicit parameters (instead of using a named curve). In those cases it is possible that such a group does not have the cofactor present. This can occur even where all the parameters match a known named curve. If such a curve is used then OpenSSL falls back to non-side channel resistant code paths which may result in full key recovery during an ECDSA signature operation. In order to be vulnerable an attacker would have to have the ability to time the creation of a large number of signatures where explicit parameters with no co-factor present are in use by an application using libcrypto. For the avoidance of doubt libssl is not vulnerable because explicit parameters are never used. Fixed in OpenSSL 1.1.1d (Affected 1.1.1-1.1.1c). Fixed in OpenSSL 1.1.0l (Affected 1.1.0-1.1.0k). Fixed in OpenSSL 1.0.2t (Affected 1.0.2-1.0.2s).","source":"NVD","vulnId":"CVE-2019-1547","uuid":"ed0482e4-974e-4f08-8310-60d1682e4ad2"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:ed0482e4-974e-4f08-8310-60d1682e4ad2"},{"component":{"name":"openssl","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11","uuid":"c8d1ef10-5f0c-4b44-af31-369c56e05fc2","version":"1.1.1n-0+deb11u3"},"attribution":{"analyzerIdentity":"INTERNAL_ANALYZER","attributedOn":"2022-07-07 06:32:48.293"},"vulnerability":{"severity":"MEDIUM","severityRank":2,"cweName":"Use of Insufficiently Random Values","vulnId":"CVE-2019-1549","cweId":330,"description":"OpenSSL 1.1.1 introduced a rewritten random number generator (RNG). This was intended to include protection in the event of a fork() system call in order to ensure that the parent and child processes did not share the same RNG state. However this protection was not being used in the default case. A partial mitigation for this issue is that the output from a high precision timer is mixed into the RNG state so the likelihood of a parent and child process sharing state is significantly reduced. If an application already calls OPENSSL_init_crypto() explicitly using OPENSSL_INIT_ATFORK then this problem does not occur at all. Fixed in OpenSSL 1.1.1d (Affected 1.1.1-1.1.1c).","source":"NVD","uuid":"d253f161-06e6-4f11-8a26-8c853cf84cae"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:d253f161-06e6-4f11-8a26-8c853cf84cae"},{"component":{"name":"openssl","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11","uuid":"c8d1ef10-5f0c-4b44-af31-369c56e05fc2","version":"1.1.1n-0+deb11u3"},"attribution":{"analyzerIdentity":"INTERNAL_ANALYZER","attributedOn":"2022-07-07 06:32:48.294"},"vulnerability":{"severity":"LOW","severityRank":3,"cweName":"Improper Certificate Validation","vulnId":"CVE-2019-1552","cweId":295,"description":"OpenSSL has internal defaults for a directory tree where it can find a configuration file as well as certificates used for verification in TLS. This directory is most commonly referred to as OPENSSLDIR, and is configurable with the --prefix / --openssldir configuration options. For OpenSSL versions 1.1.0 and 1.1.1, the mingw configuration targets assume that resulting programs and libraries are installed in a Unix-like environment and the default prefix for program installation as well as for OPENSSLDIR should be '/usr/local'. However, mingw programs are Windows programs, and as such, find themselves looking at sub-directories of 'C:/usr/local', which may be world writable, which enables untrusted users to modify OpenSSL's default configuration, insert CA certificates, modify (or even replace) existing engine modules, etc. For OpenSSL 1.0.2, '/usr/local/ssl' is used as default for OPENSSLDIR on all Unix and Windows targets, including Visual C builds. However, some build instructions for the diverse Windows targets on 1.0.2 encourage you to specify your own --prefix. OpenSSL versions 1.1.1, 1.1.0 and 1.0.2 are affected by this issue. Due to the limited scope of affected deployments this has been assessed as low severity and therefore we are not creating new releases at this time. Fixed in OpenSSL 1.1.1d (Affected 1.1.1-1.1.1c). Fixed in OpenSSL 1.1.0l (Affected 1.1.0-1.1.0k). Fixed in OpenSSL 1.0.2t (Affected 1.0.2-1.0.2s).","source":"NVD","uuid":"441b0f3c-0982-4fed-b275-9bf5c227e4ca"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:441b0f3c-0982-4fed-b275-9bf5c227e4ca"},{"component":{"name":"openssl","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11","uuid":"c8d1ef10-5f0c-4b44-af31-369c56e05fc2","version":"1.1.1n-0+deb11u3"},"attribution":{"analyzerIdentity":"INTERNAL_ANALYZER","attributedOn":"2022-07-07 06:32:48.296"},"vulnerability":{"severity":"LOW","severityRank":3,"cweName":"Observable Discrepancy","vulnId":"CVE-2019-1563","cweId":203,"description":"In situations where an attacker receives automated notification of the success or failure of a decryption attempt an attacker, after sending a very large number of messages to be decrypted, can recover a CMS/PKCS7 transported encryption key or decrypt any RSA encrypted message that was encrypted with the public RSA key, using a Bleichenbacher padding oracle attack. Applications are not affected if they use a certificate together with the private RSA key to the CMS_decrypt or PKCS7_decrypt functions to select the correct recipient info to decrypt. Fixed in OpenSSL 1.1.1d (Affected 1.1.1-1.1.1c). Fixed in OpenSSL 1.1.0l (Affected 1.1.0-1.1.0k). Fixed in OpenSSL 1.0.2t (Affected 1.0.2-1.0.2s).","source":"NVD","uuid":"8372dbcb-4a24-44d1-8639-b9925f5e0d80"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:8372dbcb-4a24-44d1-8639-b9925f5e0d80"},{"component":{"name":"openssl","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11","uuid":"c8d1ef10-5f0c-4b44-af31-369c56e05fc2","version":"1.1.1n-0+deb11u3"},"attribution":{"analyzerIdentity":"INTERNAL_ANALYZER","attributedOn":"2022-07-07 06:32:48.3"},"vulnerability":{"severity":"MEDIUM","severityRank":2,"cweName":"Integer Overflow or Wraparound","vulnId":"CVE-2019-1551","cweId":190,"description":"There is an overflow bug in the x64_64 Montgomery squaring procedure used in exponentiation with 512-bit moduli. No EC algorithms are affected. Analysis suggests that attacks against 2-prime RSA1024, 3-prime RSA1536, and DSA1024 as a result of this defect would be very difficult to perform and are not believed likely. Attacks against DH512 are considered just feasible. However, for an attack the target would have to re-use the DH512 private key, which is not recommended anyway. Also applications directly using the low level API BN_mod_exp may be affected if they use BN_FLG_CONSTTIME. Fixed in OpenSSL 1.1.1e (Affected 1.1.1-1.1.1d). Fixed in OpenSSL 1.0.2u (Affected 1.0.2-1.0.2t).","source":"NVD","uuid":"b4affd35-c09e-4a78-8c3a-e91482fea18e"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:b4affd35-c09e-4a78-8c3a-e91482fea18e"},{"component":{"name":"openssl","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11","uuid":"c8d1ef10-5f0c-4b44-af31-369c56e05fc2","version":"1.1.1n-0+deb11u3"},"attribution":{"analyzerIdentity":"INTERNAL_ANALYZER","attributedOn":"2022-07-07 06:32:48.303"},"vulnerability":{"severity":"HIGH","severityRank":1,"cweName":"Use of Insufficiently Random Values","vulnId":"CVE-2019-1543","cweId":330,"description":"ChaCha20-Poly1305 is an AEAD cipher, and requires a unique nonce input for every encryption operation. RFC 7539 specifies that the nonce value (IV) should be 96 bits (12 bytes). OpenSSL allows a variable nonce length and front pads the nonce with 0 bytes if it is less than 12 bytes. However it also incorrectly allows a nonce to be set of up to 16 bytes. In this case only the last 12 bytes are significant and any additional leading bytes are ignored. It is a requirement of using this cipher that nonce values are unique. Messages encrypted using a reused nonce value are susceptible to serious confidentiality and integrity attacks. If an application changes the default nonce length to be longer than 12 bytes and then makes a change to the leading bytes of the nonce expecting the new value to be a new unique nonce then such an application could inadvertently encrypt messages with a reused nonce. Additionally the ignored bytes in a long nonce are not covered by the integrity guarantee of this cipher. Any application that relies on the integrity of these ignored leading bytes of a long nonce may be further affected. Any OpenSSL internal use of this cipher, including in SSL/TLS, is safe because no such use sets such a long nonce value. However user applications that use this cipher directly and set a non-default nonce length to be longer than 12 bytes may be vulnerable. OpenSSL versions 1.1.1 and 1.1.0 are affected by this issue. Due to the limited scope of affected deployments this has been assessed as low severity and therefore we are not creating new releases at this time. Fixed in OpenSSL 1.1.1c (Affected 1.1.1-1.1.1b). Fixed in OpenSSL 1.1.0k (Affected 1.1.0-1.1.0j).","source":"NVD","uuid":"d845b0a5-bcbe-4a68-897f-cd37a745bb54"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:d845b0a5-bcbe-4a68-897f-cd37a745bb54"},{"component":{"name":"openssl","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11","uuid":"c8d1ef10-5f0c-4b44-af31-369c56e05fc2","version":"1.1.1n-0+deb11u3"},"attribution":{"analyzerIdentity":"INTERNAL_ANALYZER","attributedOn":"2022-07-07 06:32:48.31"},"vulnerability":{"severity":"HIGH","severityRank":1,"cweName":"Integer Overflow or Wraparound","vulnId":"CVE-2021-23840","cweId":190,"description":"Calls to EVP_CipherUpdate, EVP_EncryptUpdate and EVP_DecryptUpdate may overflow the output length argument in some cases where the input length is close to the maximum permissable length for an integer on the platform. In such cases the return value from the function call will be 1 (indicating success), but the output length value will be negative. This could cause applications to behave incorrectly or crash. OpenSSL versions 1.1.1i and below are affected by this issue. Users of these versions should upgrade to OpenSSL 1.1.1j. OpenSSL versions 1.0.2x and below are affected by this issue. However OpenSSL 1.0.2 is out of support and no longer receiving public updates. Premium support customers of OpenSSL 1.0.2 should upgrade to 1.0.2y. Other users should upgrade to 1.1.1j. Fixed in OpenSSL 1.1.1j (Affected 1.1.1-1.1.1i). Fixed in OpenSSL 1.0.2y (Affected 1.0.2-1.0.2x).","source":"NVD","uuid":"05bcef38-4e9c-41be-a8d0-e81a4e81ea89"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:05bcef38-4e9c-41be-a8d0-e81a4e81ea89"},{"component":{"name":"openssl","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11","uuid":"c8d1ef10-5f0c-4b44-af31-369c56e05fc2","version":"1.1.1n-0+deb11u3"},"attribution":{"analyzerIdentity":"INTERNAL_ANALYZER","attributedOn":"2022-07-07 06:32:48.311"},"vulnerability":{"severity":"MEDIUM","severityRank":2,"description":"The OpenSSL public API function X509_issuer_and_serial_hash() attempts to create a unique hash value based on the issuer and serial number data contained within an X509 certificate. However it fails to correctly handle any errors that may occur while parsing the issuer field (which might occur if the issuer field is maliciously constructed). This may subsequently result in a NULL pointer deref and a crash leading to a potential denial of service attack. The function X509_issuer_and_serial_hash() is never directly called by OpenSSL itself so applications are only vulnerable if they use this function directly and they use it on certificates that may have been obtained from untrusted sources. OpenSSL versions 1.1.1i and below are affected by this issue. Users of these versions should upgrade to OpenSSL 1.1.1j. OpenSSL versions 1.0.2x and below are affected by this issue. However OpenSSL 1.0.2 is out of support and no longer receiving public updates. Premium support customers of OpenSSL 1.0.2 should upgrade to 1.0.2y. Other users should upgrade to 1.1.1j. Fixed in OpenSSL 1.1.1j (Affected 1.1.1-1.1.1i). Fixed in OpenSSL 1.0.2y (Affected 1.0.2-1.0.2x).","source":"NVD","vulnId":"CVE-2021-23841","uuid":"2ac5297d-87fd-4dab-9b81-da06a8d6c5a5"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:2ac5297d-87fd-4dab-9b81-da06a8d6c5a5"},{"component":{"name":"openssl","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11","uuid":"c8d1ef10-5f0c-4b44-af31-369c56e05fc2","version":"1.1.1n-0+deb11u3"},"attribution":{"analyzerIdentity":"INTERNAL_ANALYZER","attributedOn":"2022-07-07 06:32:48.317"},"vulnerability":{"severity":"CRITICAL","severityRank":0,"cweName":"Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')","vulnId":"CVE-2021-3711","cweId":120,"description":"In order to decrypt SM2 encrypted data an application is expected to call the API function EVP_PKEY_decrypt(). Typically an application will call this function twice. The first time, on entry, the \"out\" parameter can be NULL and, on exit, the \"outlen\" parameter is populated with the buffer size required to hold the decrypted plaintext. The application can then allocate a sufficiently sized buffer and call EVP_PKEY_decrypt() again, but this time passing a non-NULL value for the \"out\" parameter. A bug in the implementation of the SM2 decryption code means that the calculation of the buffer size required to hold the plaintext returned by the first call to EVP_PKEY_decrypt() can be smaller than the actual size required by the second call. This can lead to a buffer overflow when EVP_PKEY_decrypt() is called by the application a second time with a buffer that is too small. A malicious attacker who is able present SM2 content for decryption to an application could cause attacker chosen data to overflow the buffer by up to a maximum of 62 bytes altering the contents of other data held after the buffer, possibly changing application behaviour or causing the application to crash. The location of the buffer is application dependent but is typically heap allocated. Fixed in OpenSSL 1.1.1l (Affected 1.1.1-1.1.1k).","source":"NVD","uuid":"bd5bebae-98e9-48ed-9789-85c3f72d8374"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:bd5bebae-98e9-48ed-9789-85c3f72d8374"},{"component":{"name":"openssl","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11","uuid":"c8d1ef10-5f0c-4b44-af31-369c56e05fc2","version":"1.1.1n-0+deb11u3"},"attribution":{"analyzerIdentity":"INTERNAL_ANALYZER","attributedOn":"2022-07-07 06:32:48.319"},"vulnerability":{"severity":"HIGH","severityRank":1,"cweName":"Out-of-bounds Read","vulnId":"CVE-2021-3712","cweId":125,"description":"ASN.1 strings are represented internally within OpenSSL as an ASN1_STRING structure which contains a buffer holding the string data and a field holding the buffer length. This contrasts with normal C strings which are repesented as a buffer for the string data which is terminated with a NUL (0) byte. Although not a strict requirement, ASN.1 strings that are parsed using OpenSSL's own \"d2i\" functions (and other similar parsing functions) as well as any string whose value has been set with the ASN1_STRING_set() function will additionally NUL terminate the byte array in the ASN1_STRING structure. However, it is possible for applications to directly construct valid ASN1_STRING structures which do not NUL terminate the byte array by directly setting the \"data\" and \"length\" fields in the ASN1_STRING array. This can also happen by using the ASN1_STRING_set0() function. Numerous OpenSSL functions that print ASN.1 data have been found to assume that the ASN1_STRING byte array will be NUL terminated, even though this is not guaranteed for strings that have been directly constructed. Where an application requests an ASN.1 structure to be printed, and where that ASN.1 structure contains ASN1_STRINGs that have been directly constructed by the application without NUL terminating the \"data\" field, then a read buffer overrun can occur. The same thing can also occur during name constraints processing of certificates (for example if a certificate has been directly constructed by the application instead of loading it via the OpenSSL parsing functions, and the certificate contains non NUL terminated ASN1_STRING structures). It can also occur in the X509_get1_email(), X509_REQ_get1_email() and X509_get1_ocsp() functions. If a malicious actor can cause an application to directly construct an ASN1_STRING and then process it through one of the affected OpenSSL functions then this issue could be hit. This might result in a crash (causing a Denial of Service attack). It could also result in the disclosure of private memory contents (such as private keys, or sensitive plaintext). Fixed in OpenSSL 1.1.1l (Affected 1.1.1-1.1.1k). Fixed in OpenSSL 1.0.2za (Affected 1.0.2-1.0.2y).","source":"NVD","uuid":"f345d68e-3e31-48b4-8f1e-3826561f4958"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:f345d68e-3e31-48b4-8f1e-3826561f4958"},{"component":{"name":"openssl","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11","uuid":"c8d1ef10-5f0c-4b44-af31-369c56e05fc2","version":"1.1.1n-0+deb11u3"},"attribution":{"analyzerIdentity":"INTERNAL_ANALYZER","attributedOn":"2022-07-07 06:32:48.324"},"vulnerability":{"severity":"MEDIUM","severityRank":2,"cweName":"NULL Pointer Dereference","vulnId":"CVE-2021-3449","cweId":476,"description":"An OpenSSL TLS server may crash if sent a maliciously crafted renegotiation ClientHello message from a client. If a TLSv1.2 renegotiation ClientHello omits the signature_algorithms extension (where it was present in the initial ClientHello), but includes a signature_algorithms_cert extension then a NULL pointer dereference will result, leading to a crash and a denial of service attack. A server is only vulnerable if it has TLSv1.2 and renegotiation enabled (which is the default configuration). OpenSSL TLS clients are not impacted by this issue. All OpenSSL 1.1.1 versions are affected by this issue. Users of these versions should upgrade to OpenSSL 1.1.1k. OpenSSL 1.0.2 is not impacted by this issue. Fixed in OpenSSL 1.1.1k (Affected 1.1.1-1.1.1j).","source":"NVD","uuid":"890c868f-43fb-45ab-990b-2c029464a6e5"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:890c868f-43fb-45ab-990b-2c029464a6e5"},{"component":{"name":"openssl","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11","uuid":"c8d1ef10-5f0c-4b44-af31-369c56e05fc2","version":"1.1.1n-0+deb11u3"},"attribution":{"analyzerIdentity":"INTERNAL_ANALYZER","attributedOn":"2022-07-07 06:32:48.332"},"vulnerability":{"severity":"MEDIUM","severityRank":2,"description":"There is a carry propagation bug in the MIPS32 and MIPS64 squaring procedure. Many EC algorithms are affected, including some of the TLS 1.3 default curves. Impact was not analyzed in detail, because the pre-requisites for attack are considered unlikely and include reusing private keys. Analysis suggests that attacks against RSA and DSA as a result of this defect would be very difficult to perform and are not believed likely. Attacks against DH are considered just feasible (although very difficult) because most of the work necessary to deduce information about a private key may be performed offline. The amount of resources required for such an attack would be significant. However, for an attack on TLS to be meaningful, the server would have to share the DH private key among multiple clients, which is no longer an option since CVE-2016-0701. This issue affects OpenSSL versions 1.0.2, 1.1.1 and 3.0.0. It was addressed in the releases of 1.1.1m and 3.0.1 on the 15th of December 2021. For the 1.0.2 release it is addressed in git commit 6fc1aaaf3 that is available to premium support customers only. It will be made available in 1.0.2zc when it is released. The issue only affects OpenSSL on MIPS platforms. Fixed in OpenSSL 3.0.1 (Affected 3.0.0). Fixed in OpenSSL 1.1.1m (Affected 1.1.1-1.1.1l). Fixed in OpenSSL 1.0.2zc-dev (Affected 1.0.2-1.0.2zb).","source":"NVD","vulnId":"CVE-2021-4160","uuid":"90bf225f-30ac-4b5f-b6c4-80da665cc151"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:90bf225f-30ac-4b5f-b6c4-80da665cc151"},{"component":{"name":"openssl","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11","uuid":"c8d1ef10-5f0c-4b44-af31-369c56e05fc2","version":"1.1.1n-0+deb11u3"},"attribution":{"analyzerIdentity":"INTERNAL_ANALYZER","attributedOn":"2022-07-07 06:32:48.336"},"vulnerability":{"severity":"HIGH","severityRank":1,"cweName":"Loop with Unreachable Exit Condition ('Infinite Loop')","vulnId":"CVE-2022-0778","cweId":835,"description":"The BN_mod_sqrt() function, which computes a modular square root, contains a bug that can cause it to loop forever for non-prime moduli. Internally this function is used when parsing certificates that contain elliptic curve public keys in compressed form or explicit elliptic curve parameters with a base point encoded in compressed form. It is possible to trigger the infinite loop by crafting a certificate that has invalid explicit curve parameters. Since certificate parsing happens prior to verification of the certificate signature, any process that parses an externally supplied certificate may thus be subject to a denial of service attack. The infinite loop can also be reached when parsing crafted private keys as they can contain explicit elliptic curve parameters. Thus vulnerable situations include: - TLS clients consuming server certificates - TLS servers consuming client certificates - Hosting providers taking certificates or private keys from customers - Certificate authorities parsing certification requests from subscribers - Anything else which parses ASN.1 elliptic curve parameters Also any other applications that use the BN_mod_sqrt() where the attacker can control the parameter values are vulnerable to this DoS issue. In the OpenSSL 1.0.2 version the public key is not parsed during initial parsing of the certificate which makes it slightly harder to trigger the infinite loop. However any operation which requires the public key from the certificate will trigger the infinite loop. In particular the attacker can use a self-signed certificate to trigger the loop during verification of the certificate signature. This issue affects OpenSSL versions 1.0.2, 1.1.1 and 3.0. It was addressed in the releases of 1.1.1n and 3.0.2 on the 15th March 2022. Fixed in OpenSSL 3.0.2 (Affected 3.0.0,3.0.1). Fixed in OpenSSL 1.1.1n (Affected 1.1.1-1.1.1m). Fixed in OpenSSL 1.0.2zd (Affected 1.0.2-1.0.2zc).","source":"NVD","uuid":"4d7828b8-5e92-4f58-a5fc-62f2e32704f2"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:4d7828b8-5e92-4f58-a5fc-62f2e32704f2"},{"component":{"name":"openssl","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11","uuid":"c8d1ef10-5f0c-4b44-af31-369c56e05fc2","version":"1.1.1n-0+deb11u3"},"attribution":{"analyzerIdentity":"INTERNAL_ANALYZER","attributedOn":"2022-07-07 06:32:48.339"},"vulnerability":{"severity":"MEDIUM","severityRank":2,"cweName":"NULL Pointer Dereference","vulnId":"CVE-2020-1971","cweId":476,"description":"The X.509 GeneralName type is a generic type for representing different types of names. One of those name types is known as EDIPartyName. OpenSSL provides a function GENERAL_NAME_cmp which compares different instances of a GENERAL_NAME to see if they are equal or not. This function behaves incorrectly when both GENERAL_NAMEs contain an EDIPARTYNAME. A NULL pointer dereference and a crash may occur leading to a possible denial of service attack. OpenSSL itself uses the GENERAL_NAME_cmp function for two purposes: 1) Comparing CRL distribution point names between an available CRL and a CRL distribution point embedded in an X509 certificate 2) When verifying that a timestamp response token signer matches the timestamp authority name (exposed via the API functions TS_RESP_verify_response and TS_RESP_verify_token) If an attacker can control both items being compared then that attacker could trigger a crash. For example if the attacker can trick a client or server into checking a malicious certificate against a malicious CRL then this may occur. Note that some applications automatically download CRLs based on a URL embedded in a certificate. This checking happens prior to the signatures on the certificate and CRL being verified. OpenSSL's s_server, s_client and verify tools have support for the \"-crl_download\" option which implements automatic CRL downloading and this attack has been demonstrated to work against those tools. Note that an unrelated bug means that affected versions of OpenSSL cannot parse or construct correct encodings of EDIPARTYNAME. However it is possible to construct a malformed EDIPARTYNAME that OpenSSL's parser will accept and hence trigger this attack. All OpenSSL 1.1.1 and 1.0.2 versions are affected by this issue. Other OpenSSL releases are out of support and have not been checked. Fixed in OpenSSL 1.1.1i (Affected 1.1.1-1.1.1h). Fixed in OpenSSL 1.0.2x (Affected 1.0.2-1.0.2w).","source":"NVD","uuid":"c26940d8-2a1e-4c31-ba23-de114fd1efad"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:c26940d8-2a1e-4c31-ba23-de114fd1efad"},{"component":{"name":"openssl","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11","uuid":"c8d1ef10-5f0c-4b44-af31-369c56e05fc2","version":"1.1.1n-0+deb11u3"},"attribution":{"analyzerIdentity":"INTERNAL_ANALYZER","attributedOn":"2022-07-07 06:32:48.342"},"vulnerability":{"severity":"CRITICAL","severityRank":0,"cweName":"Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')","vulnId":"CVE-2022-1292","cweId":78,"description":"The c_rehash script does not properly sanitise shell metacharacters to prevent command injection. This script is distributed by some operating systems in a manner where it is automatically executed. On such operating systems, an attacker could execute arbitrary commands with the privileges of the script. Use of the c_rehash script is considered obsolete and should be replaced by the OpenSSL rehash command line tool. Fixed in OpenSSL 3.0.3 (Affected 3.0.0,3.0.1,3.0.2). Fixed in OpenSSL 1.1.1o (Affected 1.1.1-1.1.1n). Fixed in OpenSSL 1.0.2ze (Affected 1.0.2-1.0.2zd).","source":"NVD","uuid":"afd7950f-308e-4cb1-bcec-32fb9d339917"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:afd7950f-308e-4cb1-bcec-32fb9d339917"},{"component":{"name":"openssl","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11","uuid":"c8d1ef10-5f0c-4b44-af31-369c56e05fc2","version":"1.1.1n-0+deb11u3"},"attribution":{"analyzerIdentity":"INTERNAL_ANALYZER","attributedOn":"2022-07-07 06:32:48.345"},"vulnerability":{"severity":"CRITICAL","severityRank":0,"cweName":"Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')","vulnId":"CVE-2022-2068","cweId":78,"description":"In addition to the c_rehash shell command injection identified in CVE-2022-1292, further circumstances where the c_rehash script does not properly sanitise shell metacharacters to prevent command injection were found by code review. When the CVE-2022-1292 was fixed it was not discovered that there are other places in the script where the file names of certificates being hashed were possibly passed to a command executed through the shell. This script is distributed by some operating systems in a manner where it is automatically executed. On such operating systems, an attacker could execute arbitrary commands with the privileges of the script. Use of the c_rehash script is considered obsolete and should be replaced by the OpenSSL rehash command line tool. Fixed in OpenSSL 3.0.4 (Affected 3.0.0,3.0.1,3.0.2,3.0.3). Fixed in OpenSSL 1.1.1p (Affected 1.1.1-1.1.1o). Fixed in OpenSSL 1.0.2zf (Affected 1.0.2-1.0.2ze).","source":"NVD","uuid":"da594eeb-980a-41c8-bdaa-2e136cc37c3d"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:da594eeb-980a-41c8-bdaa-2e136cc37c3d"},{"component":{"name":"sanitize-html","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/sanitize-html@1.4.2","uuid":"98f2c2f2-6203-4e37-aaea-2556196a732a","version":"1.4.2"},"attribution":{"alternateIdentifier":"sonatype-2014-0007","analyzerIdentity":"OSSINDEX_ANALYZER","attributedOn":"2022-07-07 06:33:07.449","referenceUrl":"https://ossindex.sonatype.org/vulnerability/sonatype-2014-0007?component-type=npm&component-name=sanitize-html&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"},"vulnerability":{"severity":"MEDIUM","severityRank":2,"cweName":"Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')","vulnId":"CVE-2016-1000237","cweId":79,"description":"sanitize-html before 1.4.3 has XSS.","source":"NVD","uuid":"cf82d8cc-706e-4dea-8417-14bcde447b29"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:98f2c2f2-6203-4e37-aaea-2556196a732a:cf82d8cc-706e-4dea-8417-14bcde447b29"},{"component":{"name":"sanitize-html","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/sanitize-html@1.4.2","uuid":"98f2c2f2-6203-4e37-aaea-2556196a732a","version":"1.4.2"},"attribution":{"alternateIdentifier":"CVE-2021-26539","analyzerIdentity":"OSSINDEX_ANALYZER","attributedOn":"2022-07-07 06:33:07.455","referenceUrl":"https://ossindex.sonatype.org/vulnerability/CVE-2021-26539?component-type=npm&component-name=sanitize-html&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"},"vulnerability":{"severity":"MEDIUM","severityRank":2,"description":"Apostrophe Technologies sanitize-html before 2.3.1 does not properly handle internationalized domain name (IDN) which could allow an attacker to bypass hostname whitelist validation set by the \"allowedIframeHostnames\" option.","source":"NVD","vulnId":"CVE-2021-26539","uuid":"52d6089d-181a-4abe-8904-3818dfea6150"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:98f2c2f2-6203-4e37-aaea-2556196a732a:52d6089d-181a-4abe-8904-3818dfea6150"},{"component":{"name":"set-value","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/set-value@2.0.1","uuid":"e8535003-e6d4-4d78-969d-ad522a8c0a37","version":"2.0.1"},"attribution":{"alternateIdentifier":"CVE-2021-23440","analyzerIdentity":"OSSINDEX_ANALYZER","attributedOn":"2022-07-07 06:33:07.488","referenceUrl":"https://ossindex.sonatype.org/vulnerability/CVE-2021-23440?component-type=npm&component-name=set-value&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"},"vulnerability":{"severity":"CRITICAL","severityRank":0,"cweName":"Access of Resource Using Incompatible Type ('Type Confusion')","vulnId":"CVE-2021-23440","cweId":843,"description":"This affects the package set-value before <2.0.1, >=3.0.0 <4.0.1. A type confusion vulnerability can lead to a bypass of CVE-2019-10747 when the user-provided keys used in the path parameter are arrays.","source":"NVD","uuid":"9ebe178e-e403-4fd0-9767-6c3525df1788"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:e8535003-e6d4-4d78-969d-ad522a8c0a37:9ebe178e-e403-4fd0-9767-6c3525df1788"},{"component":{"name":"vm2","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/vm2@3.9.3","uuid":"908f3bda-f070-4882-9dc6-ceb3c8daecaf","version":"3.9.3"},"attribution":{"alternateIdentifier":"CVE-2021-23449","analyzerIdentity":"OSSINDEX_ANALYZER","attributedOn":"2022-07-07 06:33:09.658","referenceUrl":"https://ossindex.sonatype.org/vulnerability/CVE-2021-23449?component-type=npm&component-name=vm2&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"},"vulnerability":{"severity":"CRITICAL","severityRank":0,"cweName":"Improperly Controlled Modification of Dynamically-Determined Object Attributes","vulnId":"CVE-2021-23449","cweId":915,"description":"This affects the package vm2 before 3.9.4 via a Prototype Pollution attack vector, which can lead to execution of arbitrary code on the host machine.","source":"NVD","uuid":"5b6a198b-53db-4600-ad1e-207510109d0a"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:908f3bda-f070-4882-9dc6-ceb3c8daecaf:5b6a198b-53db-4600-ad1e-207510109d0a"},{"component":{"name":"vm2","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/vm2@3.9.3","uuid":"908f3bda-f070-4882-9dc6-ceb3c8daecaf","version":"3.9.3"},"attribution":{"alternateIdentifier":"CVE-2021-23555","analyzerIdentity":"OSSINDEX_ANALYZER","attributedOn":"2022-07-07 06:33:09.669","referenceUrl":"https://ossindex.sonatype.org/vulnerability/CVE-2021-23555?component-type=npm&component-name=vm2&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"},"vulnerability":{"severity":"CRITICAL","severityRank":0,"description":"The package vm2 before 3.9.6 are vulnerable to Sandbox Bypass via direct access to host error objects generated by node internals during generation of a stacktraces, which can lead to execution of arbitrary code on the host machine.","source":"NVD","vulnId":"CVE-2021-23555","uuid":"d030ac82-71ec-4f96-b834-952f400fd4ef"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:908f3bda-f070-4882-9dc6-ceb3c8daecaf:d030ac82-71ec-4f96-b834-952f400fd4ef"},{"component":{"name":"yargs-parser","project":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","purl":"pkg:npm/yargs-parser@11.1.1","uuid":"372ecef0-1551-4542-8cec-6b156969b94b","version":"11.1.1"},"attribution":{"alternateIdentifier":"CVE-2020-7608","analyzerIdentity":"OSSINDEX_ANALYZER","attributedOn":"2022-07-07 06:33:09.698","referenceUrl":"https://ossindex.sonatype.org/vulnerability/CVE-2020-7608?component-type=npm&component-name=yargs-parser&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"},"vulnerability":{"severity":"MEDIUM","severityRank":2,"cweName":"Improperly Controlled Modification of Dynamically-Determined Object Attributes","vulnId":"CVE-2020-7608","cweId":915,"description":"yargs-parser could be tricked into adding or modifying properties of Object.prototype using a \"__proto__\" payload.","source":"NVD","uuid":"69d4846c-acd5-409c-8a55-e4a272c22dfa"},"analysis":{"isSuppressed":false},"matrix":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d:372ecef0-1551-4542-8cec-6b156969b94b:69d4846c-acd5-409c-8a55-e4a272c22dfa"}],"project":{"name":"juice-shop","uuid":"9e471bd5-ce19-4001-a9f1-dd8562c74b2d","version":"develop"},"version":"1.0"}
+{
+  "meta": {
+    "application": "Dependency-Track",
+    "version": "4.3.6",
+    "timestamp": "2022-07-07T06:37:55Z"
+  },
+  "findings": [
+    {
+      "component": {
+        "name": "busboy",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/busboy@0.2.14",
+        "uuid": "97889d3d-28b5-4be9-8294-30324426a792",
+        "version": "0.2.14"
+      },
+      "attribution": {
+        "alternateIdentifier": "CVE-2022-24434",
+        "analyzerIdentity": "OSSINDEX_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:55.5",
+        "referenceUrl": "https://ossindex.sonatype.org/vulnerability/CVE-2022-24434?component-type=npm&component-name=busboy&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"
+      },
+      "vulnerability": {
+        "severity": "HIGH",
+        "severityRank": 1,
+        "description": "This affects all versions of package dicer. A malicious attacker can send a modified form to server, and crash the nodejs service. An attacker could sent the payload again and again so that the service continuously crashes.",
+        "source": "NVD",
+        "vulnId": "CVE-2022-24434",
+        "uuid": "55c0974b-b58e-4001-8b28-786b419fb0e8"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:97889d3d-28b5-4be9-8294-30324426a792:55c0974b-b58e-4001-8b28-786b419fb0e8"
+    },
+    {
+      "component": {
+        "name": "dicer",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/dicer@0.2.5",
+        "uuid": "bcf018e2-9e3e-48e5-9d76-16ba5557785a",
+        "version": "0.2.5"
+      },
+      "attribution": {
+        "alternateIdentifier": "CVE-2022-24434",
+        "analyzerIdentity": "OSSINDEX_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:57.136",
+        "referenceUrl": "https://ossindex.sonatype.org/vulnerability/CVE-2022-24434?component-type=npm&component-name=dicer&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"
+      },
+      "vulnerability": {
+        "severity": "HIGH",
+        "severityRank": 1,
+        "description": "This affects all versions of package dicer. A malicious attacker can send a modified form to server, and crash the nodejs service. An attacker could sent the payload again and again so that the service continuously crashes.",
+        "source": "NVD",
+        "vulnId": "CVE-2022-24434",
+        "uuid": "55c0974b-b58e-4001-8b28-786b419fb0e8"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:bcf018e2-9e3e-48e5-9d76-16ba5557785a:55c0974b-b58e-4001-8b28-786b419fb0e8"
+    },
+    {
+      "component": {
+        "name": "ecstatic",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/ecstatic@3.3.2",
+        "uuid": "a9177b43-2f46-495c-8cbe-f5c935e33064",
+        "version": "3.3.2"
+      },
+      "attribution": {
+        "alternateIdentifier": "CVE-2019-10775",
+        "analyzerIdentity": "OSSINDEX_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:58.081",
+        "referenceUrl": "https://ossindex.sonatype.org/vulnerability/CVE-2019-10775?component-type=npm&component-name=ecstatic&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"
+      },
+      "vulnerability": {
+        "severity": "HIGH",
+        "severityRank": 1,
+        "cweName": "Uncontrolled Resource Consumption",
+        "vulnId": "CVE-2019-10775",
+        "cweId": 400,
+        "description": "ecstatic have a denial of service vulnerability. Successful exploitation could lead to crash of an application.",
+        "source": "NVD",
+        "uuid": "cb152e16-557a-4981-8527-3be140bbd41f"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:a9177b43-2f46-495c-8cbe-f5c935e33064:cb152e16-557a-4981-8527-3be140bbd41f"
+    },
+    {
+      "component": {
+        "name": "express-jwt",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/express-jwt@0.1.3",
+        "uuid": "a9e84353-ac87-4200-b857-a4be03a63479",
+        "version": "0.1.3"
+      },
+      "attribution": {
+        "alternateIdentifier": "CVE-2020-15084",
+        "analyzerIdentity": "OSSINDEX_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:58.109",
+        "referenceUrl": "https://ossindex.sonatype.org/vulnerability/CVE-2020-15084?component-type=npm&component-name=express-jwt&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"
+      },
+      "vulnerability": {
+        "severity": "CRITICAL",
+        "severityRank": 0,
+        "cweName": "Improper Authorization",
+        "vulnId": "CVE-2020-15084",
+        "cweId": 285,
+        "description": "In express-jwt (NPM package) up and including version 5.3.3, the algorithms entry to be specified in the configuration is not being enforced. When algorithms is not specified in the configuration, with the combination of jwks-rsa, it may lead to authorization bypass. You are affected by this vulnerability if all of the following conditions apply: - You are using express-jwt - You do not have **algorithms** configured in your express-jwt configuration. - You are using libraries such as jwks-rsa as the **secret**. You can fix this by specifying **algorithms** in the express-jwt configuration. See linked GHSA for example. This is also fixed in version 6.0.0.",
+        "source": "NVD",
+        "uuid": "744442c1-8f9b-4164-a559-76175a78689d"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:a9e84353-ac87-4200-b857-a4be03a63479:744442c1-8f9b-4164-a559-76175a78689d"
+    },
+    {
+      "component": {
+        "name": "fb-watchman",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/fb-watchman@2.0.1",
+        "uuid": "6ddd16ad-a8fc-473e-a598-455b97f280ee",
+        "version": "2.0.1"
+      },
+      "attribution": {
+        "alternateIdentifier": "CVE-2022-21944",
+        "analyzerIdentity": "OSSINDEX_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:58.765",
+        "referenceUrl": "https://ossindex.sonatype.org/vulnerability/CVE-2022-21944?component-type=npm&component-name=fb-watchman&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"
+      },
+      "vulnerability": {
+        "severity": "HIGH",
+        "severityRank": 1,
+        "cweName": "Improper Link Resolution Before File Access ('Link Following')",
+        "vulnId": "CVE-2022-21944",
+        "cweId": 59,
+        "description": "A UNIX Symbolic Link (Symlink) Following vulnerability in the systemd service file for watchman of openSUSE Backports SLE-15-SP3, Factory allows local attackers to escalate to root. This issue affects: openSUSE Backports SLE-15-SP3 watchman versions prior to 4.9.0. openSUSE Factory watchman versions prior to 4.9.0-9.1.",
+        "source": "NVD",
+        "uuid": "360d3d4a-42b4-466f-8cc4-b0192cbc9251"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:6ddd16ad-a8fc-473e-a598-455b97f280ee:360d3d4a-42b4-466f-8cc4-b0192cbc9251"
+    },
+    {
+      "component": {
+        "name": "got",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/got@8.3.2",
+        "uuid": "a7f184a9-2dc6-4715-a914-ba83673203e1",
+        "version": "8.3.2"
+      },
+      "attribution": {
+        "alternateIdentifier": "CVE-2022-33987",
+        "analyzerIdentity": "OSSINDEX_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:59.998",
+        "referenceUrl": "https://ossindex.sonatype.org/vulnerability/CVE-2022-33987?component-type=npm&component-name=got&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"
+      },
+      "vulnerability": {
+        "severity": "MEDIUM",
+        "severityRank": 2,
+        "description": "The got package before 12.1.0 (also fixed in 11.8.5) for Node.js allows a redirect to a UNIX socket.",
+        "source": "NVD",
+        "vulnId": "CVE-2022-33987",
+        "uuid": "dd9d10d9-abc5-4552-9b82-7f6b35ccdaff"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:a7f184a9-2dc6-4715-a914-ba83673203e1:dd9d10d9-abc5-4552-9b82-7f6b35ccdaff"
+    },
+    {
+      "component": {
+        "name": "hbs",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/hbs@4.2.0",
+        "uuid": "c10e65d8-670b-42bc-9cec-666dd54fcf1e",
+        "version": "4.2.0"
+      },
+      "attribution": {
+        "alternateIdentifier": "CVE-2021-32822",
+        "analyzerIdentity": "OSSINDEX_ANALYZER",
+        "attributedOn": "2022-07-07 06:33:00.751",
+        "referenceUrl": "https://ossindex.sonatype.org/vulnerability/CVE-2021-32822?component-type=npm&component-name=hbs&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"
+      },
+      "vulnerability": {
+        "severity": "MEDIUM",
+        "severityRank": 2,
+        "cweName": "Improper Control of Generation of Code ('Code Injection')",
+        "vulnId": "CVE-2021-32822",
+        "cweId": 94,
+        "description": "The npm hbs package is an Express view engine wrapper for Handlebars. Depending on usage, users of hbs may be vulnerable to a file disclosure vulnerability. There is currently no patch for this vulnerability. hbs mixes pure template data with engine configuration options through the Express render API. By overwriting internal configuration options a file disclosure vulnerability may be triggered in downstream applications. For an example PoC see the referenced GHSL-2021-020.",
+        "source": "NVD",
+        "uuid": "33bb33e0-5de2-4c4c-bb01-fafdde1d3025"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c10e65d8-670b-42bc-9cec-666dd54fcf1e:33bb33e0-5de2-4c4c-bb01-fafdde1d3025"
+    },
+    {
+      "component": {
+        "name": "jsonwebtoken",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/jsonwebtoken@0.1.0",
+        "uuid": "260944bf-21d8-4c70-bcd9-dde19f4210c1",
+        "version": "0.1.0"
+      },
+      "attribution": {
+        "alternateIdentifier": "sonatype-2015-0022",
+        "analyzerIdentity": "OSSINDEX_ANALYZER",
+        "attributedOn": "2022-07-07 06:33:03.343",
+        "referenceUrl": "https://ossindex.sonatype.org/vulnerability/sonatype-2015-0022?component-type=npm&component-name=jsonwebtoken&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"
+      },
+      "vulnerability": {
+        "severity": "CRITICAL",
+        "severityRank": 0,
+        "cweName": "Use of a Broken or Risky Cryptographic Algorithm",
+        "vulnId": "CVE-2015-9235",
+        "cweId": 327,
+        "description": "In jsonwebtoken node module before 4.2.2 it is possible for an attacker to bypass verification when a token digitally signed with an asymmetric key (RS/ES family) of algorithms but instead the attacker send a token digitally signed with a symmetric algorithm (HS* family).",
+        "source": "NVD",
+        "uuid": "1815d8ff-e2e4-4b66-888c-96d7323aad36"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:260944bf-21d8-4c70-bcd9-dde19f4210c1:1815d8ff-e2e4-4b66-888c-96d7323aad36"
+    },
+    {
+      "component": {
+        "name": "jsonwebtoken",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/jsonwebtoken@0.4.0",
+        "uuid": "43d3b33b-c72f-488b-8c1b-914d0146df6d",
+        "version": "0.4.0"
+      },
+      "attribution": {
+        "alternateIdentifier": "sonatype-2015-0022",
+        "analyzerIdentity": "OSSINDEX_ANALYZER",
+        "attributedOn": "2022-07-07 06:33:03.347",
+        "referenceUrl": "https://ossindex.sonatype.org/vulnerability/sonatype-2015-0022?component-type=npm&component-name=jsonwebtoken&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"
+      },
+      "vulnerability": {
+        "severity": "CRITICAL",
+        "severityRank": 0,
+        "cweName": "Use of a Broken or Risky Cryptographic Algorithm",
+        "vulnId": "CVE-2015-9235",
+        "cweId": 327,
+        "description": "In jsonwebtoken node module before 4.2.2 it is possible for an attacker to bypass verification when a token digitally signed with an asymmetric key (RS/ES family) of algorithms but instead the attacker send a token digitally signed with a symmetric algorithm (HS* family).",
+        "source": "NVD",
+        "uuid": "1815d8ff-e2e4-4b66-888c-96d7323aad36"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:43d3b33b-c72f-488b-8c1b-914d0146df6d:1815d8ff-e2e4-4b66-888c-96d7323aad36"
+    },
+    {
+      "component": {
+        "name": "lodash",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/lodash@2.4.2",
+        "uuid": "49aee854-f823-42ae-aca1-244fcc1b9dc7",
+        "version": "2.4.2"
+      },
+      "attribution": {
+        "analyzerIdentity": "INTERNAL_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:48.178"
+      },
+      "vulnerability": {
+        "severity": "MEDIUM",
+        "severityRank": 2,
+        "description": "A prototype pollution vulnerability was found in lodash <4.17.11 where the functions merge, mergeWith, and defaultsDeep can be tricked into adding or modifying properties of Object.prototype.",
+        "source": "NVD",
+        "vulnId": "CVE-2018-16487",
+        "uuid": "4ddcef12-a92a-487c-97a7-3c377021a543"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:49aee854-f823-42ae-aca1-244fcc1b9dc7:4ddcef12-a92a-487c-97a7-3c377021a543"
+    },
+    {
+      "component": {
+        "name": "lodash",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/lodash@2.4.2",
+        "uuid": "49aee854-f823-42ae-aca1-244fcc1b9dc7",
+        "version": "2.4.2"
+      },
+      "attribution": {
+        "analyzerIdentity": "INTERNAL_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:48.183"
+      },
+      "vulnerability": {
+        "severity": "MEDIUM",
+        "severityRank": 2,
+        "cweName": "Allocation of Resources Without Limits or Throttling",
+        "vulnId": "CVE-2019-1010266",
+        "cweId": 770,
+        "description": "lodash prior to 4.17.11 is affected by: CWE-400: Uncontrolled Resource Consumption. The impact is: Denial of service. The component is: Date handler. The attack vector is: Attacker provides very long strings, which the library attempts to match using a regular expression. The fixed version is: 4.17.11.",
+        "source": "NVD",
+        "uuid": "f5a88a61-3535-4888-a297-4c7415c4403c"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:49aee854-f823-42ae-aca1-244fcc1b9dc7:f5a88a61-3535-4888-a297-4c7415c4403c"
+    },
+    {
+      "component": {
+        "name": "lodash",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/lodash@2.4.2",
+        "uuid": "49aee854-f823-42ae-aca1-244fcc1b9dc7",
+        "version": "2.4.2"
+      },
+      "attribution": {
+        "analyzerIdentity": "INTERNAL_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:48.191"
+      },
+      "vulnerability": {
+        "severity": "MEDIUM",
+        "severityRank": 2,
+        "description": "lodash node module before 4.17.5 suffers from a Modification of Assumed-Immutable Data (MAID) vulnerability via defaultsDeep, merge, and mergeWith functions, which allows a malicious user to modify the prototype of \"Object\" via __proto__, causing the addition or modification of an existing property that will exist on all objects.",
+        "source": "NVD",
+        "vulnId": "CVE-2018-3721",
+        "uuid": "5c83a939-39d5-406b-bd05-f3da988cb0f8"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:49aee854-f823-42ae-aca1-244fcc1b9dc7:5c83a939-39d5-406b-bd05-f3da988cb0f8"
+    },
+    {
+      "component": {
+        "name": "lodash",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/lodash@2.4.2",
+        "uuid": "49aee854-f823-42ae-aca1-244fcc1b9dc7",
+        "version": "2.4.2"
+      },
+      "attribution": {
+        "analyzerIdentity": "INTERNAL_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:48.2"
+      },
+      "vulnerability": {
+        "severity": "CRITICAL",
+        "severityRank": 0,
+        "description": "Versions of lodash lower than 4.17.12 are vulnerable to Prototype Pollution. The function defaultsDeep could be tricked into adding or modifying properties of Object.prototype using a constructor payload.",
+        "source": "NVD",
+        "vulnId": "CVE-2019-10744",
+        "uuid": "4d1356a3-3bc1-48c0-a79f-ce85687445d1"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:49aee854-f823-42ae-aca1-244fcc1b9dc7:4d1356a3-3bc1-48c0-a79f-ce85687445d1"
+    },
+    {
+      "component": {
+        "name": "lodash",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/lodash@2.4.2",
+        "uuid": "49aee854-f823-42ae-aca1-244fcc1b9dc7",
+        "version": "2.4.2"
+      },
+      "attribution": {
+        "analyzerIdentity": "INTERNAL_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:48.206"
+      },
+      "vulnerability": {
+        "severity": "HIGH",
+        "severityRank": 1,
+        "cweName": "Improperly Controlled Modification of Object Prototype Attributes ('Prototype Pollution')",
+        "vulnId": "CVE-2020-8203",
+        "cweId": 1321,
+        "description": "Prototype pollution attack when using _.zipObjectDeep in lodash before 4.17.20.",
+        "source": "NVD",
+        "uuid": "218a6a2c-57a3-45c6-98fe-0a0c0bb2a456"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:49aee854-f823-42ae-aca1-244fcc1b9dc7:218a6a2c-57a3-45c6-98fe-0a0c0bb2a456"
+    },
+    {
+      "component": {
+        "name": "lodash",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/lodash@2.4.2",
+        "uuid": "49aee854-f823-42ae-aca1-244fcc1b9dc7",
+        "version": "2.4.2"
+      },
+      "attribution": {
+        "analyzerIdentity": "INTERNAL_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:48.22"
+      },
+      "vulnerability": {
+        "severity": "MEDIUM",
+        "severityRank": 2,
+        "description": "Lodash versions prior to 4.17.21 are vulnerable to Regular Expression Denial of Service (ReDoS) via the toNumber, trim and trimEnd functions.",
+        "source": "NVD",
+        "vulnId": "CVE-2020-28500",
+        "uuid": "a8d04d3a-e89c-4882-b97c-85de476dfa75"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:49aee854-f823-42ae-aca1-244fcc1b9dc7:a8d04d3a-e89c-4882-b97c-85de476dfa75"
+    },
+    {
+      "component": {
+        "name": "lodash",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/lodash@2.4.2",
+        "uuid": "49aee854-f823-42ae-aca1-244fcc1b9dc7",
+        "version": "2.4.2"
+      },
+      "attribution": {
+        "analyzerIdentity": "INTERNAL_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:48.221"
+      },
+      "vulnerability": {
+        "severity": "HIGH",
+        "severityRank": 1,
+        "cweName": "Improper Neutralization of Special Elements used in a Command ('Command Injection')",
+        "vulnId": "CVE-2021-23337",
+        "cweId": 77,
+        "description": "Lodash versions prior to 4.17.21 are vulnerable to Command Injection via the template function.",
+        "source": "NVD",
+        "uuid": "aae21760-94c7-453e-b781-5d18a6239a16"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:49aee854-f823-42ae-aca1-244fcc1b9dc7:aae21760-94c7-453e-b781-5d18a6239a16"
+    },
+    {
+      "component": {
+        "name": "moment",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/moment@2.0.0",
+        "uuid": "acc04663-bee1-4486-baf6-02a6b53c6e7d",
+        "version": "2.0.0"
+      },
+      "attribution": {
+        "alternateIdentifier": "sonatype-2017-0422",
+        "analyzerIdentity": "OSSINDEX_ANALYZER",
+        "attributedOn": "2022-07-07 06:33:05.132",
+        "referenceUrl": "https://ossindex.sonatype.org/vulnerability/sonatype-2017-0422?component-type=npm&component-name=moment&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"
+      },
+      "vulnerability": {
+        "severity": "HIGH",
+        "severityRank": 1,
+        "cweName": "Uncontrolled Resource Consumption",
+        "vulnId": "CVE-2017-18214",
+        "cweId": 400,
+        "description": "The moment module before 2.19.3 for Node.js is prone to a regular expression denial of service via a crafted date string, a different vulnerability than CVE-2016-4055.",
+        "source": "NVD",
+        "uuid": "7c10fe05-fd1e-4131-ad02-ac5823200519"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:acc04663-bee1-4486-baf6-02a6b53c6e7d:7c10fe05-fd1e-4131-ad02-ac5823200519"
+    },
+    {
+      "component": {
+        "name": "mout",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/mout@1.2.3",
+        "uuid": "35a7fa56-5661-447b-bbb0-50347f30bda7",
+        "version": "1.2.3"
+      },
+      "attribution": {
+        "alternateIdentifier": "CVE-2020-7792",
+        "analyzerIdentity": "OSSINDEX_ANALYZER",
+        "attributedOn": "2022-07-07 06:33:05.137",
+        "referenceUrl": "https://ossindex.sonatype.org/vulnerability/CVE-2020-7792?component-type=npm&component-name=mout&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"
+      },
+      "vulnerability": {
+        "severity": "HIGH",
+        "severityRank": 1,
+        "description": "This affects all versions of package mout. The deepFillIn function can be used to 'fill missing properties recursively', while the deepMixIn 'mixes objects into the target object, recursively mixing existing child objects as well'. In both cases, the key used to access the target object recursively is not checked, leading to a Prototype Pollution.",
+        "source": "NVD",
+        "vulnId": "CVE-2020-7792",
+        "uuid": "486e8c87-d6eb-4990-98d8-a70581bf4cdc"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:35a7fa56-5661-447b-bbb0-50347f30bda7:486e8c87-d6eb-4990-98d8-a70581bf4cdc"
+    },
+    {
+      "component": {
+        "name": "mout",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/mout@1.2.3",
+        "uuid": "35a7fa56-5661-447b-bbb0-50347f30bda7",
+        "version": "1.2.3"
+      },
+      "attribution": {
+        "alternateIdentifier": "CVE-2022-21213",
+        "analyzerIdentity": "OSSINDEX_ANALYZER",
+        "attributedOn": "2022-07-07 06:33:05.139",
+        "referenceUrl": "https://ossindex.sonatype.org/vulnerability/CVE-2022-21213?component-type=npm&component-name=mout&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"
+      },
+      "vulnerability": {
+        "severity": "HIGH",
+        "severityRank": 1,
+        "cweName": "Improperly Controlled Modification of Object Prototype Attributes ('Prototype Pollution')",
+        "vulnId": "CVE-2022-21213",
+        "cweId": 1321,
+        "description": "This affects all versions of package mout. The deepFillIn function can be used to 'fill missing properties recursively', while the deepMixIn mixes objects into the target object, recursively mixing existing child objects as well. In both cases, the key used to access the target object recursively is not checked, leading to exploiting this vulnerability. **Note:** This vulnerability derives from an incomplete fix of [CVE-2020-7792](https://security.snyk.io/vuln/SNYK-JS-MOUT-1014544).",
+        "source": "NVD",
+        "uuid": "0749df5d-d22e-4d5a-a39f-0bf3227274ee"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:35a7fa56-5661-447b-bbb0-50347f30bda7:0749df5d-d22e-4d5a-a39f-0bf3227274ee"
+    },
+    {
+      "component": {
+        "name": "notevil",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/notevil@1.3.3",
+        "uuid": "e871ce3b-4b9e-4745-9350-84353f91fa4c",
+        "version": "1.3.3"
+      },
+      "attribution": {
+        "alternateIdentifier": "CVE-2021-23771",
+        "analyzerIdentity": "OSSINDEX_ANALYZER",
+        "attributedOn": "2022-07-07 06:33:05.171",
+        "referenceUrl": "https://ossindex.sonatype.org/vulnerability/CVE-2021-23771?component-type=npm&component-name=notevil&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"
+      },
+      "vulnerability": {
+        "severity": "MEDIUM",
+        "severityRank": 2,
+        "cweName": "Improperly Controlled Modification of Object Prototype Attributes ('Prototype Pollution')",
+        "vulnId": "CVE-2021-23771",
+        "cweId": 1321,
+        "description": "This affects all versions of package notevil; all versions of package argencoders-notevil. It is vulnerable to Sandbox Escape leading to Prototype pollution. The package fails to restrict access to the main context, allowing an attacker to add or modify an object's prototype. **Note:** This vulnerability derives from an incomplete fix in [SNYK-JS-NOTEVIL-608878](https://security.snyk.io/vuln/SNYK-JS-NOTEVIL-608878).",
+        "source": "NVD",
+        "uuid": "453a05da-66e4-4603-983b-93f6935c9e05"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:e871ce3b-4b9e-4745-9350-84353f91fa4c:453a05da-66e4-4603-983b-93f6935c9e05"
+    },
+    {
+      "component": {
+        "name": "openssl",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11",
+        "uuid": "c8d1ef10-5f0c-4b44-af31-369c56e05fc2",
+        "version": "1.1.1n-0+deb11u3"
+      },
+      "attribution": {
+        "analyzerIdentity": "INTERNAL_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:48.291"
+      },
+      "vulnerability": {
+        "severity": "MEDIUM",
+        "severityRank": 2,
+        "description": "Normally in OpenSSL EC groups always have a co-factor present and this is used in side channel resistant code paths. However, in some cases, it is possible to construct a group using explicit parameters (instead of using a named curve). In those cases it is possible that such a group does not have the cofactor present. This can occur even where all the parameters match a known named curve. If such a curve is used then OpenSSL falls back to non-side channel resistant code paths which may result in full key recovery during an ECDSA signature operation. In order to be vulnerable an attacker would have to have the ability to time the creation of a large number of signatures where explicit parameters with no co-factor present are in use by an application using libcrypto. For the avoidance of doubt libssl is not vulnerable because explicit parameters are never used. Fixed in OpenSSL 1.1.1d (Affected 1.1.1-1.1.1c). Fixed in OpenSSL 1.1.0l (Affected 1.1.0-1.1.0k). Fixed in OpenSSL 1.0.2t (Affected 1.0.2-1.0.2s).",
+        "source": "NVD",
+        "vulnId": "CVE-2019-1547",
+        "uuid": "ed0482e4-974e-4f08-8310-60d1682e4ad2"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:ed0482e4-974e-4f08-8310-60d1682e4ad2"
+    },
+    {
+      "component": {
+        "name": "openssl",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11",
+        "uuid": "c8d1ef10-5f0c-4b44-af31-369c56e05fc2",
+        "version": "1.1.1n-0+deb11u3"
+      },
+      "attribution": {
+        "analyzerIdentity": "INTERNAL_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:48.293"
+      },
+      "vulnerability": {
+        "severity": "MEDIUM",
+        "severityRank": 2,
+        "cweName": "Use of Insufficiently Random Values",
+        "vulnId": "CVE-2019-1549",
+        "cweId": 330,
+        "description": "OpenSSL 1.1.1 introduced a rewritten random number generator (RNG). This was intended to include protection in the event of a fork() system call in order to ensure that the parent and child processes did not share the same RNG state. However this protection was not being used in the default case. A partial mitigation for this issue is that the output from a high precision timer is mixed into the RNG state so the likelihood of a parent and child process sharing state is significantly reduced. If an application already calls OPENSSL_init_crypto() explicitly using OPENSSL_INIT_ATFORK then this problem does not occur at all. Fixed in OpenSSL 1.1.1d (Affected 1.1.1-1.1.1c).",
+        "source": "NVD",
+        "uuid": "d253f161-06e6-4f11-8a26-8c853cf84cae"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:d253f161-06e6-4f11-8a26-8c853cf84cae"
+    },
+    {
+      "component": {
+        "name": "openssl",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11",
+        "uuid": "c8d1ef10-5f0c-4b44-af31-369c56e05fc2",
+        "version": "1.1.1n-0+deb11u3"
+      },
+      "attribution": {
+        "analyzerIdentity": "INTERNAL_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:48.294"
+      },
+      "vulnerability": {
+        "severity": "LOW",
+        "severityRank": 3,
+        "cweName": "Improper Certificate Validation",
+        "vulnId": "CVE-2019-1552",
+        "cweId": 295,
+        "description": "OpenSSL has internal defaults for a directory tree where it can find a configuration file as well as certificates used for verification in TLS. This directory is most commonly referred to as OPENSSLDIR, and is configurable with the --prefix / --openssldir configuration options. For OpenSSL versions 1.1.0 and 1.1.1, the mingw configuration targets assume that resulting programs and libraries are installed in a Unix-like environment and the default prefix for program installation as well as for OPENSSLDIR should be '/usr/local'. However, mingw programs are Windows programs, and as such, find themselves looking at sub-directories of 'C:/usr/local', which may be world writable, which enables untrusted users to modify OpenSSL's default configuration, insert CA certificates, modify (or even replace) existing engine modules, etc. For OpenSSL 1.0.2, '/usr/local/ssl' is used as default for OPENSSLDIR on all Unix and Windows targets, including Visual C builds. However, some build instructions for the diverse Windows targets on 1.0.2 encourage you to specify your own --prefix. OpenSSL versions 1.1.1, 1.1.0 and 1.0.2 are affected by this issue. Due to the limited scope of affected deployments this has been assessed as low severity and therefore we are not creating new releases at this time. Fixed in OpenSSL 1.1.1d (Affected 1.1.1-1.1.1c). Fixed in OpenSSL 1.1.0l (Affected 1.1.0-1.1.0k). Fixed in OpenSSL 1.0.2t (Affected 1.0.2-1.0.2s).",
+        "source": "NVD",
+        "uuid": "441b0f3c-0982-4fed-b275-9bf5c227e4ca"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:441b0f3c-0982-4fed-b275-9bf5c227e4ca"
+    },
+    {
+      "component": {
+        "name": "openssl",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11",
+        "uuid": "c8d1ef10-5f0c-4b44-af31-369c56e05fc2",
+        "version": "1.1.1n-0+deb11u3"
+      },
+      "attribution": {
+        "analyzerIdentity": "INTERNAL_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:48.296"
+      },
+      "vulnerability": {
+        "severity": "LOW",
+        "severityRank": 3,
+        "cweName": "Observable Discrepancy",
+        "vulnId": "CVE-2019-1563",
+        "cweId": 203,
+        "description": "In situations where an attacker receives automated notification of the success or failure of a decryption attempt an attacker, after sending a very large number of messages to be decrypted, can recover a CMS/PKCS7 transported encryption key or decrypt any RSA encrypted message that was encrypted with the public RSA key, using a Bleichenbacher padding oracle attack. Applications are not affected if they use a certificate together with the private RSA key to the CMS_decrypt or PKCS7_decrypt functions to select the correct recipient info to decrypt. Fixed in OpenSSL 1.1.1d (Affected 1.1.1-1.1.1c). Fixed in OpenSSL 1.1.0l (Affected 1.1.0-1.1.0k). Fixed in OpenSSL 1.0.2t (Affected 1.0.2-1.0.2s).",
+        "source": "NVD",
+        "uuid": "8372dbcb-4a24-44d1-8639-b9925f5e0d80"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:8372dbcb-4a24-44d1-8639-b9925f5e0d80"
+    },
+    {
+      "component": {
+        "name": "openssl",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11",
+        "uuid": "c8d1ef10-5f0c-4b44-af31-369c56e05fc2",
+        "version": "1.1.1n-0+deb11u3"
+      },
+      "attribution": {
+        "analyzerIdentity": "INTERNAL_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:48.3"
+      },
+      "vulnerability": {
+        "severity": "MEDIUM",
+        "severityRank": 2,
+        "cweName": "Integer Overflow or Wraparound",
+        "vulnId": "CVE-2019-1551",
+        "cweId": 190,
+        "description": "There is an overflow bug in the x64_64 Montgomery squaring procedure used in exponentiation with 512-bit moduli. No EC algorithms are affected. Analysis suggests that attacks against 2-prime RSA1024, 3-prime RSA1536, and DSA1024 as a result of this defect would be very difficult to perform and are not believed likely. Attacks against DH512 are considered just feasible. However, for an attack the target would have to re-use the DH512 private key, which is not recommended anyway. Also applications directly using the low level API BN_mod_exp may be affected if they use BN_FLG_CONSTTIME. Fixed in OpenSSL 1.1.1e (Affected 1.1.1-1.1.1d). Fixed in OpenSSL 1.0.2u (Affected 1.0.2-1.0.2t).",
+        "source": "NVD",
+        "uuid": "b4affd35-c09e-4a78-8c3a-e91482fea18e"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:b4affd35-c09e-4a78-8c3a-e91482fea18e"
+    },
+    {
+      "component": {
+        "name": "openssl",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11",
+        "uuid": "c8d1ef10-5f0c-4b44-af31-369c56e05fc2",
+        "version": "1.1.1n-0+deb11u3"
+      },
+      "attribution": {
+        "analyzerIdentity": "INTERNAL_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:48.303"
+      },
+      "vulnerability": {
+        "severity": "HIGH",
+        "severityRank": 1,
+        "cweName": "Use of Insufficiently Random Values",
+        "vulnId": "CVE-2019-1543",
+        "cweId": 330,
+        "description": "ChaCha20-Poly1305 is an AEAD cipher, and requires a unique nonce input for every encryption operation. RFC 7539 specifies that the nonce value (IV) should be 96 bits (12 bytes). OpenSSL allows a variable nonce length and front pads the nonce with 0 bytes if it is less than 12 bytes. However it also incorrectly allows a nonce to be set of up to 16 bytes. In this case only the last 12 bytes are significant and any additional leading bytes are ignored. It is a requirement of using this cipher that nonce values are unique. Messages encrypted using a reused nonce value are susceptible to serious confidentiality and integrity attacks. If an application changes the default nonce length to be longer than 12 bytes and then makes a change to the leading bytes of the nonce expecting the new value to be a new unique nonce then such an application could inadvertently encrypt messages with a reused nonce. Additionally the ignored bytes in a long nonce are not covered by the integrity guarantee of this cipher. Any application that relies on the integrity of these ignored leading bytes of a long nonce may be further affected. Any OpenSSL internal use of this cipher, including in SSL/TLS, is safe because no such use sets such a long nonce value. However user applications that use this cipher directly and set a non-default nonce length to be longer than 12 bytes may be vulnerable. OpenSSL versions 1.1.1 and 1.1.0 are affected by this issue. Due to the limited scope of affected deployments this has been assessed as low severity and therefore we are not creating new releases at this time. Fixed in OpenSSL 1.1.1c (Affected 1.1.1-1.1.1b). Fixed in OpenSSL 1.1.0k (Affected 1.1.0-1.1.0j).",
+        "source": "NVD",
+        "uuid": "d845b0a5-bcbe-4a68-897f-cd37a745bb54"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:d845b0a5-bcbe-4a68-897f-cd37a745bb54"
+    },
+    {
+      "component": {
+        "name": "openssl",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11",
+        "uuid": "c8d1ef10-5f0c-4b44-af31-369c56e05fc2",
+        "version": "1.1.1n-0+deb11u3"
+      },
+      "attribution": {
+        "analyzerIdentity": "INTERNAL_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:48.31"
+      },
+      "vulnerability": {
+        "severity": "HIGH",
+        "severityRank": 1,
+        "cweName": "Integer Overflow or Wraparound",
+        "vulnId": "CVE-2021-23840",
+        "cweId": 190,
+        "description": "Calls to EVP_CipherUpdate, EVP_EncryptUpdate and EVP_DecryptUpdate may overflow the output length argument in some cases where the input length is close to the maximum permissable length for an integer on the platform. In such cases the return value from the function call will be 1 (indicating success), but the output length value will be negative. This could cause applications to behave incorrectly or crash. OpenSSL versions 1.1.1i and below are affected by this issue. Users of these versions should upgrade to OpenSSL 1.1.1j. OpenSSL versions 1.0.2x and below are affected by this issue. However OpenSSL 1.0.2 is out of support and no longer receiving public updates. Premium support customers of OpenSSL 1.0.2 should upgrade to 1.0.2y. Other users should upgrade to 1.1.1j. Fixed in OpenSSL 1.1.1j (Affected 1.1.1-1.1.1i). Fixed in OpenSSL 1.0.2y (Affected 1.0.2-1.0.2x).",
+        "source": "NVD",
+        "uuid": "05bcef38-4e9c-41be-a8d0-e81a4e81ea89"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:05bcef38-4e9c-41be-a8d0-e81a4e81ea89"
+    },
+    {
+      "component": {
+        "name": "openssl",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11",
+        "uuid": "c8d1ef10-5f0c-4b44-af31-369c56e05fc2",
+        "version": "1.1.1n-0+deb11u3"
+      },
+      "attribution": {
+        "analyzerIdentity": "INTERNAL_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:48.311"
+      },
+      "vulnerability": {
+        "severity": "MEDIUM",
+        "severityRank": 2,
+        "description": "The OpenSSL public API function X509_issuer_and_serial_hash() attempts to create a unique hash value based on the issuer and serial number data contained within an X509 certificate. However it fails to correctly handle any errors that may occur while parsing the issuer field (which might occur if the issuer field is maliciously constructed). This may subsequently result in a NULL pointer deref and a crash leading to a potential denial of service attack. The function X509_issuer_and_serial_hash() is never directly called by OpenSSL itself so applications are only vulnerable if they use this function directly and they use it on certificates that may have been obtained from untrusted sources. OpenSSL versions 1.1.1i and below are affected by this issue. Users of these versions should upgrade to OpenSSL 1.1.1j. OpenSSL versions 1.0.2x and below are affected by this issue. However OpenSSL 1.0.2 is out of support and no longer receiving public updates. Premium support customers of OpenSSL 1.0.2 should upgrade to 1.0.2y. Other users should upgrade to 1.1.1j. Fixed in OpenSSL 1.1.1j (Affected 1.1.1-1.1.1i). Fixed in OpenSSL 1.0.2y (Affected 1.0.2-1.0.2x).",
+        "source": "NVD",
+        "vulnId": "CVE-2021-23841",
+        "uuid": "2ac5297d-87fd-4dab-9b81-da06a8d6c5a5"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:2ac5297d-87fd-4dab-9b81-da06a8d6c5a5"
+    },
+    {
+      "component": {
+        "name": "openssl",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11",
+        "uuid": "c8d1ef10-5f0c-4b44-af31-369c56e05fc2",
+        "version": "1.1.1n-0+deb11u3"
+      },
+      "attribution": {
+        "analyzerIdentity": "INTERNAL_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:48.317"
+      },
+      "vulnerability": {
+        "severity": "CRITICAL",
+        "severityRank": 0,
+        "cweName": "Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')",
+        "vulnId": "CVE-2021-3711",
+        "cweId": 120,
+        "description": "In order to decrypt SM2 encrypted data an application is expected to call the API function EVP_PKEY_decrypt(). Typically an application will call this function twice. The first time, on entry, the \"out\" parameter can be NULL and, on exit, the \"outlen\" parameter is populated with the buffer size required to hold the decrypted plaintext. The application can then allocate a sufficiently sized buffer and call EVP_PKEY_decrypt() again, but this time passing a non-NULL value for the \"out\" parameter. A bug in the implementation of the SM2 decryption code means that the calculation of the buffer size required to hold the plaintext returned by the first call to EVP_PKEY_decrypt() can be smaller than the actual size required by the second call. This can lead to a buffer overflow when EVP_PKEY_decrypt() is called by the application a second time with a buffer that is too small. A malicious attacker who is able present SM2 content for decryption to an application could cause attacker chosen data to overflow the buffer by up to a maximum of 62 bytes altering the contents of other data held after the buffer, possibly changing application behaviour or causing the application to crash. The location of the buffer is application dependent but is typically heap allocated. Fixed in OpenSSL 1.1.1l (Affected 1.1.1-1.1.1k).",
+        "source": "NVD",
+        "uuid": "bd5bebae-98e9-48ed-9789-85c3f72d8374"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:bd5bebae-98e9-48ed-9789-85c3f72d8374"
+    },
+    {
+      "component": {
+        "name": "openssl",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11",
+        "uuid": "c8d1ef10-5f0c-4b44-af31-369c56e05fc2",
+        "version": "1.1.1n-0+deb11u3"
+      },
+      "attribution": {
+        "analyzerIdentity": "INTERNAL_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:48.319"
+      },
+      "vulnerability": {
+        "severity": "HIGH",
+        "severityRank": 1,
+        "cweName": "Out-of-bounds Read",
+        "vulnId": "CVE-2021-3712",
+        "cweId": 125,
+        "description": "ASN.1 strings are represented internally within OpenSSL as an ASN1_STRING structure which contains a buffer holding the string data and a field holding the buffer length. This contrasts with normal C strings which are repesented as a buffer for the string data which is terminated with a NUL (0) byte. Although not a strict requirement, ASN.1 strings that are parsed using OpenSSL's own \"d2i\" functions (and other similar parsing functions) as well as any string whose value has been set with the ASN1_STRING_set() function will additionally NUL terminate the byte array in the ASN1_STRING structure. However, it is possible for applications to directly construct valid ASN1_STRING structures which do not NUL terminate the byte array by directly setting the \"data\" and \"length\" fields in the ASN1_STRING array. This can also happen by using the ASN1_STRING_set0() function. Numerous OpenSSL functions that print ASN.1 data have been found to assume that the ASN1_STRING byte array will be NUL terminated, even though this is not guaranteed for strings that have been directly constructed. Where an application requests an ASN.1 structure to be printed, and where that ASN.1 structure contains ASN1_STRINGs that have been directly constructed by the application without NUL terminating the \"data\" field, then a read buffer overrun can occur. The same thing can also occur during name constraints processing of certificates (for example if a certificate has been directly constructed by the application instead of loading it via the OpenSSL parsing functions, and the certificate contains non NUL terminated ASN1_STRING structures). It can also occur in the X509_get1_email(), X509_REQ_get1_email() and X509_get1_ocsp() functions. If a malicious actor can cause an application to directly construct an ASN1_STRING and then process it through one of the affected OpenSSL functions then this issue could be hit. This might result in a crash (causing a Denial of Service attack). It could also result in the disclosure of private memory contents (such as private keys, or sensitive plaintext). Fixed in OpenSSL 1.1.1l (Affected 1.1.1-1.1.1k). Fixed in OpenSSL 1.0.2za (Affected 1.0.2-1.0.2y).",
+        "source": "NVD",
+        "uuid": "f345d68e-3e31-48b4-8f1e-3826561f4958"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:f345d68e-3e31-48b4-8f1e-3826561f4958"
+    },
+    {
+      "component": {
+        "name": "openssl",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11",
+        "uuid": "c8d1ef10-5f0c-4b44-af31-369c56e05fc2",
+        "version": "1.1.1n-0+deb11u3"
+      },
+      "attribution": {
+        "analyzerIdentity": "INTERNAL_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:48.324"
+      },
+      "vulnerability": {
+        "severity": "MEDIUM",
+        "severityRank": 2,
+        "cweName": "NULL Pointer Dereference",
+        "vulnId": "CVE-2021-3449",
+        "cweId": 476,
+        "description": "An OpenSSL TLS server may crash if sent a maliciously crafted renegotiation ClientHello message from a client. If a TLSv1.2 renegotiation ClientHello omits the signature_algorithms extension (where it was present in the initial ClientHello), but includes a signature_algorithms_cert extension then a NULL pointer dereference will result, leading to a crash and a denial of service attack. A server is only vulnerable if it has TLSv1.2 and renegotiation enabled (which is the default configuration). OpenSSL TLS clients are not impacted by this issue. All OpenSSL 1.1.1 versions are affected by this issue. Users of these versions should upgrade to OpenSSL 1.1.1k. OpenSSL 1.0.2 is not impacted by this issue. Fixed in OpenSSL 1.1.1k (Affected 1.1.1-1.1.1j).",
+        "source": "NVD",
+        "uuid": "890c868f-43fb-45ab-990b-2c029464a6e5"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:890c868f-43fb-45ab-990b-2c029464a6e5"
+    },
+    {
+      "component": {
+        "name": "openssl",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11",
+        "uuid": "c8d1ef10-5f0c-4b44-af31-369c56e05fc2",
+        "version": "1.1.1n-0+deb11u3"
+      },
+      "attribution": {
+        "analyzerIdentity": "INTERNAL_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:48.332"
+      },
+      "vulnerability": {
+        "severity": "MEDIUM",
+        "severityRank": 2,
+        "description": "There is a carry propagation bug in the MIPS32 and MIPS64 squaring procedure. Many EC algorithms are affected, including some of the TLS 1.3 default curves. Impact was not analyzed in detail, because the pre-requisites for attack are considered unlikely and include reusing private keys. Analysis suggests that attacks against RSA and DSA as a result of this defect would be very difficult to perform and are not believed likely. Attacks against DH are considered just feasible (although very difficult) because most of the work necessary to deduce information about a private key may be performed offline. The amount of resources required for such an attack would be significant. However, for an attack on TLS to be meaningful, the server would have to share the DH private key among multiple clients, which is no longer an option since CVE-2016-0701. This issue affects OpenSSL versions 1.0.2, 1.1.1 and 3.0.0. It was addressed in the releases of 1.1.1m and 3.0.1 on the 15th of December 2021. For the 1.0.2 release it is addressed in git commit 6fc1aaaf3 that is available to premium support customers only. It will be made available in 1.0.2zc when it is released. The issue only affects OpenSSL on MIPS platforms. Fixed in OpenSSL 3.0.1 (Affected 3.0.0). Fixed in OpenSSL 1.1.1m (Affected 1.1.1-1.1.1l). Fixed in OpenSSL 1.0.2zc-dev (Affected 1.0.2-1.0.2zb).",
+        "source": "NVD",
+        "vulnId": "CVE-2021-4160",
+        "uuid": "90bf225f-30ac-4b5f-b6c4-80da665cc151"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:90bf225f-30ac-4b5f-b6c4-80da665cc151"
+    },
+    {
+      "component": {
+        "name": "openssl",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11",
+        "uuid": "c8d1ef10-5f0c-4b44-af31-369c56e05fc2",
+        "version": "1.1.1n-0+deb11u3"
+      },
+      "attribution": {
+        "analyzerIdentity": "INTERNAL_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:48.336"
+      },
+      "vulnerability": {
+        "severity": "HIGH",
+        "severityRank": 1,
+        "cweName": "Loop with Unreachable Exit Condition ('Infinite Loop')",
+        "vulnId": "CVE-2022-0778",
+        "cweId": 835,
+        "description": "The BN_mod_sqrt() function, which computes a modular square root, contains a bug that can cause it to loop forever for non-prime moduli. Internally this function is used when parsing certificates that contain elliptic curve public keys in compressed form or explicit elliptic curve parameters with a base point encoded in compressed form. It is possible to trigger the infinite loop by crafting a certificate that has invalid explicit curve parameters. Since certificate parsing happens prior to verification of the certificate signature, any process that parses an externally supplied certificate may thus be subject to a denial of service attack. The infinite loop can also be reached when parsing crafted private keys as they can contain explicit elliptic curve parameters. Thus vulnerable situations include: - TLS clients consuming server certificates - TLS servers consuming client certificates - Hosting providers taking certificates or private keys from customers - Certificate authorities parsing certification requests from subscribers - Anything else which parses ASN.1 elliptic curve parameters Also any other applications that use the BN_mod_sqrt() where the attacker can control the parameter values are vulnerable to this DoS issue. In the OpenSSL 1.0.2 version the public key is not parsed during initial parsing of the certificate which makes it slightly harder to trigger the infinite loop. However any operation which requires the public key from the certificate will trigger the infinite loop. In particular the attacker can use a self-signed certificate to trigger the loop during verification of the certificate signature. This issue affects OpenSSL versions 1.0.2, 1.1.1 and 3.0. It was addressed in the releases of 1.1.1n and 3.0.2 on the 15th March 2022. Fixed in OpenSSL 3.0.2 (Affected 3.0.0,3.0.1). Fixed in OpenSSL 1.1.1n (Affected 1.1.1-1.1.1m). Fixed in OpenSSL 1.0.2zd (Affected 1.0.2-1.0.2zc).",
+        "source": "NVD",
+        "uuid": "4d7828b8-5e92-4f58-a5fc-62f2e32704f2"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:4d7828b8-5e92-4f58-a5fc-62f2e32704f2"
+    },
+    {
+      "component": {
+        "name": "openssl",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11",
+        "uuid": "c8d1ef10-5f0c-4b44-af31-369c56e05fc2",
+        "version": "1.1.1n-0+deb11u3"
+      },
+      "attribution": {
+        "analyzerIdentity": "INTERNAL_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:48.339"
+      },
+      "vulnerability": {
+        "severity": "MEDIUM",
+        "severityRank": 2,
+        "cweName": "NULL Pointer Dereference",
+        "vulnId": "CVE-2020-1971",
+        "cweId": 476,
+        "description": "The X.509 GeneralName type is a generic type for representing different types of names. One of those name types is known as EDIPartyName. OpenSSL provides a function GENERAL_NAME_cmp which compares different instances of a GENERAL_NAME to see if they are equal or not. This function behaves incorrectly when both GENERAL_NAMEs contain an EDIPARTYNAME. A NULL pointer dereference and a crash may occur leading to a possible denial of service attack. OpenSSL itself uses the GENERAL_NAME_cmp function for two purposes: 1) Comparing CRL distribution point names between an available CRL and a CRL distribution point embedded in an X509 certificate 2) When verifying that a timestamp response token signer matches the timestamp authority name (exposed via the API functions TS_RESP_verify_response and TS_RESP_verify_token) If an attacker can control both items being compared then that attacker could trigger a crash. For example if the attacker can trick a client or server into checking a malicious certificate against a malicious CRL then this may occur. Note that some applications automatically download CRLs based on a URL embedded in a certificate. This checking happens prior to the signatures on the certificate and CRL being verified. OpenSSL's s_server, s_client and verify tools have support for the \"-crl_download\" option which implements automatic CRL downloading and this attack has been demonstrated to work against those tools. Note that an unrelated bug means that affected versions of OpenSSL cannot parse or construct correct encodings of EDIPARTYNAME. However it is possible to construct a malformed EDIPARTYNAME that OpenSSL's parser will accept and hence trigger this attack. All OpenSSL 1.1.1 and 1.0.2 versions are affected by this issue. Other OpenSSL releases are out of support and have not been checked. Fixed in OpenSSL 1.1.1i (Affected 1.1.1-1.1.1h). Fixed in OpenSSL 1.0.2x (Affected 1.0.2-1.0.2w).",
+        "source": "NVD",
+        "uuid": "c26940d8-2a1e-4c31-ba23-de114fd1efad"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:c26940d8-2a1e-4c31-ba23-de114fd1efad"
+    },
+    {
+      "component": {
+        "name": "openssl",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11",
+        "uuid": "c8d1ef10-5f0c-4b44-af31-369c56e05fc2",
+        "version": "1.1.1n-0+deb11u3"
+      },
+      "attribution": {
+        "analyzerIdentity": "INTERNAL_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:48.342"
+      },
+      "vulnerability": {
+        "severity": "CRITICAL",
+        "severityRank": 0,
+        "cweName": "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+        "vulnId": "CVE-2022-1292",
+        "cweId": 78,
+        "description": "The c_rehash script does not properly sanitise shell metacharacters to prevent command injection. This script is distributed by some operating systems in a manner where it is automatically executed. On such operating systems, an attacker could execute arbitrary commands with the privileges of the script. Use of the c_rehash script is considered obsolete and should be replaced by the OpenSSL rehash command line tool. Fixed in OpenSSL 3.0.3 (Affected 3.0.0,3.0.1,3.0.2). Fixed in OpenSSL 1.1.1o (Affected 1.1.1-1.1.1n). Fixed in OpenSSL 1.0.2ze (Affected 1.0.2-1.0.2zd).",
+        "source": "NVD",
+        "uuid": "afd7950f-308e-4cb1-bcec-32fb9d339917"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:afd7950f-308e-4cb1-bcec-32fb9d339917"
+    },
+    {
+      "component": {
+        "name": "openssl",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:deb/debian/openssl@1.1.1n-0%20deb11u3?arch=amd64&distro=debian-11",
+        "uuid": "c8d1ef10-5f0c-4b44-af31-369c56e05fc2",
+        "version": "1.1.1n-0+deb11u3"
+      },
+      "attribution": {
+        "analyzerIdentity": "INTERNAL_ANALYZER",
+        "attributedOn": "2022-07-07 06:32:48.345"
+      },
+      "vulnerability": {
+        "severity": "CRITICAL",
+        "severityRank": 0,
+        "cweName": "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+        "vulnId": "CVE-2022-2068",
+        "cweId": 78,
+        "description": "In addition to the c_rehash shell command injection identified in CVE-2022-1292, further circumstances where the c_rehash script does not properly sanitise shell metacharacters to prevent command injection were found by code review. When the CVE-2022-1292 was fixed it was not discovered that there are other places in the script where the file names of certificates being hashed were possibly passed to a command executed through the shell. This script is distributed by some operating systems in a manner where it is automatically executed. On such operating systems, an attacker could execute arbitrary commands with the privileges of the script. Use of the c_rehash script is considered obsolete and should be replaced by the OpenSSL rehash command line tool. Fixed in OpenSSL 3.0.4 (Affected 3.0.0,3.0.1,3.0.2,3.0.3). Fixed in OpenSSL 1.1.1p (Affected 1.1.1-1.1.1o). Fixed in OpenSSL 1.0.2zf (Affected 1.0.2-1.0.2ze).",
+        "source": "NVD",
+        "uuid": "da594eeb-980a-41c8-bdaa-2e136cc37c3d"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:c8d1ef10-5f0c-4b44-af31-369c56e05fc2:da594eeb-980a-41c8-bdaa-2e136cc37c3d"
+    },
+    {
+      "component": {
+        "name": "sanitize-html",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/sanitize-html@1.4.2",
+        "uuid": "98f2c2f2-6203-4e37-aaea-2556196a732a",
+        "version": "1.4.2"
+      },
+      "attribution": {
+        "alternateIdentifier": "sonatype-2014-0007",
+        "analyzerIdentity": "OSSINDEX_ANALYZER",
+        "attributedOn": "2022-07-07 06:33:07.449",
+        "referenceUrl": "https://ossindex.sonatype.org/vulnerability/sonatype-2014-0007?component-type=npm&component-name=sanitize-html&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"
+      },
+      "vulnerability": {
+        "severity": "MEDIUM",
+        "severityRank": 2,
+        "cweName": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+        "vulnId": "CVE-2016-1000237",
+        "cweId": 79,
+        "description": "sanitize-html before 1.4.3 has XSS.",
+        "source": "NVD",
+        "uuid": "cf82d8cc-706e-4dea-8417-14bcde447b29"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:98f2c2f2-6203-4e37-aaea-2556196a732a:cf82d8cc-706e-4dea-8417-14bcde447b29"
+    },
+    {
+      "component": {
+        "name": "sanitize-html",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/sanitize-html@1.4.2",
+        "uuid": "98f2c2f2-6203-4e37-aaea-2556196a732a",
+        "version": "1.4.2"
+      },
+      "attribution": {
+        "alternateIdentifier": "CVE-2021-26539",
+        "analyzerIdentity": "OSSINDEX_ANALYZER",
+        "attributedOn": "2022-07-07 06:33:07.455",
+        "referenceUrl": "https://ossindex.sonatype.org/vulnerability/CVE-2021-26539?component-type=npm&component-name=sanitize-html&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"
+      },
+      "vulnerability": {
+        "severity": "MEDIUM",
+        "severityRank": 2,
+        "description": "Apostrophe Technologies sanitize-html before 2.3.1 does not properly handle internationalized domain name (IDN) which could allow an attacker to bypass hostname whitelist validation set by the \"allowedIframeHostnames\" option.",
+        "source": "NVD",
+        "vulnId": "CVE-2021-26539",
+        "uuid": "52d6089d-181a-4abe-8904-3818dfea6150"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:98f2c2f2-6203-4e37-aaea-2556196a732a:52d6089d-181a-4abe-8904-3818dfea6150"
+    },
+    {
+      "component": {
+        "name": "set-value",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/set-value@2.0.1",
+        "uuid": "e8535003-e6d4-4d78-969d-ad522a8c0a37",
+        "version": "2.0.1"
+      },
+      "attribution": {
+        "alternateIdentifier": "CVE-2021-23440",
+        "analyzerIdentity": "OSSINDEX_ANALYZER",
+        "attributedOn": "2022-07-07 06:33:07.488",
+        "referenceUrl": "https://ossindex.sonatype.org/vulnerability/CVE-2021-23440?component-type=npm&component-name=set-value&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"
+      },
+      "vulnerability": {
+        "severity": "CRITICAL",
+        "severityRank": 0,
+        "cweName": "Access of Resource Using Incompatible Type ('Type Confusion')",
+        "vulnId": "CVE-2021-23440",
+        "cweId": 843,
+        "description": "This affects the package set-value before <2.0.1, >=3.0.0 <4.0.1. A type confusion vulnerability can lead to a bypass of CVE-2019-10747 when the user-provided keys used in the path parameter are arrays.",
+        "source": "NVD",
+        "uuid": "9ebe178e-e403-4fd0-9767-6c3525df1788"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:e8535003-e6d4-4d78-969d-ad522a8c0a37:9ebe178e-e403-4fd0-9767-6c3525df1788"
+    },
+    {
+      "component": {
+        "name": "vm2",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/vm2@3.9.3",
+        "uuid": "908f3bda-f070-4882-9dc6-ceb3c8daecaf",
+        "version": "3.9.3"
+      },
+      "attribution": {
+        "alternateIdentifier": "CVE-2021-23449",
+        "analyzerIdentity": "OSSINDEX_ANALYZER",
+        "attributedOn": "2022-07-07 06:33:09.658",
+        "referenceUrl": "https://ossindex.sonatype.org/vulnerability/CVE-2021-23449?component-type=npm&component-name=vm2&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"
+      },
+      "vulnerability": {
+        "severity": "CRITICAL",
+        "severityRank": 0,
+        "cweName": "Improperly Controlled Modification of Dynamically-Determined Object Attributes",
+        "vulnId": "CVE-2021-23449",
+        "cweId": 915,
+        "description": "This affects the package vm2 before 3.9.4 via a Prototype Pollution attack vector, which can lead to execution of arbitrary code on the host machine.",
+        "source": "NVD",
+        "uuid": "5b6a198b-53db-4600-ad1e-207510109d0a"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:908f3bda-f070-4882-9dc6-ceb3c8daecaf:5b6a198b-53db-4600-ad1e-207510109d0a"
+    },
+    {
+      "component": {
+        "name": "vm2",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/vm2@3.9.3",
+        "uuid": "908f3bda-f070-4882-9dc6-ceb3c8daecaf",
+        "version": "3.9.3"
+      },
+      "attribution": {
+        "alternateIdentifier": "CVE-2021-23555",
+        "analyzerIdentity": "OSSINDEX_ANALYZER",
+        "attributedOn": "2022-07-07 06:33:09.669",
+        "referenceUrl": "https://ossindex.sonatype.org/vulnerability/CVE-2021-23555?component-type=npm&component-name=vm2&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"
+      },
+      "vulnerability": {
+        "severity": "CRITICAL",
+        "severityRank": 0,
+        "description": "The package vm2 before 3.9.6 are vulnerable to Sandbox Bypass via direct access to host error objects generated by node internals during generation of a stacktraces, which can lead to execution of arbitrary code on the host machine.",
+        "source": "NVD",
+        "vulnId": "CVE-2021-23555",
+        "uuid": "d030ac82-71ec-4f96-b834-952f400fd4ef"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:908f3bda-f070-4882-9dc6-ceb3c8daecaf:d030ac82-71ec-4f96-b834-952f400fd4ef"
+    },
+    {
+      "component": {
+        "name": "yargs-parser",
+        "project": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+        "purl": "pkg:npm/yargs-parser@11.1.1",
+        "uuid": "372ecef0-1551-4542-8cec-6b156969b94b",
+        "version": "11.1.1"
+      },
+      "attribution": {
+        "alternateIdentifier": "CVE-2020-7608",
+        "analyzerIdentity": "OSSINDEX_ANALYZER",
+        "attributedOn": "2022-07-07 06:33:09.698",
+        "referenceUrl": "https://ossindex.sonatype.org/vulnerability/CVE-2020-7608?component-type=npm&component-name=yargs-parser&utm_source=dependency-track&utm_medium=integration&utm_content=v4.3.6"
+      },
+      "vulnerability": {
+        "severity": "MEDIUM",
+        "severityRank": 2,
+        "cweName": "Improperly Controlled Modification of Dynamically-Determined Object Attributes",
+        "vulnId": "CVE-2020-7608",
+        "cweId": 915,
+        "description": "yargs-parser could be tricked into adding or modifying properties of Object.prototype using a \"__proto__\" payload.",
+        "source": "NVD",
+        "uuid": "69d4846c-acd5-409c-8a55-e4a272c22dfa"
+      },
+      "analysis": {
+        "isSuppressed": false
+      },
+      "matrix": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d:372ecef0-1551-4542-8cec-6b156969b94b:69d4846c-acd5-409c-8a55-e4a272c22dfa"
+    }
+  ],
+  "project": {
+    "name": "juice-shop",
+    "uuid": "9e471bd5-ce19-4001-a9f1-dd8562c74b2d",
+    "version": "develop"
+  },
+  "version": "1.0"
+}

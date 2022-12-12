@@ -1,7 +1,7 @@
 #!/bin/bash
 #set -e
 
-participants=0 #-1
+participants=2 #-1
 
 mkdir tmp || true
 touch tmp/defectDojoTestLink.txt
@@ -20,7 +20,7 @@ for i in $(seq 0 $participants); do
     -e DEFECTDOJO_USERNAME=$DEFECTDOJO_USERNAME \
     -e DEFECTDOJO_MAX_PAGE_COUNT_FOR_GETS=1000 \
     -e DD_DEDUPLICATION_ON_ENGAGEMENT=true \
-    quay.io/sdase/defectdojo-client:3 2> /dev/null
+    quay.io/sdase/defectdojo-client:3 
 
   docker run  -v $(pwd)/test:/test -e DD_REPORT_PATH="/test/findings.csv" \
     -v $(pwd)/tmp:/code \
@@ -34,5 +34,5 @@ for i in $(seq 0 $participants); do
     -e DEFECTDOJO_USERNAME=$DEFECTDOJO_USERNAME \
     -e DEFECTDOJO_MAX_PAGE_COUNT_FOR_GETS=1000 \
     -e DD_DEDUPLICATION_ON_ENGAGEMENT=true \
-    quay.io/sdase/defectdojo-client:3 2> /dev/null
+    quay.io/sdase/defectdojo-client:3 
 done

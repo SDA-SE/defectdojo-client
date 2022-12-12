@@ -79,6 +79,7 @@ class UploadClient {
                             .description(args.productDescription)
                             .productType(productType.id)
                             .tags(args.productTags)
+                            .lifecycle(args.lifecycle)
                             .enableSimpleRiskAcceptance(true)
                             .build()
             );
@@ -113,6 +114,7 @@ class UploadClient {
             product.setDescription(args.productDescription);
         }
         product.setProductType(productType.id)
+        product.lifecycle(args.lifecycle)
         List<String> existingProductTags = product.getTags();
         List<String> tagsToBeSet = new ArrayList<>();
         for (int i = 0; i < existingProductTags.size(); i++) {
