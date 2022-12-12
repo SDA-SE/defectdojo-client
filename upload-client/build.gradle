@@ -57,10 +57,10 @@ dependencies {
 // for gradle run
 application {
     // Define the main class for the application.
-//    mainClass = 'org.sdase.Main'
-//    mainClass = 'org.sdase.deleteTestProduct.MainDeleteProduct'
+    mainClass = 'org.sdase.Main'
+    //mainClass = 'org.sdase.deleteTestProduct.MainDeleteProduct'
     //mainClass = 'org.sdase.uploadValidation.MainValidation'
-    mainClass = 'org.sdase.cleanupTestsAndProducts.MainCleanupTestsAndProducts'
+    //mainClass = 'org.sdase.cleanupTestsAndProducts.MainCleanupTestsAndProducts'
 }
 
 jib.from.image = 'quay.io/sdase/openjdk-runtime:11-hotspot-distroless'
