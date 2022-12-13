@@ -114,7 +114,7 @@ class UploadClient {
             product.setDescription(args.productDescription);
         }
         product.setProductType(productType.id)
-        product.lifecycle(args.lifecycle)
+        product.setLifecycle(args.lifecycle)
         List<String> existingProductTags = product.getTags();
         List<String> tagsToBeSet = new ArrayList<>();
         for (int i = 0; i < existingProductTags.size(); i++) {
