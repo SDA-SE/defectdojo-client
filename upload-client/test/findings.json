@@ -1,0 +1,13 @@
+{
+  "findings": [
+    {
+      "date": "2023-02-21",
+      "title": "No distroless used",
+      "severity": "Medium",
+      "description": "Image has shell executables and therefore most likely is not distroless\nquay.io/sdase/cluster-image-scanner-test-image:2\ntest\ntest",
+      "mitigation": "",
+      "impact": "",
+      "references": ""
+    }
+  ]
+}

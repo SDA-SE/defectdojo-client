@@ -169,8 +169,8 @@ class UploadClient {
         engagement.tags = args.engagementTags
         engagementService.update(engagement, engagement.id);
 
-
-        ScanFile reportContents = new ScanFile(new File(args.reportPath).text);
+        def reportFile = new File(args.reportPath)
+        ScanFile reportContents = new ScanFile(reportFile.text, reportFile.getName());
         // In DefectDojo Version 1.5.4 you can specify test_type/testName; BE AWARE: close_old_findings will not work by using something else than reportType
         ScanType scanType;
         for(ScanType scanTypeMatch : ScanType.values()) {
