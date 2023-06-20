@@ -63,6 +63,6 @@ jib.to.image = 'quay.io/sdase/defectdojo-statistic-client'
 // New version create StackOverflow
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
