@@ -6,7 +6,7 @@
 //@Grab(group= 'org.springframework', module='spring-web', version='5.2.12.RELEASE')
 @GrabResolver(name='maven-snapshot', root='https://oss.sonatype.org/content/repositories/snapshots/')
 // Click on the dep and hit ALT+Enter to grab
-@Grab("io.securecodebox:defectdojo-client:0.0.27-SNAPSHOT")
+@Grab("io.securecodebox:defectdojo-client:0.0.41-SNAPSHOT")
 
 import io.securecodebox.persistence.defectdojo.config.DefectDojoConfig
 import io.securecodebox.persistence.defectdojo.models.Engagement
