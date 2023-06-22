@@ -120,7 +120,9 @@ public class Main {
         String exitCodeOnFinding = System.getenv("EXIT_CODE_ON_FINDING") ?: "10"
         String isCreateGroups  = System.getenv("IS_CREATE_GROUPS") ?: "true"
 
-        org.sdase.UploadClient.main dojoToken: token,
+        org.sdase.UploadClient.main(
+            [
+                dojoToken: token,
                 dojoUser: dojoUser,
                 dojoUrl: dojoUrl,
                 productName: productName,
@@ -142,5 +144,7 @@ public class Main {
                 dependencyTrackUnhandledPackagesMinimumToAlert: dependencyTrackUnhandledPackagesMinimumToAlert,
                 engagementTags: engagementTags,
                 lifecycle: lifecycle
+            ]
+        )
     }
 }

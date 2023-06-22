@@ -46,7 +46,7 @@ class UploadClient {
         return filePath.replace("pkg:", "").replaceAll("/.*", "")
     }
 
-    static void main(Object args) {
+    static void main(Map args) {
         def conf = new DefectDojoConfig(args.dojoUrl, args.dojoToken, args.dojoUser, 200);
         def productTypeService = new ProductTypeService(conf);
         def productService = new ProductService(conf);
