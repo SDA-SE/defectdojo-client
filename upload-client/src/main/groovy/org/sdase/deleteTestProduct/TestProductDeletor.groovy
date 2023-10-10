@@ -39,8 +39,8 @@ import io.securecodebox.persistence.defectdojo.ScanType
 import java.util.stream.Collectors
 
 class TestProductDeletor {
-    static void main(Object args) {
-        def conf = new DefectDojoConfig(args.dojoUrl, args.dojoToken, args.dojoUser, 200);
+    static void main(dojoUrl, dojoToken, dojoUser) {
+        def conf = new DefectDojoConfig(dojoUrl, dojoToken, dojoUser, 200);
         def productTypeService = new ProductTypeService(conf);
         def productService = new ProductService(conf);
         def engagementService = new EngagementService(conf)
