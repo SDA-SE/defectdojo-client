@@ -83,7 +83,7 @@ class UploadValidator {
                     queryParamsFinding.put("duplicate", "false");
                     queryParamsFinding.put("active", "true");
                     queryParamsFinding.put("title", expectedFinding.findingTitle);
-                    println("searching for findings in test ${test.getId()}")
+                    println("searching for findings in test ${test.getId()} with title ${expectedFinding.findingTitle}")
                     findingService.search(queryParamsFinding).each {
                         if(it.title.startsWith(expectedFinding.findingTitle)) {
                             println "found finding ${it.id}, ${it.title} in ${test.getId()}"
