@@ -38,8 +38,8 @@ import io.securecodebox.persistence.defectdojo.service.ProductGroupService
 import io.securecodebox.persistence.defectdojo.ScanType
 
 class UploadValidator {
-    static void main(Object args) {
-        def conf = new DefectDojoConfig(args.dojoUrl, args.dojoToken, args.dojoUser, 200);
+    static void main(String dojoToken, String dojoUser, String dojoUrl) {
+        def conf = new DefectDojoConfig(dojoUrl, dojoToken, dojoUser, 200);
         def productTypeService = new ProductTypeService(conf);
         def productService = new ProductService(conf);
         def engagementService = new EngagementService(conf)

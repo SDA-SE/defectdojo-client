@@ -20,6 +20,6 @@ public class MainDeleteProduct {
             return
         }
 
-        org.sdase.deleteTestProduct.TestProductDeletor.main (token, dojoUser,dojoUrl)
+        org.sdase.deleteTestProduct.TestProductDeletor.main (token, dojoUser, dojoUrl)
     }
 }

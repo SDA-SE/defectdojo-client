@@ -21,8 +21,6 @@ public class MainValidation {
             return
         }
 
-        org.sdase.uploadValidation.UploadValidator.main dojoToken: token,
-                dojoUser: dojoUser,
-                dojoUrl: dojoUrl
+        org.sdase.uploadValidation.UploadValidator.main (token, dojoUser, dojoUrl)
     }
 }
