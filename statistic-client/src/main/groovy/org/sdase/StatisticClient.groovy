@@ -89,33 +89,22 @@ class StatisticClient {
 
         // filter products, @see shouldIncludeProduct
         products = products.stream()
-                            .filter(product -> shouldIncludeProduct(product))
-                            .collect(Collectors.toList())
+                .filter(product -> shouldIncludeProduct(product))
+                .collect(Collectors.toList())
 
         log.debug "${products.size()} products found, iterating"
 
         for (product in products) {
             def findings = findingService.search([
-                test__engagement__product: product.id.toString(),
-                duplicate: "false"
+                    test__engagement__product: product.id.toString(),
+                    duplicate: "false"
             ])
             for (finding in findings) {
                 if (finding.getCreatedAt() > endDate) {
-                    // skipp all findings that were created after the end date. note that we can't filter for that at
+                    // skip all findings that were created after the end date. note that we can't filter for that at
                     // query time, because the DefectDojo API only filters for pre-set time ranges, not an exact date.
                     // e.g. "past 7 days", "past 30 days..."
                     continue
-                }
-                if (!finding.active) {
-                    if (finding.getRiskAccepted()) {
-                        // if the risk was accepted in DefectDojo, we still want it to count toward the MTTR (mean time to respond) stat
-                    } else if (finding.verified) {
-                        // finding is verified, but not active: this means that the finding was manually deactivated
-                        log.debug "TODO suppressed for finding ${finding.id}; skipping"
-                        continue
-                    } else {
-                        log.warn "Unknown state for finding ${finding.id} in product ${product.id}"
-                    }
                 }
 
                 def statisticFinding = new StatisticFinding(finding, product.tags)
@@ -134,13 +123,15 @@ class StatisticClient {
             statisticFile.createNewFile()
             def fileHeader =
                     "environment,team,severity," +
-                    "average days to react (including all findings created before ${endDate})," +
-                    "average days to react for findings created within ${startDate}-${endDate}," +
-                    "maximum days to react (all findings created before ${endDate})," +
-                    "maximum days to react for findings created within ${startDate}-${endDate}," +
-                    "amount of findings (all created before ${endDate})," +
-                    "amount of findings in days for findings created within ${startDate}-${endDate}" +
-                    "\n"
+                            "average days to react (including all findings created before ${endDate})," +
+                            "average days to react for findings created within ${startDate}-${endDate}," +
+                            "maximum days to react (all findings created before ${endDate})," +
+                            "maximum days to react for findings created within ${startDate}-${endDate}," +
+                            "amount of findings (all created before ${endDate})," +
+                            "amount of findings in days for findings created within ${startDate}-${endDate}," +
+                            "average days to patch (including all findings created before ${endDate})," +
+                            "average days to patch for findings created within ${startDate}-${endDate}" +
+                            "\n"
             statisticFile.append(fileHeader)
         }
 
@@ -152,6 +143,9 @@ class StatisticClient {
                     List<StatisticFinding> statisticFindings = StatisticFinding.findByEnvTeamSev(responseFindings, environment, team, severity)
                     def sumDurationAllTimeUpToEndDate_Reacted = 0
                     def amountAllTimeUpToEndDate_Reacted = 0
+
+                    def sumDurationAllTimeUpToEndDate_Patched = 0
+                    def amountAllTimeUpToEndDate_Patched = 0
 
                     def maxDurationAllTimeUpToEndDate = null
 
@@ -166,10 +160,17 @@ class StatisticClient {
                         maxDurationAllTimeUpToEndDate = max(maxDurationAllTimeUpToEndDate, statisticFinding.duration)
                         amountAllTimeUpToEndDate_Reacted++
                         sumDurationAllTimeUpToEndDate_Reacted += statisticFinding.duration.days
+                        if (statisticFinding.getMitigatedAt() != null) {
+                            // if the finding is marked as "mitigated", count it towards the "patched" statistic
+                            amountAllTimeUpToEndDate_Patched++
+                            sumDurationAllTimeUpToEndDate_Patched += statisticFinding.duration.days
+                        }
                     }
 
                     def sumDurationWithinTimeRange_Reacted = 0
                     def amountWithinTimeRange_Reacted = 0
+                    def sumDurationWithinTimeRange_Patched = 0
+                    def amountWithinTimeRange_Patched = 0
                     def maxDurationWithinTimeRange = null
 
                     for (StatisticFinding statisticFinding in statisticFindings) {
@@ -179,6 +180,10 @@ class StatisticClient {
                         maxDurationWithinTimeRange = max(maxDurationWithinTimeRange, statisticFinding.duration)
                         amountWithinTimeRange_Reacted++
                         sumDurationWithinTimeRange_Reacted += statisticFinding.duration.days
+                        if (statisticFinding.getMitigatedAt() != null) {
+                            amountWithinTimeRange_Patched++
+                            sumDurationWithinTimeRange_Patched += statisticFinding.duration.days
+                        }
                     }
 
                     // if there has never been a reaction for this severity+team+product, don't count it
@@ -187,18 +192,29 @@ class StatisticClient {
                     }
                     def avgDurationAllTimeUpToEndDate_Reacted = roundedMean(sumDurationAllTimeUpToEndDate_Reacted, amountAllTimeUpToEndDate_Reacted)
                     def avgDurationWithinTimeRange_Reacted = roundedMean(sumDurationWithinTimeRange_Reacted, amountWithinTimeRange_Reacted)
+
+                    def avgDurationAllTimeUpToEndDate_Patched = 'n/a'
+                    if (sumDurationAllTimeUpToEndDate_Patched > 0) {
+                        avgDurationAllTimeUpToEndDate_Patched = roundedMean(sumDurationAllTimeUpToEndDate_Patched, amountAllTimeUpToEndDate_Patched)
+                    }
+                    def avgDurationWithinTimeRange_Patched = 'n/a'
+                    if (sumDurationWithinTimeRange_Patched > 0) {
+                        avgDurationWithinTimeRange_Patched = roundedMean(sumDurationWithinTimeRange_Patched, amountWithinTimeRange_Patched)
+                    }
                     def maxDurationAllTimeUpToEndDateOrZero = maxDurationAllTimeUpToEndDate?.days ?: 0
                     def maxDurationWithinTimeRangeOrZero = maxDurationWithinTimeRange?.days ?: 0
 
                     def line =
-                        "\"${environment}\",\"${team}\",\"${severity}\"," +
-                        "${avgDurationAllTimeUpToEndDate_Reacted}," +
-                        "${avgDurationWithinTimeRange_Reacted}," +
-                        "${maxDurationAllTimeUpToEndDateOrZero}," +
-                        "${maxDurationWithinTimeRangeOrZero}," +
-                        "${amountAllTimeUpToEndDate_Reacted}," +
-                        "${amountWithinTimeRange_Reacted}" +
-                        "\n"
+                            "\"${environment}\",\"${team}\",\"${severity}\"," +
+                                    "${avgDurationAllTimeUpToEndDate_Reacted}," +
+                                    "${avgDurationWithinTimeRange_Reacted}," +
+                                    "${maxDurationAllTimeUpToEndDateOrZero}," +
+                                    "${maxDurationWithinTimeRangeOrZero}," +
+                                    "${amountAllTimeUpToEndDate_Reacted}," +
+                                    "${amountWithinTimeRange_Reacted}," +
+                                    "${avgDurationAllTimeUpToEndDate_Patched}," +
+                                    "${avgDurationWithinTimeRange_Patched}" +
+                                    "\n"
 
                     statisticFile.append(line)
                 }
