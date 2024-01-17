@@ -11,4 +11,4 @@ docker run  -v $(pwd)/test:/test -e DD_REPORT_PATH="/test/dependency-check-repor
   -e DEFECTDOJO_USERNAME=$DEFECTDOJO_USERNAME \
   -e DEFECTDOJO_MAX_PAGE_COUNT_FOR_GETS=1000 \
   -e DD_DEDUPLICATION_ON_ENGAGEMENT=true \
-  quay.io/sdase/defectdojo-client:3
+  quay.io/sdase/defectdojo-client:4
