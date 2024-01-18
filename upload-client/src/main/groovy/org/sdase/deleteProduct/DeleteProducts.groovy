@@ -1,6 +1,42 @@
 package org.sdase.deleteTestProduct
 
+import io.securecodebox.persistence.defectdojo.config.DefectDojoConfig
+import io.securecodebox.persistence.defectdojo.models.Finding
+import io.securecodebox.persistence.defectdojo.service.EndpointService
+import io.securecodebox.persistence.defectdojo.service.EngagementService
+import io.securecodebox.persistence.defectdojo.service.FindingService
+import io.securecodebox.persistence.defectdojo.service.ProductService;
+import io.securecodebox.persistence.defectdojo.service.ProductTypeService;
+import io.securecodebox.persistence.defectdojo.service.TestService
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
+import io.securecodebox.persistence.defectdojo.config.DefectDojoConfig
+import io.securecodebox.persistence.defectdojo.models.Engagement
+import io.securecodebox.persistence.defectdojo.models.Finding
+import io.securecodebox.persistence.defectdojo.models.Product
+import io.securecodebox.persistence.defectdojo.models.ProductType
+import io.securecodebox.persistence.defectdojo.models.ScanFile
+import io.securecodebox.persistence.defectdojo.models.Test
+import io.securecodebox.persistence.defectdojo.models.TestType
+import io.securecodebox.persistence.defectdojo.models.User
+import io.securecodebox.persistence.defectdojo.models.DojoGroup
+import io.securecodebox.persistence.defectdojo.models.ProductGroup
 
+import io.securecodebox.persistence.defectdojo.service.EngagementService
+import io.securecodebox.persistence.defectdojo.service.FindingService
+import io.securecodebox.persistence.defectdojo.service.ImportScanService
+import io.securecodebox.persistence.defectdojo.service.ProductService;
+import io.securecodebox.persistence.defectdojo.service.ProductTypeService;
+import io.securecodebox.persistence.defectdojo.service.TestService
+import io.securecodebox.persistence.defectdojo.service.TestTypeService
+import io.securecodebox.persistence.defectdojo.service.UserService
+import io.securecodebox.persistence.defectdojo.service.DojoGroupService
+import io.securecodebox.persistence.defectdojo.service.ProductGroupService
+import io.securecodebox.persistence.defectdojo.ScanType
+import java.util.stream.Collectors
 
 public class MainDeleteProduct {
     static void main(String[] args) {
