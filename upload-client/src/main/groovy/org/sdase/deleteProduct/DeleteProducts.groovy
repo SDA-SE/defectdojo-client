@@ -1,4 +1,4 @@
-package org.sdase.deleteTestProduct
+package org.sdase.deleteProduct
 
 import io.securecodebox.persistence.defectdojo.config.DefectDojoConfig
 import io.securecodebox.persistence.defectdojo.models.Finding
@@ -38,7 +38,7 @@ import io.securecodebox.persistence.defectdojo.service.ProductGroupService
 import io.securecodebox.persistence.defectdojo.ScanType
 import java.util.stream.Collectors
 
-public class MainDeleteProduct {
+public class DeleteProducts {
     static void main(String[] args) {
         String dojoUrl = System.getenv("DEFECTDOJO_URL")
         if (dojoUrl == null) {
