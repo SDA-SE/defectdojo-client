@@ -15,10 +15,15 @@ To delete test products, use
 ```
 # Run as image
 ```bash
+export PRODUCT_NAME_TO_DELETE=String_In_Product_Name
+export DEFECTDOJO_URL=xx
+export DEFECTDOJO_APIKEY=xx
+export DEFECTDOJO_USERNAME=xx
+
 docker run -ti \
-  -e "PRODUCT_NAME_TO_DELETE=xxx" \
-  -e "DEFECTDOJO_URL=xxx" \
-  -e "DEFECTDOJO_API_KEY=xxx" \
-  -e "DEFECTDOJO_USERNAME=xxx" \
-  -v $(pwd)/delete.groovy:/delete.groovy --entrypoint="java -cp @/app/jib-classpath-file org.sdase.DeleteProducts" quay.io/sdase/defectdojo-client:4
+  -e "PRODUCT_NAME_TO_DELETE=${PRODUCT_NAME_TO_DELETE}" \
+  -e "DEFECTDOJO_URL=${DEFECTDOJO_URL}" \
+  -e "DEFECTDOJO_API_KEY=${DEFECTDOJO_APIKEY}" \
+  -e "DEFECTDOJO_USERNAME=${DEFECTDOJO_USERNAME}" \
+ --entrypoint="java" quay.io/sdase/defectdojo-client:4 -cp @/app/jib-classpath-file org.sdase.deleteProduct.DeleteProduct
 ```

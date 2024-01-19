@@ -64,14 +64,11 @@ public class DeleteProducts {
         }
 
         def configuration = new DefectDojoConfig(dojoUrl, token, dojoUser, 200);
-
-// delete all products based on name
-
         Map<String, String> queryParameter = new HashMap<>();
         queryParameter.put("name", productNameToDelete);
         deleteAllProducts(configuration, queryParameter)
     }
-    def deleteAllProducts(conf, Map<String, String> queryParams) {
+    private static void deleteAllProducts(conf, Map<String, String> queryParams) {
         def productTypeService = new ProductTypeService(conf);
         def productService = new ProductService(conf);
         def testService = new TestService(conf);
