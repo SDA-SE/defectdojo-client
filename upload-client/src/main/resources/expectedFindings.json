@@ -1,6 +1,5 @@
 [
     {"productName": "lord-of-the-rings | shire", "findingTitle": "Image Age > 14 Days", "quantity": 1},
     {"productName": "lord-of-the-rings | shire", "findingTitle": "BaseImage Age > 14 Days", "quantity": 1},
-    {"productName": "lord-of-the-rings | shire", "findingTitle": "No Distroless Used", "quantity": 1},
-    {"productName": "lord-of-the-rings | shire", "findingTitle": "Image Potentially Running as Root", "quantity": 1}
+    {"productName": "lord-of-the-rings | shire", "findingTitle": "No Distroless Used", "quantity": 1}
 ]
