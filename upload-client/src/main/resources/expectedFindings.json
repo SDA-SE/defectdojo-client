@@ -1,6 +1,6 @@
 [
-    {"productName": "lord-of-the-rings | shire | quay.io/sdase/cluster-image-scanner-test-image", "findingTitle": "Image Age > 14 Days", "quantity": 1},
-    {"productName": "lord-of-the-rings | shire | quay.io/sdase/cluster-image-scanner-test-image", "findingTitle": "BaseImage Age > 14 Days", "quantity": 1},
-    {"productName": "lord-of-the-rings | shire | quay.io/sdase/cluster-image-scanner-test-image", "findingTitle": "No Distroless Used", "quantity": 1},
-    {"productName": "lord-of-the-rings | shire | quay.io/sdase/cluster-image-scanner-test-image", "findingTitle": "Image Potentially Running as Root", "quantity": 1}
+    {"productName": "lord-of-the-rings | shire", "findingTitle": "Image Age > 14 Days", "quantity": 1},
+    {"productName": "lord-of-the-rings | shire", "findingTitle": "BaseImage Age > 14 Days", "quantity": 1},
+    {"productName": "lord-of-the-rings | shire", "findingTitle": "No Distroless Used", "quantity": 1},
+    {"productName": "lord-of-the-rings | shire", "findingTitle": "Image Potentially Running as Root", "quantity": 1}
 ]
