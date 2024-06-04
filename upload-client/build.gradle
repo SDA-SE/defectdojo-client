@@ -38,6 +38,8 @@ dependencies {
     implementation 'com.google.guava:guava:30.1.1-jre'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.3'
     implementation 'io.securecodebox:defectdojo-client:0.0.41-SNAPSHOT'
+    implementation 'org.slf4j:slf4j-api:1.5.6'
+    implementation 'org.slf4j:slf4j-simple:2.0.7'
 
 /* For testing with a non fat jar from defectdojo-client this might be needed */
     implementation group: 'org.springframework', name: 'spring-web', version: '5.3.9'
@@ -59,7 +61,7 @@ dependencies {
 application {
     // Define the main class for the application.
     mainClass = 'org.sdase.Main'
-    //mainClass = 'org.sdase.deleteTestProduct.MainDeleteProduct'
+    mainClass = 'org.sdase.deleteTestProduct.MainDeleteProduct'
     //mainClass = 'org.sdase.uploadValidation.MainValidation'
     //mainClass = 'org.sdase.cleanupTestsAndProducts.MainCleanupTestsAndProducts'
 }
