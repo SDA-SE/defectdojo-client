@@ -58,7 +58,7 @@ public class DeleteProducts {
             return
         }
         String productNameToDelete = System.getenv("PRODUCT_NAME_TO_DELETE")
-        if(!token) {
+        if(!productNameToDelete) {
             println "Error: No PRODUCT_NAME_TO_DELETE"
             return
         }
