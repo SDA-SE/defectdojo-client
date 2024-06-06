@@ -23,6 +23,7 @@ class StatisticClient {
 
     static void call() {
         log.info('StatisticClient')
+        log.debug('Debug logging enabled')
 
         String dateFormat = 'yyyy-MM-dd HH:mm'
 
@@ -39,7 +40,6 @@ class StatisticClient {
         LocalDateTime startDate = LocalDateTime.parse(startDateString, formatter)
 
         log.info "Time range to look at:  ${startDate} - ${endDate}"
-
         def dojoConf = createDojoConf()
 
         // set DEFECT_DOJO_OBJET_LIMIT to 3000 to save tons of unnecessary requests.
@@ -48,9 +48,11 @@ class StatisticClient {
         def productService = new ProductService(dojoConf)
         //noinspection GroovyAccessibility -- see comment above
         productService.DEFECT_DOJO_OBJET_LIMIT = 3000
+	log.debug("limit is set to productService.DEFECT_DOJO_OBJET_LIMIT ${productService.DEFECT_DOJO_OBJET_LIMIT}")
         def findingService = new FindingService(dojoConf)
         //noinspection GroovyAccessibility -- see comment above
         findingService.DEFECT_DOJO_OBJET_LIMIT = 3000
+	log.debug("limit is set to findingService.DEFECT_DOJO_OBJET_LIMIT ${findingService.DEFECT_DOJO_OBJET_LIMIT}")
 
         generateResponseStatistic(productService, findingService, startDate, endDate)
     }
@@ -92,13 +94,14 @@ class StatisticClient {
                 .filter(product -> shouldIncludeProduct(product))
                 .collect(Collectors.toList())
 
-        log.debug "${products.size()} products found, iterating"
+        log.info "${products.size()} products found, iterating"
 
         for (product in products) {
             def findings = findingService.search([
                     test__engagement__product: product.id.toString(),
                     duplicate: "false"
             ])
+	    log.info "Processing product ${product.id.toString()}"
             for (finding in findings) {
                 if (finding.getCreatedAt() > endDate) {
                     // skip all findings that were created after the end date. note that we can't filter for that at
