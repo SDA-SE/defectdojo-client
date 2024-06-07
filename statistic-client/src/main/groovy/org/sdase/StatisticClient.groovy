@@ -88,6 +88,7 @@ class StatisticClient {
         SortedSet<String> environments = new TreeSet<String>()
         SortedSet<String> teams = new TreeSet<String>()
         List<Product> products = productService.search([:])
+        log.info "${products.size()} products found, filtering"
 
         // filter products, @see shouldIncludeProduct
         products = products.stream()
