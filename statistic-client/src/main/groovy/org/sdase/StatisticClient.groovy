@@ -48,11 +48,11 @@ class StatisticClient {
         def productService = new ProductService(dojoConf)
         //noinspection GroovyAccessibility -- see comment above
         productService.DEFECT_DOJO_OBJET_LIMIT = 3000
-	log.debug("limit is set to productService.DEFECT_DOJO_OBJET_LIMIT ${productService.DEFECT_DOJO_OBJET_LIMIT}")
+	log.info("limit is set to productService.DEFECT_DOJO_OBJET_LIMIT ${productService.DEFECT_DOJO_OBJET_LIMIT}")
         def findingService = new FindingService(dojoConf)
         //noinspection GroovyAccessibility -- see comment above
         findingService.DEFECT_DOJO_OBJET_LIMIT = 3000
-	log.debug("limit is set to findingService.DEFECT_DOJO_OBJET_LIMIT ${findingService.DEFECT_DOJO_OBJET_LIMIT}")
+	log.info("limit is set to findingService.DEFECT_DOJO_OBJET_LIMIT ${findingService.DEFECT_DOJO_OBJET_LIMIT}")
 
         generateResponseStatistic(productService, findingService, startDate, endDate)
     }
