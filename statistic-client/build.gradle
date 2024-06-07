@@ -69,4 +69,4 @@ jib.to.image = 'quay.io/sdase/defectdojo-statistic-client'
 //        languageVersion.set(JavaLanguageVersion.of(17))
 //    }
 //}
-sourceCompatibility = JavaVersion.VERSION_17
+sourceCompatibility = JavaVersion.VERSION_21
