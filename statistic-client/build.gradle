@@ -60,7 +60,7 @@ application {
     mainClass = 'org.sdase.Main'
 }
 
-jib.from.image ='gcr.io/distroless/java17:nonroot' // newer versions are generating a StackOverflow bug
+jib.from.image ='gcr.io/distroless/java21:nonroot' // newer versions are generating a StackOverflow bug
 jib.to.image = 'quay.io/sdase/defectdojo-statistic-client'
 
 // New version create StackOverflow
