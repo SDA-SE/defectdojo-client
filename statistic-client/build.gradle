@@ -13,7 +13,7 @@ plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
 
-    id 'com.google.cloud.tools.jib' version '3.3.2'
+    id 'com.google.cloud.tools.jib' version '3.4.3'
 }
 
 apply plugin: 'idea'
@@ -60,7 +60,7 @@ application {
     mainClass = 'org.sdase.Main'
 }
 
-jib.from.image ='gcr.io/distroless/java17:nonroot' // newer versions are generating a StackOverflow bug
+jib.from.image ='gcr.io/distroless/java21:nonroot' // newer versions are generating a StackOverflow bug
 jib.to.image = 'quay.io/sdase/defectdojo-statistic-client'
 
 // New version create StackOverflow
@@ -69,4 +69,4 @@ jib.to.image = 'quay.io/sdase/defectdojo-statistic-client'
 //        languageVersion.set(JavaLanguageVersion.of(17))
 //    }
 //}
-sourceCompatibility = JavaVersion.VERSION_17
+sourceCompatibility = JavaVersion.VERSION_21
