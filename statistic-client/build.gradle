@@ -63,6 +63,16 @@ application {
 jib.from.image ='gcr.io/distroless/java21:nonroot' // newer versions are generating a StackOverflow bug
 jib.to.image = 'quay.io/sdase/defectdojo-statistic-client'
 
+
+tasks.withType(JavaExec) {
+    systemProperty 'org.slf4j.simpleLogger.defaultLogLevel', 'DEBUG'
+}
+
+test {
+    systemProperty 'org.slf4j.simpleLogger.defaultLogLevel', 'DEBUG'
+}
+
+
 // New version create StackOverflow
 //java {
 //    toolchain {
