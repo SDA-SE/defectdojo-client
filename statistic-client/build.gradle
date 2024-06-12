@@ -62,7 +62,7 @@ application {
 
 jib.from.image ='gcr.io/distroless/java21:nonroot' // newer versions are generating a StackOverflow bug
 jib.to.image = 'quay.io/sdase/defectdojo-statistic-client'
-
+jib.container.jvmFlags = ['-Dorg.slf4j.simpleLogger.defaultLogLevel=DEBUG']
 
 tasks.withType(JavaExec) {
     systemProperty 'org.slf4j.simpleLogger.defaultLogLevel', 'DEBUG'
