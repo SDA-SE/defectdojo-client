@@ -42,16 +42,16 @@ class StatisticClient {
         log.info "Time range to look at:  ${startDate} - ${endDate}"
         def dojoConf = createDojoConf()
 
-        // set DEFECT_DOJO_OBJET_LIMIT to 3000 to save tons of unnecessary requests.
+        // set DEFECT_DOJO_OBJET_LIMIT to save tons of unnecessary requests.
         // using Reflection, not inheritance because weird compile time classpath issues seem to prevent subclassing
         GenericDefectDojoService.getDeclaredField("DEFECT_DOJO_OBJET_LIMIT").setAccessible(true)
         def productService = new ProductService(dojoConf)
         //noinspection GroovyAccessibility -- see comment above
-        productService.DEFECT_DOJO_OBJET_LIMIT = 3000
+        productService.DEFECT_DOJO_OBJET_LIMIT = 1000
 	log.info("limit is set to productService.DEFECT_DOJO_OBJET_LIMIT ${productService.DEFECT_DOJO_OBJET_LIMIT}")
         def findingService = new FindingService(dojoConf)
         //noinspection GroovyAccessibility -- see comment above
-        findingService.DEFECT_DOJO_OBJET_LIMIT = 3000
+        findingService.DEFECT_DOJO_OBJET_LIMIT = 1000
 	log.info("limit is set to findingService.DEFECT_DOJO_OBJET_LIMIT ${findingService.DEFECT_DOJO_OBJET_LIMIT}")
 
         generateResponseStatistic(productService, findingService, startDate, endDate)
